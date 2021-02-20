@@ -2,14 +2,14 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   width: 100%;
-  height: 100vh;
-  background-color: #777;
+  min-height: 100vh; //do wyjebania
+  background-color: #eee;
 
-  img {
-    width: 400px;
+  section {
+    height: 100vh;
   }
 `;
