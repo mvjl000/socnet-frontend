@@ -5,6 +5,7 @@ import {
   Switch,
   Redirect,
 } from 'react-router-dom';
+import { GlobalStyle } from 'assets/styles/globalStyles';
 import Header from 'components/Nav/Nav';
 import Login from 'components/Login/Login';
 import { Wrapper } from './Root.styles';
@@ -22,6 +23,7 @@ const Root: React.FC = () => {
 
   return (
     <Router>
+      <GlobalStyle />
       <Wrapper>
         <Header isNavExpanded={isNavExpanded} />
         <Switch>
