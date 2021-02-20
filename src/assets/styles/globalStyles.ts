@@ -18,4 +18,11 @@ export const GlobalStyle = createGlobalStyle`
     a, button, label {
         font-family: 'Rubik', sans-serif;
     }
+
+    input:focus,
+    select:focus,
+    textarea:focus,
+    button:focus {
+    outline: none;
+}
 `;

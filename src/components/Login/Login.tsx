@@ -1,17 +1,22 @@
 import React from 'react';
-import { Wrapper } from './Login.styles';
+import { Button, Wrapper } from './Login.styles';
 
 const Login: React.FC = () => {
+  const handleLoginFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+  };
+
   return (
-    <Wrapper>
+    <Wrapper onSubmit={handleLoginFormSubmit}>
       <label htmlFor=''>
         Username
         <input type='text' />
       </label>
       <label htmlFor=''>
         Password
-        <input type='text' />
+        <input type='password' />
       </label>
+      <Button type='submit'>Login</Button>
     </Wrapper>
   );
 };
