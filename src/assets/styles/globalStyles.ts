@@ -13,6 +13,7 @@ export const GlobalStyle = createGlobalStyle`
 
     body {
         font-family: 'Rubik', sans-serif;
+        background-color: #eee;
     }
 
     a, button, label {

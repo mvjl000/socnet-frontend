@@ -14,6 +14,7 @@ export const Navigation = styled.nav`
   align-items: center;
   justify-content: flex-start;
   padding: 0 30px;
+  background-color: #eee;
   transition: height 0.3s;
 
   img {

@@ -8,8 +8,15 @@ export const Wrapper = styled.form`
   width: 75%;
   max-width: 600px;
   height: 350px;
-  border: 1px solid #f73f52;
+  border: 1px solid transparent;
   border-radius: 10px;
+  box-shadow: 0 0 15px 1px rgba(247, 63, 82, 0.5);
+  @media (orientation: portrait) {
+    transform: translateY(-75px);
+  }
+  @media (min-width: 1024px) {
+    transform: translateY(-75px);
+  }
 
   label {
     margin: 20px 0;
