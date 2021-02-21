@@ -9,11 +9,12 @@ export const GlobalStyle = createGlobalStyle`
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+        font-family: 'Rubik', sans-serif;
     }
 
     body {
         font-family: 'Rubik', sans-serif;
-        background-color: #eee;
+        background-color: #fff;
     }
 
     a, button, label {

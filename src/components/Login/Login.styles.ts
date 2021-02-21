@@ -38,6 +38,13 @@ export const Wrapper = styled.form`
   }
 `;
 
+export const Header = styled.h1`
+  margin-bottom: 15px;
+  text-align: center;
+  font-family: 'Rubik', sans-serif;
+  font-weight: 300;
+`;
+
 export const Button = styled.button`
   height: 30px;
   padding: 3px 20px;
@@ -52,5 +59,25 @@ export const Button = styled.button`
   &:hover {
     background-color: #f73f52;
     color: white;
+  }
+`;
+
+export const CreateAccountButton = styled.button`
+  margin-top: 5px;
+  background-color: transparent;
+  color: #222;
+  border: none;
+  cursor: pointer;
+  transition: 0.15s;
+
+  &::after {
+    display: block;
+    content: '';
+    height: 1px;
+    width: 88px;
+    background-color: #f73f52;
+  }
+  &:hover {
+    color: #f73f52;
   }
 `;

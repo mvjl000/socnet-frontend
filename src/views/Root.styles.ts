@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
   width: 100%;
   min-height: calc(100vh - 150px);
-  background-color: #eee;
+  background-color: #fff;
 
   section {
     height: 100vh;
