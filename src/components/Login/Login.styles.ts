@@ -21,6 +21,7 @@ export const Wrapper = styled.form`
   label {
     margin: 20px 0;
     height: 30px;
+    width: 240px;
     display: flex;
     align-items: center;
     justify-content: space-between;
