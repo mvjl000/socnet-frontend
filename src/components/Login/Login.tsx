@@ -51,7 +51,13 @@ const Login: React.FC = () => {
     event.preventDefault();
     if (isLoginMode && username.length > 0 && password.length > 0) {
       dispatch({ type: 'login' });
-    } else {
+    } else if (
+      !isLoading &&
+      username.length > 0 &&
+      password.length > 0 &&
+      password === repeatPassword
+    ) {
+      dispatch({ type: 'register' });
     }
   };
 
