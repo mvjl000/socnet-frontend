@@ -1,4 +1,5 @@
 import React, { useReducer } from 'react';
+import axios from 'axios';
 import Loader from 'shared/components/Loader';
 import { Button, CreateAccountButton, Header, Wrapper } from './Login.styles';
 
@@ -47,16 +48,44 @@ const Login: React.FC = () => {
 
   const { username, password, repeatPassword, isLoginMode, isLoading } = state;
 
-  const handleLoginFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleLoginFormSubmit = async (
+    event: React.FormEvent<HTMLFormElement>
+  ) => {
     event.preventDefault();
+
     if (isLoginMode && username.length > 0 && password.length > 0) {
+      try {
+        const responseData = await axios.post(
+          `${process.env.REACT_APP_BACKEND_URL}/user/login`,
+          {
+            username,
+            password,
+          }
+        );
+        console.log(responseData.data);
+      } catch (error) {
+        console.log(error.response.data.message);
+      }
       dispatch({ type: 'login' });
     } else if (
       !isLoading &&
-      username.length > 0 &&
-      password.length > 0 &&
+      username.length >= 3 &&
+      password.length >= 5 &&
       password === repeatPassword
     ) {
+      try {
+        const responseData = await axios.post(
+          `${process.env.REACT_APP_BACKEND_URL}/user/signup`,
+          {
+            username,
+            password,
+            repeatPassword,
+          }
+        );
+        console.log(responseData.data);
+      } catch (error) {
+        console.log(error.response.data.message);
+      }
       dispatch({ type: 'register' });
     }
   };
