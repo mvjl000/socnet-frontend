@@ -37,7 +37,6 @@ export const Wrapper = styled.form`
 export const Header = styled.h1`
   margin-bottom: 15px;
   text-align: center;
-  font-family: 'Rubik', sans-serif;
   font-weight: 300;
 `;
 

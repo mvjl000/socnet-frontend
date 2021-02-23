@@ -10,6 +10,7 @@ import AuthContext from 'shared/context/auth-context';
 import Header from 'components/Nav/Nav';
 import Login from 'components/Login/Login';
 import Main from 'views/Main/Main';
+import Profile from 'views/Profile/Profile';
 import { Wrapper } from './Root.styles';
 
 const Root: React.FC = () => {
@@ -44,6 +45,7 @@ const Root: React.FC = () => {
     routes = (
       <Switch>
         <Route path='/' component={Main} exact />
+        <Route path='/profile' component={Profile} />
         <Redirect to='/' />
       </Switch>
     );
