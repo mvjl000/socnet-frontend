@@ -5,13 +5,14 @@ interface StyledInputProps {
 }
 
 export const Wrapper = styled.form`
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   width: 75%;
   max-width: 600px;
-  height: 350px;
+  height: 380px;
   border: 1px solid transparent;
   border-radius: 10px;
   box-shadow: 0 5px 22px -10px rgba(247, 63, 82, 0.6);
@@ -89,5 +90,21 @@ export const CreateAccountButton = styled.button`
   }
   &:hover {
     color: #f73f52;
+  }
+`;
+
+export const ErrorMessage = styled.p`
+  position: absolute;
+  width: 250px;
+  color: red;
+  left: 50%;
+  font-size: 13px;
+  bottom: 10px;
+  transform: translateX(-50%);
+  text-align: center;
+
+  @media (min-width: 1024px) {
+    width: 400px;
+    font-size: 16px;
   }
 `;

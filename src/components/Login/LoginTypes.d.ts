@@ -4,6 +4,7 @@ interface LoginState {
   repeatPassword: string;
   isLoginMode: boolean;
   isLoading: boolean;
+  error: string;
 }
 
 type Action =
@@ -16,7 +17,14 @@ type Action =
       type: 'switchMode';
     }
   | {
-      type: 'login' | 'register';
+      type: 'success';
+    }
+  | {
+      type: 'reject';
+      payload: string;
+    }
+  | {
+      type: 'proceed';
     };
 
 type LoginReducer = (state: LoginState, action: Action) => LoginState;

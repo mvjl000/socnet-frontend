@@ -1,5 +1,7 @@
-import React, { useReducer } from 'react';
+import React, { useContext, useReducer } from 'react';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import AuthContext from 'shared/context/auth-context';
 import Loader from 'shared/components/Loader';
 import {
   Button,
@@ -7,6 +9,7 @@ import {
   Header,
   Input,
   Wrapper,
+  ErrorMessage,
 } from './Login.styles';
 
 const initialState: LoginState = {
@@ -15,19 +18,29 @@ const initialState: LoginState = {
   repeatPassword: '',
   isLoginMode: true,
   isLoading: false,
+  error: '',
 };
 
 const loginReducer: LoginReducer = (state, action) => {
   switch (action.type) {
-    case 'login':
+    case 'proceed':
       return {
         ...state,
         isLoading: true,
       };
-    case 'register':
+    case 'success':
       return {
         ...state,
-        isLoading: true,
+        isLoading: false,
+      };
+    case 'reject':
+      return {
+        ...state,
+        username: '',
+        password: '',
+        repeatPassword: '',
+        isLoading: false,
+        error: action.payload,
       };
     case 'field':
       return {
@@ -41,6 +54,7 @@ const loginReducer: LoginReducer = (state, action) => {
         password: '',
         repeatPassword: '',
         isLoginMode: !state.isLoginMode,
+        error: '',
       };
     default:
       return {
@@ -51,15 +65,28 @@ const loginReducer: LoginReducer = (state, action) => {
 
 const Login: React.FC = () => {
   const [state, dispatch] = useReducer(loginReducer, initialState);
+  const auth = useContext(AuthContext);
+  const history = useHistory();
 
-  const { username, password, repeatPassword, isLoginMode, isLoading } = state;
+  const {
+    username,
+    password,
+    repeatPassword,
+    isLoginMode,
+    isLoading,
+    error,
+  } = state;
 
   const handleLoginFormSubmit = async (
     event: React.FormEvent<HTMLFormElement>
   ) => {
     event.preventDefault();
-
-    if (isLoginMode && username.length > 0 && password.length > 0) {
+    dispatch({ type: 'proceed' });
+    if (
+      isLoginMode &&
+      username.trim().length > 0 &&
+      password.trim().length > 0
+    ) {
       try {
         const responseData = await axios.post(
           `${process.env.REACT_APP_BACKEND_URL}/user/login`,
@@ -69,10 +96,11 @@ const Login: React.FC = () => {
           }
         );
         console.log(responseData.data);
+        dispatch({ type: 'success' });
+        auth.login();
       } catch (error) {
-        console.log(error.response.data.message);
+        dispatch({ type: 'reject', payload: error.response.data.message });
       }
-      dispatch({ type: 'login' });
     } else if (
       !isLoading &&
       username.length >= 3 &&
@@ -89,10 +117,13 @@ const Login: React.FC = () => {
           }
         );
         console.log(responseData.data);
+        dispatch({ type: 'success' });
+        dispatch({ type: 'switchMode' });
+        history.push('/');
       } catch (error) {
         console.log(error.response.data.message);
+        dispatch({ type: 'reject', payload: error.response.data.message });
       }
-      dispatch({ type: 'register' });
     }
   };
 
@@ -142,6 +173,7 @@ const Login: React.FC = () => {
       <CreateAccountButton type='button' onClick={handleToggleMode}>
         {isLoginMode ? 'Create account' : 'Switch to login'}
       </CreateAccountButton>
+      {error && <ErrorMessage>{error}</ErrorMessage>}
       {isLoading && <Loader />}
     </Wrapper>
   );
