@@ -26,7 +26,7 @@ const loginReducer: LoginReducer = (state, action) => {
     case 'field':
       return {
         ...state,
-        [action.fieldName]: action.payload,
+        [action.name]: action.payload,
       };
     case 'switchMode':
       return {
@@ -90,6 +90,13 @@ const Login: React.FC = () => {
     }
   };
 
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+    dispatch({
+      type: 'field',
+      name: event.target.name,
+      payload: event.target.value,
+    });
+
   const handleToggleMode = () => dispatch({ type: 'switchMode' });
 
   return (
@@ -99,28 +106,18 @@ const Login: React.FC = () => {
         Username
         <input
           type='text'
+          name='username'
           value={username}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-            dispatch({
-              type: 'field',
-              fieldName: 'username',
-              payload: event.target.value,
-            })
-          }
+          onChange={handleInputChange}
         />
       </label>
       <label htmlFor=''>
         Password
         <input
           type='password'
+          name='password'
           value={password}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-            dispatch({
-              type: 'field',
-              fieldName: 'password',
-              payload: event.target.value,
-            })
-          }
+          onChange={handleInputChange}
         />
       </label>
       {!isLoginMode && (
@@ -128,14 +125,9 @@ const Login: React.FC = () => {
           Repeat password
           <input
             type='password'
+            name='repeatPassword'
             value={repeatPassword}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-              dispatch({
-                type: 'field',
-                fieldName: 'repeatPassword',
-                payload: event.target.value,
-              })
-            }
+            onChange={handleInputChange}
           />
         </label>
       )}

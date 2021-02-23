@@ -9,7 +9,7 @@ interface LoginState {
 type Action =
   | {
       type: 'field';
-      fieldName: string;
+      name: string;
       payload: string;
     }
   | {
