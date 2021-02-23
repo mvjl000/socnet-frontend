@@ -7,7 +7,6 @@ const Main: React.FC = () => {
   return (
     <>
       <h1>Hello {auth.userData![1]}</h1>
-      <button onClick={() => auth.logout()}>Logout</button>
     </>
   );
 };

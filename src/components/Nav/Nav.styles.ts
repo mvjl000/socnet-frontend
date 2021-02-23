@@ -12,7 +12,7 @@ export const Navigation = styled.nav`
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   padding: 0 30px;
   background-color: #fff;
   transition: height 0.3s;
@@ -24,6 +24,25 @@ export const Navigation = styled.nav`
     @media (min-width: 1024px) {
       width: ${({ biggerNav }: StyledNavProps) =>
         biggerNav ? '300px' : '220px'};
+    }
+  }
+`;
+
+export const OptionsWrapper = styled.ul`
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 300px;
+  list-style: none;
+
+  li {
+    width: 80px;
+    text-align: center;
+    cursor: pointer;
+
+    a {
+      text-decoration: none;
+      color: black;
     }
   }
 `;
