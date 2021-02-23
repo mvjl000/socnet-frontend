@@ -10,7 +10,7 @@ export const Wrapper = styled.form`
   height: 350px;
   border: 1px solid transparent;
   border-radius: 10px;
-  box-shadow: 0 0 15px 1px rgba(247, 63, 82, 0.5);
+  box-shadow: 0 5px 22px -10px rgba(247, 63, 82, 0.6);
   @media (orientation: portrait) {
     transform: translateY(-75px);
   }
