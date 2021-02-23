@@ -81,12 +81,12 @@ const Login: React.FC = () => {
     event: React.FormEvent<HTMLFormElement>
   ) => {
     event.preventDefault();
-    dispatch({ type: 'proceed' });
     if (
       isLoginMode &&
       username.trim().length > 0 &&
       password.trim().length > 0
     ) {
+      dispatch({ type: 'proceed' });
       try {
         const responseData = await axios.post(
           `${process.env.REACT_APP_BACKEND_URL}/user/login`,
@@ -95,7 +95,6 @@ const Login: React.FC = () => {
             password,
           }
         );
-        console.log(responseData.data);
         dispatch({ type: 'success' });
         auth.login(responseData.data.userId, responseData.data.username);
       } catch (error) {
@@ -107,6 +106,7 @@ const Login: React.FC = () => {
       password.length >= 5 &&
       password === repeatPassword
     ) {
+      dispatch({ type: 'proceed' });
       try {
         const responseData = await axios.post(
           `${process.env.REACT_APP_BACKEND_URL}/user/signup`,
