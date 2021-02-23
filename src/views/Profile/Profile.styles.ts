@@ -35,6 +35,9 @@ export const DescriptionWrapper = styled.div`
   p {
     font-weight: 200;
   }
+  textarea {
+    width: 600px;
+  }
 `;
 
 export const EditButton = styled.button`
