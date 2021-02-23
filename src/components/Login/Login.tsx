@@ -1,7 +1,13 @@
 import React, { useReducer } from 'react';
 import axios from 'axios';
 import Loader from 'shared/components/Loader';
-import { Button, CreateAccountButton, Header, Wrapper } from './Login.styles';
+import {
+  Button,
+  CreateAccountButton,
+  Header,
+  Input,
+  Wrapper,
+} from './Login.styles';
 
 const initialState: LoginState = {
   username: '',
@@ -104,7 +110,7 @@ const Login: React.FC = () => {
       <Header>{isLoginMode ? 'Log in' : 'Create account'}</Header>
       <label htmlFor=''>
         Username
-        <input
+        <Input
           type='text'
           name='username'
           value={username}
@@ -113,7 +119,7 @@ const Login: React.FC = () => {
       </label>
       <label htmlFor=''>
         Password
-        <input
+        <Input
           type='password'
           name='password'
           value={password}
@@ -122,12 +128,13 @@ const Login: React.FC = () => {
       </label>
       {!isLoginMode && (
         <label htmlFor=''>
-          Repeat password
-          <input
+          Confirm password
+          <Input
             type='password'
             name='repeatPassword'
             value={repeatPassword}
             onChange={handleInputChange}
+            expand={true}
           />
         </label>
       )}

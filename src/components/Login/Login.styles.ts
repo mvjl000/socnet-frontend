@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+interface StyledInputProps {
+  expand?: boolean;
+}
+
 export const Wrapper = styled.form`
   display: flex;
   justify-content: center;
@@ -27,16 +31,6 @@ export const Wrapper = styled.form`
     justify-content: space-between;
     color: #222;
   }
-
-  input {
-    margin-left: 10px;
-    height: 100%;
-    width: 100px;
-    padding: 0 5px;
-    background-color: transparent;
-    border: 1px solid #f73f52;
-    border-radius: 5px;
-  }
 `;
 
 export const Header = styled.h1`
@@ -44,6 +38,21 @@ export const Header = styled.h1`
   text-align: center;
   font-family: 'Rubik', sans-serif;
   font-weight: 300;
+`;
+
+export const Input = styled.input`
+  margin-left: 10px;
+  height: 100%;
+  width: 100px;
+  padding: 0 5px;
+  background-color: transparent;
+  border: 1px solid #f73f52;
+  border-radius: 5px;
+  transition: 0.2s;
+
+  &:focus {
+    width: ${({ expand }: StyledInputProps) => (expand ? '100px' : '150px')};
+  }
 `;
 
 export const Button = styled.button`
