@@ -15,6 +15,9 @@ import { Wrapper } from './Root.styles';
 const Root: React.FC = () => {
   const [isNavExpanded, setIsNavExpanded] = useState(true);
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  const [userData, setUserData] = useState<
+    [userId: string, username: string] | null
+  >(null);
 
   const changeNav = () => {
     window.scrollY > 100 ? setIsNavExpanded(false) : setIsNavExpanded(true);
@@ -26,9 +29,15 @@ const Root: React.FC = () => {
     return () => window.removeEventListener('scroll', changeNav);
   }, []);
 
-  const loginUser = () => setIsUserLoggedIn(true);
+  const loginUser = (uid: string, username: string) => {
+    setUserData([uid, username]);
+    setIsUserLoggedIn(true);
+  };
 
-  const logoutUser = () => setIsUserLoggedIn(false);
+  const logoutUser = () => {
+    setUserData(null);
+    setIsUserLoggedIn(false);
+  };
 
   let routes;
   if (isUserLoggedIn) {
@@ -51,6 +60,7 @@ const Root: React.FC = () => {
     <AuthContext.Provider
       value={{
         isLoggedIn: isUserLoggedIn,
+        userData: userData,
         login: loginUser,
         logout: logoutUser,
       }}
