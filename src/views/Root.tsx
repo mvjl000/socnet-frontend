@@ -6,12 +6,15 @@ import {
   Redirect,
 } from 'react-router-dom';
 import { GlobalStyle } from 'assets/styles/globalStyles';
+import AuthContext from 'shared/context/auth-context';
 import Header from 'components/Nav/Nav';
 import Login from 'components/Login/Login';
+import Main from 'views/Main/Main';
 import { Wrapper } from './Root.styles';
 
 const Root: React.FC = () => {
   const [isNavExpanded, setIsNavExpanded] = useState(true);
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
   const changeNav = () => {
     window.scrollY > 100 ? setIsNavExpanded(false) : setIsNavExpanded(true);
@@ -19,19 +22,47 @@ const Root: React.FC = () => {
 
   useEffect(() => {
     window.addEventListener('scroll', changeNav);
+
+    return () => window.removeEventListener('scroll', changeNav);
   }, []);
 
+  const loginUser = () => setIsUserLoggedIn(true);
+
+  const logoutUser = () => setIsUserLoggedIn(false);
+
+  let routes;
+  if (isUserLoggedIn) {
+    routes = (
+      <Switch>
+        <Route path='/' component={Main} exact />
+        <Redirect to='/' />
+      </Switch>
+    );
+  } else {
+    routes = (
+      <Switch>
+        <Route path='/' component={Login} exact />
+        <Redirect to='/' />
+      </Switch>
+    );
+  }
+
   return (
-    <Router>
-      <GlobalStyle />
-      <Wrapper>
-        <Header isNavExpanded={isNavExpanded} />
-        <Switch>
-          <Route path='/' component={Login} exact />
-          <Redirect to='/' />
-        </Switch>
-      </Wrapper>
-    </Router>
+    <AuthContext.Provider
+      value={{
+        isLoggedIn: isUserLoggedIn,
+        login: loginUser,
+        logout: logoutUser,
+      }}
+    >
+      <Router>
+        <GlobalStyle />
+        <Wrapper>
+          <Header isNavExpanded={isNavExpanded} />
+          {routes}
+        </Wrapper>
+      </Router>
+    </AuthContext.Provider>
   );
 };
 
