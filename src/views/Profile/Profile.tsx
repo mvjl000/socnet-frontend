@@ -1,4 +1,5 @@
-import React, { useContext, useState } from 'react';
+import axios from 'axios';
+import React, { useContext, useEffect, useState } from 'react';
 import AuthContext from 'shared/context/auth-context';
 import {
   Wrapper,
@@ -7,31 +8,59 @@ import {
   EditButton,
 } from './Profile.styles';
 
-const DUMMY_DESCRIPTION =
-  'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eiusconsequatur nemo magnam excepturi, repellendus id repudiandae minus.Maxime velit cumque, alias voluptas, aliquid quisquam ex eligendiiste, dignissimos at cum?';
-
 const Profile: React.FC = () => {
   const [isEditMode, setIsEditMode] = useState(false);
+  const [userDescription, setUserDescripion] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const auth = useContext(AuthContext);
+
+  useEffect(() => {
+    const reqData = async () => {
+      setIsLoading(true);
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/user/getUserData/${
+          auth.userData![0]
+        }`
+      );
+      setIsLoading(false);
+      setUserDescripion(response.data.description);
+    };
+    reqData();
+  }, [auth.userData]);
+
+  const handleDescChange = (event: React.ChangeEvent<HTMLTextAreaElement>) =>
+    setUserDescripion(event.target.value);
+
+  const handleDescEdit = async () => {
+    await axios.patch(
+      `${process.env.REACT_APP_BACKEND_URL}/user/updateDesc/${
+        auth.userData![0]
+      }`,
+      { description: userDescription }
+    );
+    setIsEditMode(!isEditMode);
+  };
 
   return (
     <main>
       <Heading>
         <span>{auth.userData![1]}</span> - this is your profile
       </Heading>
+      {isLoading && <h2>Loading...</h2>}
       <Wrapper>
         <DescriptionWrapper>
           <h2>{isEditMode && 'edit '}description</h2>
           {isEditMode ? (
             <>
-              <textarea value={DUMMY_DESCRIPTION}></textarea>
-              <EditButton onClick={() => setIsEditMode(!isEditMode)}>
-                Confirm
-              </EditButton>
+              <textarea
+                value={userDescription}
+                onChange={handleDescChange}
+              ></textarea>
+              <EditButton onClick={handleDescEdit}>Confirm</EditButton>
             </>
           ) : (
             <>
-              <p>{DUMMY_DESCRIPTION}</p>
+              <p>{userDescription}</p>
               <EditButton onClick={() => setIsEditMode(!isEditMode)}>
                 Edit
               </EditButton>
