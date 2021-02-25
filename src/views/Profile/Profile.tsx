@@ -7,6 +7,7 @@ import {
   DescriptionWrapper,
   EditButton,
   DeleteButton,
+  AllPostsWrapper,
 } from './Profile.styles';
 
 const Profile: React.FC = () => {
@@ -50,7 +51,7 @@ const Profile: React.FC = () => {
   };
 
   return (
-    <main>
+    <>
       <Heading>
         <span>{auth.userData![1]}</span> - this is your profile
       </Heading>
@@ -75,9 +76,12 @@ const Profile: React.FC = () => {
             </>
           )}
         </DescriptionWrapper>
+        <AllPostsWrapper>
+          <h1>{auth.userData![1]}'s Posts</h1>
+        </AllPostsWrapper>
         <DeleteButton onClick={handleDeleteUser}>Delete account</DeleteButton>
       </Wrapper>
-    </main>
+    </>
   );
 };
 

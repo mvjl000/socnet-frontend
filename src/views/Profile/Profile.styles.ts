@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   width: 100%;
+  max-width: 1300px;
   min-height: calc(100vh - 150px);
   display: flex;
   align-items: center;
@@ -20,17 +21,24 @@ export const Heading = styled.h1`
 `;
 
 export const DescriptionWrapper = styled.div`
+  margin: 50px 0;
   width: 75%;
   max-width: 800px;
   display: flex;
   align-items: center;
   justify-content: space-around;
   flex-direction: column;
+  padding: 0 30px;
+  border: 2px solid #999;
+  border-radius: 20px;
   h2 {
     font-size: 25px;
     margin: 10px 0;
     align-self: flex-start;
     font-weight: 400;
+    background-color: white;
+    transform: translate(30px, -25px);
+    padding: 0 0px;
   }
   p {
     font-weight: 200;
@@ -67,5 +75,31 @@ export const DeleteButton = styled.button`
   &:hover {
     background-color: #dd0000;
     color: #fff;
+  }
+`;
+
+export const AllPostsWrapper = styled.div`
+  margin: 50px 0 10px;
+  position: relative;
+  width: 75%;
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 2px solid #999;
+  border-bottom: 2px solid #999;
+
+  @media (min-width: 1024px) {
+    width: 100%;
+  }
+
+  h1 {
+    position: absolute;
+    text-align: center;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    font-weight: 300;
   }
 `;
