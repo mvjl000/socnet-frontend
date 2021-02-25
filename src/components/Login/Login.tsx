@@ -124,7 +124,6 @@ const Login: React.FC = () => {
         dispatch({ type: 'switchMode' });
         history.push('/');
       } catch (error) {
-        console.log(error.response.data.message);
         dispatch({ type: 'reject', payload: error.response.data.message });
       }
     }
@@ -165,7 +164,10 @@ const Login: React.FC = () => {
           value={password}
           onChange={handleInputChange}
         />
-        <ToggleVisibilityButton onClick={handleTogglePasswordVisibility}>
+        <ToggleVisibilityButton
+          type='button'
+          onClick={handleTogglePasswordVisibility}
+        >
           {isPasswordVisible ? <VisibilityOffIcon /> : <VisibilityIcon />}
         </ToggleVisibilityButton>
       </label>
@@ -180,6 +182,7 @@ const Login: React.FC = () => {
             expand={true}
           />
           <ToggleVisibilityButton
+            type='button'
             onClick={handleToggleConfirmPasswordVisibility}
           >
             {isConfirmPasswordVisible ? (
