@@ -6,6 +6,7 @@ import {
   Heading,
   DescriptionWrapper,
   EditButton,
+  DeleteButton,
 } from './Profile.styles';
 
 const Profile: React.FC = () => {
@@ -41,6 +42,13 @@ const Profile: React.FC = () => {
     setIsEditMode(!isEditMode);
   };
 
+  const handleDeleteUser = async () => {
+    auth.logout();
+    await axios.delete(
+      `${process.env.REACT_APP_BACKEND_URL}/user/delete/${auth.userData![0]}`
+    );
+  };
+
   return (
     <main>
       <Heading>
@@ -67,6 +75,7 @@ const Profile: React.FC = () => {
             </>
           )}
         </DescriptionWrapper>
+        <DeleteButton onClick={handleDeleteUser}>Delete account</DeleteButton>
       </Wrapper>
     </main>
   );

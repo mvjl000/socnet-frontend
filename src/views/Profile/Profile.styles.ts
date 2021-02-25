@@ -52,3 +52,20 @@ export const EditButton = styled.button`
   border-radius: 20px;
   cursor: pointer;
 `;
+
+export const DeleteButton = styled.button`
+  margin: 15px 0;
+  width: 80px;
+  height: 38px;
+  border: none;
+  background-color: #666;
+  color: #111;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.2s;
+
+  &:hover {
+    background-color: #dd0000;
+    color: #fff;
+  }
+`;

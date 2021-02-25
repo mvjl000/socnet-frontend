@@ -15,7 +15,9 @@ const Header: React.FC<NavProps> = ({ isNavExpanded }) => {
 
   return (
     <Navigation biggerNav={isNavExpanded}>
-      <img src={Logo} alt='logo' />
+      <Link to='/'>
+        <img src={Logo} alt='logo' />
+      </Link>
       {auth.isLoggedIn && (
         <OptionsWrapper>
           <li>
