@@ -24,6 +24,7 @@ export const Wrapper = styled.form`
   }
 
   label {
+    position: relative;
     margin: 20px 0;
     height: 30px;
     width: 240px;
@@ -90,6 +91,14 @@ export const CreateAccountButton = styled.button`
   &:hover {
     color: #f73f52;
   }
+`;
+
+export const ToggleVisibilityButton = styled.button`
+  position: absolute;
+  top: 3px;
+  right: 5px;
+  border: none;
+  background-color: transparent;
 `;
 
 export const ErrorMessage = styled.p`

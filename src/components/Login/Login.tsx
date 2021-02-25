@@ -1,4 +1,4 @@
-import React, { useContext, useReducer } from 'react';
+import React, { useContext, useReducer, useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import AuthContext from 'shared/context/auth-context';
@@ -10,7 +10,10 @@ import {
   Input,
   Wrapper,
   ErrorMessage,
+  ToggleVisibilityButton,
 } from './Login.styles';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 
 const initialState: LoginState = {
   username: '',
@@ -65,6 +68,10 @@ const loginReducer: LoginReducer = (state, action) => {
 
 const Login: React.FC = () => {
   const [state, dispatch] = useReducer(loginReducer, initialState);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(
+    false
+  );
   const auth = useContext(AuthContext);
   const history = useHistory();
 
@@ -108,15 +115,11 @@ const Login: React.FC = () => {
     ) {
       dispatch({ type: 'proceed' });
       try {
-        const responseData = await axios.post(
-          `${process.env.REACT_APP_BACKEND_URL}/user/signup`,
-          {
-            username,
-            password,
-            repeatPassword,
-          }
-        );
-        console.log(responseData.data);
+        await axios.post(`${process.env.REACT_APP_BACKEND_URL}/user/signup`, {
+          username,
+          password,
+          repeatPassword,
+        });
         dispatch({ type: 'success' });
         dispatch({ type: 'switchMode' });
         history.push('/');
@@ -136,6 +139,12 @@ const Login: React.FC = () => {
 
   const handleToggleMode = () => dispatch({ type: 'switchMode' });
 
+  const handleTogglePasswordVisibility = () =>
+    setIsPasswordVisible(!isPasswordVisible);
+
+  const handleToggleConfirmPasswordVisibility = () =>
+    setIsConfirmPasswordVisible(!isConfirmPasswordVisible);
+
   return (
     <Wrapper onSubmit={handleLoginFormSubmit}>
       <Header>{isLoginMode ? 'Log in' : 'Create account'}</Header>
@@ -151,22 +160,34 @@ const Login: React.FC = () => {
       <label htmlFor=''>
         Password
         <Input
-          type='password'
+          type={isPasswordVisible ? 'text' : 'password'}
           name='password'
           value={password}
           onChange={handleInputChange}
         />
+        <ToggleVisibilityButton onClick={handleTogglePasswordVisibility}>
+          {isPasswordVisible ? <VisibilityOffIcon /> : <VisibilityIcon />}
+        </ToggleVisibilityButton>
       </label>
       {!isLoginMode && (
         <label htmlFor=''>
           Confirm password
           <Input
-            type='password'
+            type={isConfirmPasswordVisible ? 'text' : 'password'}
             name='repeatPassword'
             value={repeatPassword}
             onChange={handleInputChange}
             expand={true}
           />
+          <ToggleVisibilityButton
+            onClick={handleToggleConfirmPasswordVisibility}
+          >
+            {isConfirmPasswordVisible ? (
+              <VisibilityOffIcon />
+            ) : (
+              <VisibilityIcon />
+            )}
+          </ToggleVisibilityButton>
         </label>
       )}
       <Button type='submit'>{isLoginMode ? 'Sign in' : 'Sign up'}</Button>
