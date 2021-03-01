@@ -4,6 +4,7 @@ import AuthContext from 'shared/context/auth-context';
 import Logo from 'assets/images/socnet-logo.png';
 import { Navigation, BurgerButton, BurgerContainer } from './Nav.styles';
 // import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import DropDownMenu from './DropDownMenu';
 import NavLinks from './NavLinks';
 
 interface NavProps {
@@ -19,12 +20,17 @@ const Header: React.FC<NavProps> = ({ isNavExpanded }) => {
   const toggleBurgerButton = () => setIsBurgerActive(!isBurgerActive);
 
   return (
-    <Navigation biggerNav={isNavExpanded}>
-      <Link to='/'>
-        <img src={Logo} alt='logo' />
-      </Link>
-      {/* {auth.isLoggedIn && <NavLinks handleLogout={handleLogout} />} */}
-      {/* <NavLinks handleLogout={handleLogout} /> */}
+    <>
+      <Navigation biggerNav={isNavExpanded}>
+        <DropDownMenu isDropDownOpen={isBurgerActive}>
+          <h1>Hello portal</h1>
+        </DropDownMenu>
+        <Link to='/'>
+          <img src={Logo} alt='logo' />
+        </Link>
+        {/* {auth.isLoggedIn && <NavLinks handleLogout={handleLogout} />} */}
+        {/* <NavLinks handleLogout={handleLogout} /> */}
+      </Navigation>
       <BurgerContainer biggerNav={isNavExpanded}>
         <BurgerButton
           isBurgerActive={isBurgerActive}
@@ -33,7 +39,7 @@ const Header: React.FC<NavProps> = ({ isNavExpanded }) => {
           <span></span>
         </BurgerButton>
       </BurgerContainer>
-    </Navigation>
+    </>
   );
 };
 

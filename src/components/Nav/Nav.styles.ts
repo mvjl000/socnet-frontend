@@ -37,6 +37,7 @@ export const BurgerContainer = styled.div`
   position: fixed;
   top: ${({ biggerNav }: StyledNavProps) => (biggerNav ? '35px' : '20px')};
   right: 30px;
+  z-index: 5;
   transition: 0.3s;
 `;
 
@@ -46,7 +47,6 @@ export const BurgerButton = styled.button`
   border: none;
   height: 28px;
   width: 40px;
-  z-index: 5;
   cursor: pointer;
 
   span {
