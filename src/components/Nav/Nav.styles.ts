@@ -55,7 +55,7 @@ export const BurgerButton = styled.button`
     right: 0;
     transform: translateY(-50%);
     width: ${({ isBurgerActive }: BurgerButtonProps) =>
-      isBurgerActive ? '100%' : '75%'};
+      isBurgerActive ? '75%' : '100%'};
     height: 4px;
     background-color: #222;
     transition: 0.2s ease;
@@ -76,7 +76,7 @@ export const BurgerButton = styled.button`
     top: 0;
     right: 0;
     width: ${({ isBurgerActive }: BurgerButtonProps) =>
-      isBurgerActive ? '100%' : '50%'};
+      isBurgerActive ? '50%' : '100%'};
   }
 
   &::after {
