@@ -33,12 +33,20 @@ export const Navigation = styled.nav`
   }
 `;
 
+export const DesktopNavLinksContainer = styled.div`
+  width: 50%;
+  max-width: 600px;
+`;
+
 export const BurgerContainer = styled.div`
   position: fixed;
   top: ${({ biggerNav }: StyledNavProps) => (biggerNav ? '35px' : '20px')};
   right: 30px;
   z-index: 5;
   transition: 0.3s;
+  @media (min-width: 1024px) {
+    display: none;
+  }
 `;
 
 export const BurgerButton = styled.button`
@@ -57,8 +65,10 @@ export const BurgerButton = styled.button`
     width: ${({ isBurgerActive }: BurgerButtonProps) =>
       isBurgerActive ? '75%' : '100%'};
     height: 4px;
-    background-color: #222;
+    background-color: ${({ isBurgerActive }: BurgerButtonProps) =>
+      isBurgerActive ? '#fff' : '#222'};
     transition: 0.2s ease;
+    transition: background-color 0.3s 0.1s;
   }
 
   &::before,
@@ -68,8 +78,10 @@ export const BurgerButton = styled.button`
     position: absolute;
     transform: translateY(-50%);
     height: 4px;
-    background-color: #222;
+    background-color: ${({ isBurgerActive }: BurgerButtonProps) =>
+      isBurgerActive ? '#fff' : '#222'};
     transition: 0.2s ease;
+    transition: background-color 0.3s 0.1s;
   }
 
   &::before {

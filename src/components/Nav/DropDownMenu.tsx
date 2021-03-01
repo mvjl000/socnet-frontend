@@ -1,19 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { DropDownContainer } from './DropDownMenu.styles';
+import {
+  DropDownContainer,
+  DropDownContent,
+  BlurArea,
+} from './DropDownMenu.styles';
 
 interface DropDownProps {
   isDropDownOpen: boolean;
+  closeDropDown: () => void;
 }
 
 const DropDownMenu: React.FC<DropDownProps> = ({
   children,
   isDropDownOpen,
+  closeDropDown,
 }) => {
   const content = (
     <DropDownContainer isDropDownOpen={isDropDownOpen}>
-      {children}
+      <DropDownContent>{children}</DropDownContent>
+      <BlurArea isDropDownOpen={isDropDownOpen} onClick={closeDropDown} />
     </DropDownContainer>
   );
 

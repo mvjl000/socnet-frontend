@@ -2,7 +2,12 @@ import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import AuthContext from 'shared/context/auth-context';
 import Logo from 'assets/images/socnet-logo.png';
-import { Navigation, BurgerButton, BurgerContainer } from './Nav.styles';
+import {
+  Navigation,
+  BurgerButton,
+  BurgerContainer,
+  DesktopNavLinksContainer,
+} from './Nav.styles';
 // import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import DropDownMenu from './DropDownMenu';
 import NavLinks from './NavLinks';
@@ -19,26 +24,38 @@ const Header: React.FC<NavProps> = ({ isNavExpanded }) => {
 
   const toggleBurgerButton = () => setIsBurgerActive(!isBurgerActive);
 
+  const closeDropDown = () => setIsBurgerActive(false);
+
   return (
     <>
       <Navigation biggerNav={isNavExpanded}>
-        <DropDownMenu isDropDownOpen={isBurgerActive}>
-          <h1>Hello portal</h1>
-        </DropDownMenu>
+        {auth.isLoggedIn && (
+          <DropDownMenu
+            isDropDownOpen={isBurgerActive}
+            closeDropDown={closeDropDown}
+          >
+            <NavLinks handleLogout={handleLogout} />
+          </DropDownMenu>
+        )}
         <Link to='/'>
           <img src={Logo} alt='logo' />
         </Link>
-        {/* {auth.isLoggedIn && <NavLinks handleLogout={handleLogout} />} */}
-        {/* <NavLinks handleLogout={handleLogout} /> */}
+        {auth.isLoggedIn && (
+          <DesktopNavLinksContainer>
+            <NavLinks handleLogout={handleLogout} />
+          </DesktopNavLinksContainer>
+        )}
       </Navigation>
-      <BurgerContainer biggerNav={isNavExpanded}>
-        <BurgerButton
-          isBurgerActive={isBurgerActive}
-          onClick={toggleBurgerButton}
-        >
-          <span></span>
-        </BurgerButton>
-      </BurgerContainer>
+      {auth.isLoggedIn && (
+        <BurgerContainer biggerNav={isNavExpanded}>
+          <BurgerButton
+            isBurgerActive={isBurgerActive}
+            onClick={toggleBurgerButton}
+          >
+            <span></span>
+          </BurgerButton>
+        </BurgerContainer>
+      )}
     </>
   );
 };
