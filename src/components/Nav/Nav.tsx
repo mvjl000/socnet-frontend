@@ -34,7 +34,10 @@ const Header: React.FC<NavProps> = ({ isNavExpanded }) => {
             isDropDownOpen={isBurgerActive}
             closeDropDown={closeDropDown}
           >
-            <NavLinks handleLogout={handleLogout} />
+            <NavLinks
+              handleLogout={handleLogout}
+              closeDropDown={closeDropDown}
+            />
           </DropDownMenu>
         )}
         <Link to='/'>

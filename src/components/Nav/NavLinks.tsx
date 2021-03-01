@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { StyledNavLinks } from './NavLinks.styles';
 import PersonIcon from '@material-ui/icons/Person';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
@@ -7,16 +7,17 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 interface NavLinksProps {
   handleLogout: () => void;
+  closeDropDown?: () => void;
 }
 
-const NavLinks: React.FC<NavLinksProps> = ({ handleLogout }) => {
+const NavLinks: React.FC<NavLinksProps> = ({ closeDropDown, handleLogout }) => {
   return (
     <StyledNavLinks>
       <li>
-        <Link to='/profile'>
+        <NavLink to='/profile' onClick={closeDropDown}>
           My Profile
           <PersonIcon />
-        </Link>
+        </NavLink>
       </li>
       <li onClick={handleLogout}>
         Logout <ExitToAppIcon />
