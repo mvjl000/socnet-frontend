@@ -71,9 +71,7 @@ const Root: React.FC = () => {
         <GlobalStyle />
         <Wrapper>
           <Header isNavExpanded={isNavExpanded} />
-          <section></section>
           {routes}
-          <section></section>
         </Wrapper>
       </Router>
     </AuthContext.Provider>

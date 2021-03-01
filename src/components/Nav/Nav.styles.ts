@@ -72,8 +72,7 @@ export const BurgerButton = styled.button`
     height: 4px;
     background-color: ${({ isBurgerActive }: BurgerButtonProps) =>
       isBurgerActive ? '#fff' : '#222'};
-    transition: 0.2s ease;
-    transition: background-color 0.3s 0.1s;
+    transition: width 0.2s ease, background-color 0.3s 0.1s;
   }
 
   &::before,
@@ -85,8 +84,7 @@ export const BurgerButton = styled.button`
     height: 4px;
     background-color: ${({ isBurgerActive }: BurgerButtonProps) =>
       isBurgerActive ? '#fff' : '#222'};
-    transition: 0.2s ease;
-    transition: background-color 0.3s 0.1s;
+    transition: width 0.2s ease, background-color 0.3s 0.1s;
   }
 
   &::before {
