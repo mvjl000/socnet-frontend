@@ -21,6 +21,7 @@ export const Navigation = styled.nav`
   background-color: #fff;
   z-index: 2;
   transition: height 0.3s;
+  box-shadow: 0 0 15px -10px black;
 
   img {
     width: ${({ biggerNav }: StyledNavProps) =>
@@ -34,8 +35,12 @@ export const Navigation = styled.nav`
 `;
 
 export const DesktopNavLinksContainer = styled.div`
+  display: none;
   width: 50%;
   max-width: 600px;
+  @media (min-width: 1024px) {
+    display: block;
+  }
 `;
 
 export const BurgerContainer = styled.div`
