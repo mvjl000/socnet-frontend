@@ -107,3 +107,20 @@ export const AllPostsWrapper = styled.div`
     }
   }
 `;
+
+export const SettingsIconContainer = styled.div`
+  svg {
+    margin: 25px 0 15px;
+    transform: scale(1.5);
+    color: #555;
+    cursor: pointer;
+    transition: transform 0.3s, color 0.2s;
+    @media (min-width: 1024px) {
+      transform: scale(1.8);
+    }
+    &:hover {
+      color: #333;
+      transform: scale(1.8) rotate(45deg);
+    }
+  }
+`;

@@ -9,13 +9,17 @@ import {
   EditButton,
   DeleteButton,
   AllPostsWrapper,
+  SettingsIconContainer,
 } from './Profile.styles';
+import SettingsModal from 'components/SettingsModal/SettingsModal';
 import { AddPostButton } from 'shared/components/AddPostButton';
+import SettingsIcon from '@material-ui/icons/Settings';
 
 const Profile: React.FC = () => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [userDescription, setUserDescripion] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const auth = useContext(AuthContext);
 
   useEffect(() => {
@@ -84,7 +88,11 @@ const Profile: React.FC = () => {
         <AllPostsWrapper>
           <h1>{auth.userData![1]}'s Posts</h1>
         </AllPostsWrapper>
-        <DeleteButton onClick={handleDeleteUser}>Delete account</DeleteButton>
+        {/* <DeleteButton onClick={handleDeleteUser}>Delete account</DeleteButton> */}
+        {isSettingsOpen && <SettingsModal closeModal={setIsSettingsOpen} />}
+        <SettingsIconContainer>
+          <SettingsIcon onClick={() => setIsSettingsOpen(true)} />
+        </SettingsIconContainer>
       </Wrapper>
     </>
   );
