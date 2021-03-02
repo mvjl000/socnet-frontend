@@ -11,6 +11,7 @@ import Header from 'components/Nav/Nav';
 import Login from 'components/Login/Login';
 import Main from 'views/Main/Main';
 import Profile from 'views/Profile/Profile';
+import AddPost from 'views/AddPost/AddPost';
 import { Wrapper } from './Root.styles';
 
 const Root: React.FC = () => {
@@ -46,6 +47,7 @@ const Root: React.FC = () => {
       <Switch>
         <Route path='/' component={Main} exact />
         <Route path='/profile' component={Profile} />
+        <Route path='/new-post' component={AddPost} />
         <Redirect to='/' />
       </Switch>
     );

@@ -95,12 +95,16 @@ export const AllPostsWrapper = styled.div`
 
   h1 {
     position: absolute;
-    text-align: center;
     top: 0;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: white;
+    font-size: 25px;
     font-weight: 300;
+    text-align: center;
+    @media (min-width: 480px) {
+      font-size: 32px;
+    }
   }
 `;
 
