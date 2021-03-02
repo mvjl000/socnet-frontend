@@ -1,5 +1,6 @@
-import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 import AuthContext from 'shared/context/auth-context';
 import {
   Wrapper,
@@ -8,6 +9,7 @@ import {
   EditButton,
   DeleteButton,
   AllPostsWrapper,
+  NewPostButton,
 } from './Profile.styles';
 
 const Profile: React.FC = () => {
@@ -76,6 +78,9 @@ const Profile: React.FC = () => {
             </>
           )}
         </DescriptionWrapper>
+        <Link to='/new-post'>
+          <NewPostButton>Add New Post</NewPostButton>
+        </Link>
         <AllPostsWrapper>
           <h1>{auth.userData![1]}'s Posts</h1>
         </AllPostsWrapper>
