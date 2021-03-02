@@ -4,8 +4,8 @@ import {
   Heading,
   StyledForm,
   TextAreaContainer,
-  AddPostButton,
 } from './AddPost.styles';
+import { AddPostButton } from 'shared/components/AddPostButton';
 
 const AddPost: React.FC = () => {
   return (

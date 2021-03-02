@@ -9,8 +9,8 @@ import {
   EditButton,
   DeleteButton,
   AllPostsWrapper,
-  NewPostButton,
 } from './Profile.styles';
+import { AddPostButton } from 'shared/components/AddPostButton';
 
 const Profile: React.FC = () => {
   const [isEditMode, setIsEditMode] = useState(false);
@@ -79,7 +79,7 @@ const Profile: React.FC = () => {
           )}
         </DescriptionWrapper>
         <Link to='/new-post'>
-          <NewPostButton>Add New Post</NewPostButton>
+          <AddPostButton>Add New Post</AddPostButton>
         </Link>
         <AllPostsWrapper>
           <h1>{auth.userData![1]}'s Posts</h1>
