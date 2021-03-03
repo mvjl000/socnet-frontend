@@ -7,7 +7,6 @@ import {
   Heading,
   DescriptionWrapper,
   EditButton,
-  DeleteButton,
   AllPostsWrapper,
   SettingsIconContainer,
 } from './Profile.styles';
@@ -49,12 +48,12 @@ const Profile: React.FC = () => {
     setIsEditMode(!isEditMode);
   };
 
-  const handleDeleteUser = async () => {
-    auth.logout();
-    await axios.delete(
-      `${process.env.REACT_APP_BACKEND_URL}/user/delete/${auth.userData![0]}`
-    );
-  };
+  // const handleDeleteUser = async () => {
+  //   auth.logout();
+  //   await axios.delete(
+  //     `${process.env.REACT_APP_BACKEND_URL}/user/delete/${auth.userData![0]}`
+  //   );
+  // };
 
   return (
     <>

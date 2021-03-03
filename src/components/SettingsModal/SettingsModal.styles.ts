@@ -66,22 +66,22 @@ export const OptionsList = styled.ul`
 `;
 
 export const Option = styled.li`
-  margin: 15px 0 0;
+  margin: 15px 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 90%;
   max-width: 300px;
-  padding: 10px 25px;
+  padding: 15px 25px 0;
   text-align: center;
   cursor: pointer;
   border-top: 2px solid #666;
   @media (min-width: 1024px) {
     padding: 25px 50px;
+    margin: 0;
   }
 
   &:first-child {
-    margin-top: 0;
     border: none;
   }
 
