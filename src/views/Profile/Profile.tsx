@@ -48,12 +48,12 @@ const Profile: React.FC = () => {
     setIsEditMode(!isEditMode);
   };
 
-  // const handleDeleteUser = async () => {
-  //   auth.logout();
-  //   await axios.delete(
-  //     `${process.env.REACT_APP_BACKEND_URL}/user/delete/${auth.userData![0]}`
-  //   );
-  // };
+  const handleDeleteUser = async () => {
+    auth.logout();
+    await axios.delete(
+      `${process.env.REACT_APP_BACKEND_URL}/user/delete/${auth.userData![0]}`
+    );
+  };
 
   return (
     <>
@@ -87,8 +87,12 @@ const Profile: React.FC = () => {
         <AllPostsWrapper>
           <h1>{auth.userData![1]}'s Posts</h1>
         </AllPostsWrapper>
-        {/* <DeleteButton onClick={handleDeleteUser}>Delete account</DeleteButton> */}
-        {isSettingsOpen && <SettingsModal closeModal={setIsSettingsOpen} />}
+        {isSettingsOpen && (
+          <SettingsModal
+            closeModal={setIsSettingsOpen}
+            deleteUser={handleDeleteUser}
+          />
+        )}
         <SettingsIconContainer>
           <SettingsIcon onClick={() => setIsSettingsOpen(true)} />
         </SettingsIconContainer>

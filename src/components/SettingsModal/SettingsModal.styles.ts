@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+interface ConfirmButtonProps {
+  deleteVersion?: boolean;
+}
+
 export const Wrapper = styled.div`
   position: fixed;
   top: 50%;
@@ -55,6 +59,17 @@ export const Heading = styled.h3`
   }
 `;
 
+export const SubHeading = styled.h4`
+  margin: 15px 10px;
+  font-size: 22px;
+  font-weight: 600;
+  text-align: center;
+  @media (min-width: 1024px) {
+    margin-top: 50px;
+    font-size: 30px;
+  }
+`;
+
 export const OptionsList = styled.ul`
   margin: 30px 0;
   display: flex;
@@ -106,5 +121,38 @@ export const Option = styled.li`
 
   &:hover svg {
     color: red;
+  }
+`;
+
+export const ButtonsContainer = styled.div`
+  margin: 50px;
+  width: 75%;
+  height: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  @media (min-width: 1024px) {
+    flex-direction: row;
+  }
+`;
+
+export const ConfirmButton = styled.button<ConfirmButtonProps>`
+  font-size: 18px;
+  margin: 15px 60px;
+  padding: 3px 15px;
+  color: ${({ deleteVersion }) => (deleteVersion ? '#fff' : '#000')};
+  background-color: ${({ deleteVersion }) =>
+    deleteVersion ? 'red' : 'rgba(180, 180, 180, 0.2)'};
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+  @media (min-width: 1024px) {
+    font-size: 22px;
+  }
+
+  &:hover {
+    background-color: ${({ deleteVersion }) =>
+      deleteVersion ? '#ac0000' : 'rgba(180, 180, 180, 0.6)'};
   }
 `;

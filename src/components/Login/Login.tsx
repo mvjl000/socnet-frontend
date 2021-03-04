@@ -48,6 +48,7 @@ const loginReducer: LoginReducer = (state, action) => {
     case 'field':
       return {
         ...state,
+        error: '',
         [action.name]: action.payload,
       };
     case 'switchMode':
