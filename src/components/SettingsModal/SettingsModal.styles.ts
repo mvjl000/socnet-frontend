@@ -1,10 +1,11 @@
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 
 interface ConfirmButtonProps {
   deleteVersion?: boolean;
 }
 
-export const Wrapper = styled.div`
+export const Wrapper = styled(motion.div)`
   position: fixed;
   top: 50%;
   left: 50%;
@@ -28,6 +29,7 @@ export const Content = styled.div`
   height: 450px;
   background-color: #fff;
   box-shadow: 0 0 25px -10px rgba(0, 0, 0, 0.8);
+  overflow: hidden;
   @media (min-width: 1024px) {
     height: 500px;
   }
@@ -70,7 +72,7 @@ export const SubHeading = styled.h4`
   }
 `;
 
-export const OptionsList = styled.ul`
+export const OptionsList = styled(motion.ul)`
   margin: 30px 0;
   display: flex;
   flex-direction: column;

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import {
   Wrapper,
   Content,
@@ -27,14 +28,22 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 
   return (
-    <Wrapper>
+    <Wrapper
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
+    >
       <Content>
         <CloseIconContainer>
           <CloseIcon onClick={() => closeModal(false)} />
         </CloseIconContainer>
         <Heading>Account Settings</Heading>
         {!isConfirmOpen && (
-          <OptionsList>
+          <OptionsList
+            exit={{ x: '-100%' }}
+            animate={{ x: 0 }}
+            transition={{ duration: 0.5 }}
+          >
             <Option onClick={() => setIsConfirmOpen(true)}>
               <p>Delete account</p>
               <DeleteIcon />
@@ -50,7 +59,11 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
           </OptionsList>
         )}
         {isConfirmOpen && (
-          <>
+          <motion.div
+            initial={{ opacity: 0, x: '100%' }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
             <SubHeading>
               This operation is irreversible! Do you want to proceed?
             </SubHeading>
@@ -62,7 +75,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                 Delete
               </ConfirmButton>
             </ButtonsContainer>
-          </>
+          </motion.div>
         )}
       </Content>
     </Wrapper>
