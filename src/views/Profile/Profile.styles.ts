@@ -44,7 +44,11 @@ export const DescriptionWrapper = styled.div`
     font-weight: 200;
   }
   textarea {
-    width: 600px;
+    width: 100%;
+    height: 200px;
+    border: none;
+    outline: none;
+    resize: none;
   }
 `;
 
