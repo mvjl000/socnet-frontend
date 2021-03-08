@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   Wrapper,
   Heading,
@@ -7,17 +7,25 @@ import {
 } from './AddPost.styles';
 import { AddPostButton } from 'shared/components/AddPostButton';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import AuthContext from 'shared/context/auth-context';
 
 interface NewPost {
   title: string;
   description: string;
 }
 
+const initialNewPostObj: NewPost = {
+  title: '',
+  description: '',
+};
+
 const AddPost: React.FC = () => {
-  const [newPostContent, setNewPostContent] = useState<NewPost>({
-    title: '',
-    description: '',
-  });
+  const [newPostContent, setNewPostContent] = useState<NewPost>(
+    initialNewPostObj
+  );
+  const auth = useContext(AuthContext);
+  const history = useHistory();
 
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -34,10 +42,12 @@ const AddPost: React.FC = () => {
       newPostContent.description.length > 3 &&
       newPostContent.description.length < 2000
     ) {
-      axios.post(`${process.env.REACT_APP_BACKEND_URL}/user/newPost`, {
+      axios.post(`${process.env.REACT_APP_BACKEND_URL}/posts/createPost`, {
         title: newPostContent.title,
-        description: newPostContent.description,
+        content: newPostContent.description,
+        creator: auth.userData![1],
       });
+      history.push('/profile');
     }
   };
 
