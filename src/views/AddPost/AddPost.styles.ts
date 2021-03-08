@@ -82,7 +82,7 @@ export const TextAreaContainer = styled.div`
   textarea {
     position: relative;
     display: block;
-    width: 250px;
+    width: 60vw;
     height: 150px;
     padding: 10px;
     border: 2px solid #333;
