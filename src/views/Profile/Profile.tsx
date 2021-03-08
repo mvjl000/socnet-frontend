@@ -11,12 +11,20 @@ import {
   SettingsIconContainer,
 } from './Profile.styles';
 import SettingsModal from 'components/SettingsModal/SettingsModal';
+import Post from 'components/Post/Post';
 import { AddPostButton } from 'shared/components/AddPostButton';
 import SettingsIcon from '@material-ui/icons/Settings';
+
+interface PostTypes {
+  title: string;
+  content: string;
+  creator: string;
+}
 
 const Profile: React.FC = () => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [userDescription, setUserDescripion] = useState('');
+  const [userPosts, setUserPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const auth = useContext(AuthContext);
@@ -31,6 +39,20 @@ const Profile: React.FC = () => {
       );
       setIsLoading(false);
       setUserDescripion(response.data.description);
+    };
+    reqData();
+  }, [auth.userData]);
+
+  useEffect(() => {
+    const reqData = async () => {
+      setIsLoading(true);
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/posts/getUserPosts/${
+          auth.userData![1]
+        }`
+      );
+      setIsLoading(false);
+      setUserPosts(response.data.posts);
     };
     reqData();
   }, [auth.userData]);
@@ -86,6 +108,15 @@ const Profile: React.FC = () => {
         </Link>
         <AllPostsWrapper>
           <h1>{auth.userData![1]}'s Posts</h1>
+          {userPosts.length > 0 &&
+            userPosts.map((post: PostTypes, i) => (
+              <Post
+                key={i}
+                title={post.title}
+                content={post.content}
+                creator={post.creator}
+              />
+            ))}
         </AllPostsWrapper>
         {isSettingsOpen && (
           <SettingsModal

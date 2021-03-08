@@ -88,6 +88,7 @@ export const AllPostsWrapper = styled.div`
   width: 75%;
   min-height: 100px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   border-top: 2px solid #999;
