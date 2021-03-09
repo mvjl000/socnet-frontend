@@ -37,3 +37,12 @@ export const Title = styled.h2`
   font-weight: 500;
   text-align: left;
 `;
+
+export const PostContent = styled.p`
+  margin: 40px 10px;
+  font-size: 21px;
+  color: #333;
+  @media (min-width: 1024px) {
+    margin: 50px 30px;
+  }
+`;

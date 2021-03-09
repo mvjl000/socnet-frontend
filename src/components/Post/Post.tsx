@@ -1,5 +1,5 @@
 import React from 'react';
-import { Title, Wrapper, ProfilePhoto } from './Post.styles';
+import { Title, Wrapper, ProfilePhoto, PostContent } from './Post.styles';
 
 interface PostProps {
   title: string;
@@ -12,7 +12,7 @@ const Post: React.FC<PostProps> = ({ title, content, creator }) => {
     <Wrapper>
       <ProfilePhoto />
       <Title>{title}</Title>
-      {/* <p>{content}</p> */}
+      <PostContent>{content}</PostContent>
     </Wrapper>
   );
 };
