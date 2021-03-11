@@ -1,5 +1,13 @@
 import React from 'react';
-import { Title, Wrapper, ProfilePhoto, PostContent } from './Post.styles';
+import {
+  Title,
+  Wrapper,
+  ProfilePhoto,
+  PostContent,
+  ReactionsContainer,
+} from './Post.styles';
+import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
+import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
 
 interface PostProps {
   title: string;
@@ -23,6 +31,10 @@ const Post: React.FC<PostProps> = ({
         {title}
       </Title>
       <PostContent>{content}</PostContent>
+      <ReactionsContainer>
+        <ThumbUpAltIcon />
+        <ChatBubbleIcon />
+      </ReactionsContainer>
     </Wrapper>
   );
 };

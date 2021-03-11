@@ -44,10 +44,36 @@ export const Title = styled.h2`
 `;
 
 export const PostContent = styled.p`
-  margin: 40px 10px;
+  margin: 40px 10px 60px;
   font-size: 21px;
   color: #333;
   @media (min-width: 1024px) {
-    margin: 50px 30px;
+    margin: 50px 30px 60px;
+  }
+`;
+
+export const ReactionsContainer = styled.div`
+  position: absolute;
+  left: 0;
+  bottom: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 50px;
+  width: 100%;
+  padding: 0 10px;
+  @media (min-width: 1024px) {
+    padding: 0 80px;
+  }
+
+  svg {
+    margin: 0 20px;
+    color: #666;
+    transform: scale(1.5);
+    transition: 0.2s;
+    cursor: pointer;
+    &:hover {
+      color: #65def1;
+    }
   }
 `;
