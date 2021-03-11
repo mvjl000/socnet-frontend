@@ -48,6 +48,7 @@ export const ProfilePhoto = styled.div`
 export const Title = styled.h2`
   margin: 28px 0 15px 85px;
   width: calc(100% - 85px);
+  height: 23px;
   padding-right: 56px;
   font-size: 20px;
   font-weight: 500;
