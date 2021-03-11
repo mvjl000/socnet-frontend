@@ -37,6 +37,10 @@ export const Title = styled.h2`
   font-size: 22px;
   font-weight: 500;
   text-align: left;
+
+  span {
+    font-weight: 600;
+  }
 `;
 
 export const PostContent = styled.p`

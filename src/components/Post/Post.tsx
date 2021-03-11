@@ -17,8 +17,11 @@ const Post: React.FC<PostProps> = ({
   return (
     <Wrapper>
       <ProfilePhoto />
-      {isCreatorShown && creator}
-      <Title>{title}</Title>
+      <Title>
+        {isCreatorShown && <span>{creator}</span>}
+        {isCreatorShown && ' - '}
+        {title}
+      </Title>
       <PostContent>{content}</PostContent>
     </Wrapper>
   );
