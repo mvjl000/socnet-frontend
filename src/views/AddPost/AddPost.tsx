@@ -47,7 +47,7 @@ const AddPost: React.FC = () => {
         content: newPostContent.description,
         creator: auth.userData![1],
       });
-      history.push('/profile');
+      history.push('/');
     }
   };
 

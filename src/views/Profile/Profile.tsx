@@ -115,6 +115,7 @@ const Profile: React.FC = () => {
                 title={post.title}
                 content={post.content}
                 creator={post.creator}
+                isCreatorShown={false}
               />
             ))}
         </AllPostsWrapper>
