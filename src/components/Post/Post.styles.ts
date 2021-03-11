@@ -21,6 +21,20 @@ export const Wrapper = styled.div`
   }
 `;
 
+export const PostOptions = styled.button`
+  position: absolute;
+  top: 27px;
+  right: 27px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+
+  svg {
+    color: #444;
+    transform: scale(1.5);
+  }
+`;
+
 export const ProfilePhoto = styled.div`
   position: absolute;
   top: 15px;
@@ -34,7 +48,8 @@ export const ProfilePhoto = styled.div`
 export const Title = styled.h2`
   margin: 28px 0 15px 85px;
   width: calc(100% - 85px);
-  font-size: 22px;
+  padding-right: 56px;
+  font-size: 20px;
   font-weight: 500;
   text-align: left;
 

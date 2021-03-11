@@ -5,9 +5,11 @@ import {
   ProfilePhoto,
   PostContent,
   ReactionsContainer,
+  PostOptions,
 } from './Post.styles';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 interface PostProps {
   title: string;
@@ -24,11 +26,12 @@ const Post: React.FC<PostProps> = ({
 }) => {
   return (
     <Wrapper>
+      <PostOptions>
+        <MoreVertIcon />
+      </PostOptions>
       <ProfilePhoto />
       <Title>
-        {isCreatorShown && <span>{creator}</span>}
-        {isCreatorShown && ' - '}
-        {title}
+        {isCreatorShown && <span>{creator}</span>} {title}
       </Title>
       <PostContent>{content}</PostContent>
       <ReactionsContainer>

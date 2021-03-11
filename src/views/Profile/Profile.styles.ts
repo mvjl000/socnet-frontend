@@ -85,7 +85,7 @@ export const DeleteButton = styled.button`
 export const AllPostsWrapper = styled.div`
   margin: 50px 0 10px;
   position: relative;
-  width: 75%;
+  width: 100%;
   min-height: 100px;
   display: flex;
   flex-direction: column;
