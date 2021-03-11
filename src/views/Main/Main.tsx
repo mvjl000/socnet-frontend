@@ -23,20 +23,22 @@ const Main: React.FC = () => {
   }, []);
 
   return (
-    <Wrapper>
+    <>
       <Heading>See what's going on - all posts section</Heading>
-      {isLoading && <h2>Loading...</h2>}
-      {fetchedPosts &&
-        fetchedPosts.map((post, i) => (
-          <Post
-            key={i}
-            title={post.title}
-            content={post.content}
-            creator={post.creator}
-            isCreatorShown={true}
-          />
-        ))}
-    </Wrapper>
+      <Wrapper>
+        {isLoading && <h2>Loading...</h2>}
+        {fetchedPosts &&
+          fetchedPosts.map((post, i) => (
+            <Post
+              key={i}
+              title={post.title}
+              content={post.content}
+              creator={post.creator}
+              isCreatorShown={true}
+            />
+          ))}
+      </Wrapper>
+    </>
   );
 };
 

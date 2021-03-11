@@ -1,8 +1,12 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.main`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  min-height: calc(100vh - 150px);
+  min-height: calc(100vh - 206px);
 `;
 
 export const Heading = styled.h1`
