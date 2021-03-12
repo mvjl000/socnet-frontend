@@ -91,5 +91,8 @@ export const ReactionsContainer = styled.div`
     &:hover {
       color: #65def1;
     }
+    @media (min-width: 1024px) {
+      margin: 0 35px;
+    }
   }
 `;
