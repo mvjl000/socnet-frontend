@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Title,
   Wrapper,
@@ -10,6 +10,7 @@ import {
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import PostOptionsList from './PostOptionsList/PostOptionsList';
 
 interface PostProps {
   title: string;
@@ -24,9 +25,12 @@ const Post: React.FC<PostProps> = ({
   creator,
   isCreatorShown,
 }) => {
+  const [areOptionsVisible, setAreOptionsVisible] = useState(false);
+
   return (
     <Wrapper>
-      <PostOptions>
+      {areOptionsVisible && <PostOptionsList />}
+      <PostOptions onClick={() => setAreOptionsVisible(!areOptionsVisible)}>
         <MoreVertIcon />
       </PostOptions>
       <ProfilePhoto />
