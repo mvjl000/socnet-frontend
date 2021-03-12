@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
+interface ListItemProps {
+  colorVariant: '1' | '2' | '3';
+}
+
 export const Wrapper = styled(motion.ul)`
   position: absolute;
   top: 15px;
@@ -17,7 +21,7 @@ export const Wrapper = styled(motion.ul)`
   }
 `;
 
-export const ListItem = styled.li`
+export const ListItem = styled.li<ListItemProps>`
   margin: 0 8px;
   padding: 2px;
   font-size: 18px;
@@ -25,7 +29,9 @@ export const ListItem = styled.li`
   transition: 0.2s;
   cursor: pointer;
   &:hover {
-    background-color: #ddd;
+    background-color: ${({ colorVariant }) =>
+      colorVariant === '1' ? '#f66' : colorVariant === '2' ? '#ddd' : '#f11'};
+    color: ${({ colorVariant }) => (colorVariant === '2' ? '#000' : '#fff')};
   }
   @media (min-width: 1024px) {
     margin: 0 20px;

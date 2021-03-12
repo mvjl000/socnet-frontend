@@ -9,9 +9,9 @@ const PostOptionsList: React.FC = () => {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.2 }}
     >
-      <ListItem>Report</ListItem>
-      <ListItem>Edit</ListItem>
-      <ListItem>Delete</ListItem>
+      <ListItem colorVariant='1'>Report</ListItem>
+      <ListItem colorVariant='2'>Edit</ListItem>
+      <ListItem colorVariant='3'>Delete</ListItem>
     </Wrapper>
   );
 };
