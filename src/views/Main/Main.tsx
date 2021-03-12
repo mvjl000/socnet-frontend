@@ -35,6 +35,7 @@ const Main: React.FC = () => {
               content={post.content}
               creator={post.creator}
               isCreatorShown={true}
+              postId={post._id}
             />
           ))}
       </Wrapper>

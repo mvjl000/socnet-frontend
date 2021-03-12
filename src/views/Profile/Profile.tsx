@@ -14,17 +14,12 @@ import SettingsModal from 'components/SettingsModal/SettingsModal';
 import Post from 'components/Post/Post';
 import { AddPostButton } from 'shared/components/AddPostButton';
 import SettingsIcon from '@material-ui/icons/Settings';
-
-interface PostTypes {
-  title: string;
-  content: string;
-  creator: string;
-}
+import { PostType } from 'types/posts-types';
 
 const Profile: React.FC = () => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [userDescription, setUserDescripion] = useState('');
-  const [userPosts, setUserPosts] = useState([]);
+  const [userPosts, setUserPosts] = useState<PostType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const auth = useContext(AuthContext);
@@ -109,13 +104,14 @@ const Profile: React.FC = () => {
         <AllPostsWrapper>
           <h1>{auth.userData![1]}'s Posts</h1>
           {userPosts.length > 0 &&
-            userPosts.map((post: PostTypes, i) => (
+            userPosts.map((post, i) => (
               <Post
                 key={i}
                 title={post.title}
                 content={post.content}
                 creator={post.creator}
                 isCreatorShown={false}
+                postId={post._id}
               />
             ))}
         </AllPostsWrapper>

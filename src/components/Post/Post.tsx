@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import {
   Title,
   Wrapper,
@@ -17,6 +18,7 @@ interface PostProps {
   content: string;
   creator: string;
   isCreatorShown: boolean;
+  postId: string;
 }
 
 const Post: React.FC<PostProps> = ({
@@ -24,12 +26,21 @@ const Post: React.FC<PostProps> = ({
   content,
   creator,
   isCreatorShown,
+  postId,
 }) => {
   const [areOptionsVisible, setAreOptionsVisible] = useState(false);
 
+  const handleDeletePost = async () => {
+    await axios.delete(
+      `${process.env.REACT_APP_BACKEND_URL}/posts/deletePost/${postId}`
+    );
+  };
+
   return (
     <Wrapper>
-      {areOptionsVisible && <PostOptionsList />}
+      {areOptionsVisible && (
+        <PostOptionsList handleDeletePost={handleDeletePost} />
+      )}
       <PostOptions onClick={() => setAreOptionsVisible(!areOptionsVisible)}>
         <MoreVertIcon />
       </PostOptions>

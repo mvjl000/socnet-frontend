@@ -1,7 +1,13 @@
 import React from 'react';
 import { Wrapper, ListItem } from './PostOptionsList.styles';
 
-const PostOptionsList: React.FC = () => {
+interface PostOptionsListProps {
+  handleDeletePost: () => void;
+}
+
+const PostOptionsList: React.FC<PostOptionsListProps> = ({
+  handleDeletePost,
+}) => {
   return (
     <Wrapper
       initial={{ opacity: 0 }}
@@ -11,7 +17,9 @@ const PostOptionsList: React.FC = () => {
     >
       <ListItem colorVariant='1'>Report</ListItem>
       <ListItem colorVariant='2'>Edit</ListItem>
-      <ListItem colorVariant='3'>Delete</ListItem>
+      <ListItem onClick={handleDeletePost} colorVariant='3'>
+        Delete
+      </ListItem>
     </Wrapper>
   );
 };
