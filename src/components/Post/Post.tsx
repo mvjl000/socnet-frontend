@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import {
   Title,
@@ -12,6 +12,7 @@ import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import PostOptionsList from './PostOptionsList/PostOptionsList';
+import AuthContext from 'shared/context/auth-context';
 
 interface PostProps {
   title: string;
@@ -29,10 +30,16 @@ const Post: React.FC<PostProps> = ({
   postId,
 }) => {
   const [areOptionsVisible, setAreOptionsVisible] = useState(false);
+  const auth = useContext(AuthContext);
 
   const handleDeletePost = async () => {
     await axios.delete(
-      `${process.env.REACT_APP_BACKEND_URL}/posts/deletePost/${postId}`
+      `${process.env.REACT_APP_BACKEND_URL}/posts/deletePost/${postId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+        },
+      }
     );
   };
 

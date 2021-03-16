@@ -104,7 +104,6 @@ const Login: React.FC = () => {
           }
         );
         dispatch({ type: 'success' });
-        console.log(responseData);
         auth.login(
           responseData.data.userId,
           responseData.data.username,
