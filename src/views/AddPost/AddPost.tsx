@@ -42,11 +42,19 @@ const AddPost: React.FC = () => {
       newPostContent.description.length > 3 &&
       newPostContent.description.length < 2000
     ) {
-      axios.post(`${process.env.REACT_APP_BACKEND_URL}/posts/createPost`, {
-        title: newPostContent.title,
-        content: newPostContent.description,
-        creator: auth.userData![1],
-      });
+      axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/posts/createPost`,
+        {
+          title: newPostContent.title,
+          content: newPostContent.description,
+          creator: auth.userData![1],
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${auth.token}`,
+          },
+        }
+      );
       history.push('/');
     }
   };
