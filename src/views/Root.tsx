@@ -33,13 +33,25 @@ const Root: React.FC = () => {
 
   const loginUser: loginTypes = (uid, username, token) => {
     setUserData([uid, username]);
+    localStorage.setItem(
+      'userData',
+      JSON.stringify({ userId: uid, username, token })
+    );
     setToken(token);
   };
 
   const logoutUser = () => {
     setUserData(null);
     setToken(null);
+    localStorage.removeItem('userData');
   };
+
+  useEffect(() => {
+    const storedData = JSON.parse(localStorage.getItem('userData')!);
+    if (storedData && storedData.token) {
+      loginUser(storedData.userId, storedData.username, storedData.token);
+    }
+  }, []);
 
   let routes;
   if (token) {
