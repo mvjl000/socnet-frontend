@@ -47,6 +47,7 @@ const AddPost: React.FC = () => {
         {
           title: newPostContent.title,
           content: newPostContent.description,
+          creatorId: auth.userData![0],
           creator: auth.userData![1],
         },
         {

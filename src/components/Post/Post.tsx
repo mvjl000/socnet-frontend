@@ -33,14 +33,16 @@ const Post: React.FC<PostProps> = ({
   const auth = useContext(AuthContext);
 
   const handleDeletePost = async () => {
-    await axios.delete(
-      `${process.env.REACT_APP_BACKEND_URL}/posts/deletePost/${postId}`,
-      {
-        headers: {
-          Authorization: `Bearer ${auth.token}`,
-        },
-      }
-    );
+    try {
+      await axios.delete(
+        `${process.env.REACT_APP_BACKEND_URL}/posts/deletePost/${postId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${auth.token}`,
+          },
+        }
+      );
+    } catch (error) {}
   };
 
   return (
