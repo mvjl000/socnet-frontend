@@ -6,7 +6,7 @@ import {
   Redirect,
 } from 'react-router-dom';
 import { GlobalStyle } from 'assets/styles/globalStyles';
-import AuthContext from 'shared/context/auth-context';
+import AuthContext, { loginTypes } from 'shared/context/auth-context';
 import Header from 'components/Nav/Nav';
 import Login from 'components/Login/Login';
 import Main from 'views/Main/Main';
@@ -16,7 +16,7 @@ import { Wrapper } from './Root.styles';
 
 const Root: React.FC = () => {
   const [isNavExpanded, setIsNavExpanded] = useState(true);
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  const [token, setToken] = useState<string | null>(null);
   const [userData, setUserData] = useState<
     [userId: string, username: string] | null
   >(null);
@@ -31,18 +31,18 @@ const Root: React.FC = () => {
     return () => window.removeEventListener('scroll', changeNav);
   }, []);
 
-  const loginUser = (uid: string, username: string) => {
+  const loginUser: loginTypes = (uid, username, token) => {
     setUserData([uid, username]);
-    setIsUserLoggedIn(true);
+    setToken(token);
   };
 
   const logoutUser = () => {
     setUserData(null);
-    setIsUserLoggedIn(false);
+    setToken(null);
   };
 
   let routes;
-  if (isUserLoggedIn) {
+  if (token) {
     routes = (
       <Switch>
         <Route path='/' component={Main} exact />
@@ -63,7 +63,8 @@ const Root: React.FC = () => {
   return (
     <AuthContext.Provider
       value={{
-        isLoggedIn: isUserLoggedIn,
+        isLoggedIn: !!token,
+        token: token,
         userData: userData,
         login: loginUser,
         logout: logoutUser,

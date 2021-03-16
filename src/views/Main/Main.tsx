@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import AuthContext from 'shared/context/auth-context';
+// import AuthContext from 'shared/context/auth-context';
 import Post from 'components/Post/Post';
 import { PostType } from 'types/posts-types';
 import { Wrapper, Heading } from './Main.styles';
@@ -8,7 +8,7 @@ import { Wrapper, Heading } from './Main.styles';
 const Main: React.FC = () => {
   const [fetchedPosts, setFetchedPosts] = useState<PostType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const auth = useContext(AuthContext);
+  // const auth = useContext(AuthContext);
 
   useEffect(() => {
     const reqData = async () => {
