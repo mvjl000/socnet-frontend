@@ -1,6 +1,11 @@
 import { createContext } from 'react';
 
-export type loginTypes = (uid: string, username: string, token: string) => void;
+export type loginTypes = (
+  uid: string,
+  username: string,
+  token: string,
+  expirationDate?: Date
+) => void;
 
 interface AuthContextTypes {
   isLoggedIn: boolean;
