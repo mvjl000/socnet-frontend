@@ -43,7 +43,7 @@ const Profile: React.FC = () => {
       setIsLoading(true);
       const response = await axios.get(
         `${process.env.REACT_APP_BACKEND_URL}/posts/getUserPosts/${
-          auth.userData![1]
+          auth.userData![0]
         }`
       );
       setIsLoading(false);
