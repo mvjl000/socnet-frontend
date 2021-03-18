@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import AuthContext from 'shared/context/auth-context';
+import { PostsContext } from 'shared/context/postsProvider';
 import {
   Wrapper,
   Heading,
@@ -14,15 +15,14 @@ import SettingsModal from 'components/SettingsModal/SettingsModal';
 import Post from 'components/Post/Post';
 import { AddPostButton } from 'shared/components/AddPostButton';
 import SettingsIcon from '@material-ui/icons/Settings';
-import { PostType } from 'types/posts-types';
 
 const Profile: React.FC = () => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [userDescription, setUserDescripion] = useState('');
-  const [userPosts, setUserPosts] = useState<PostType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const auth = useContext(AuthContext);
+  const { posts, setFetchedPosts } = useContext(PostsContext);
 
   useEffect(() => {
     const reqData = async () => {
@@ -47,10 +47,10 @@ const Profile: React.FC = () => {
         }`
       );
       setIsLoading(false);
-      setUserPosts(response.data.posts);
+      setFetchedPosts(response.data.posts);
     };
     reqData();
-  }, [auth.userData]);
+  }, [auth.userData, setFetchedPosts]);
 
   const handleDescChange = (event: React.ChangeEvent<HTMLTextAreaElement>) =>
     setUserDescripion(event.target.value);
@@ -103,13 +103,13 @@ const Profile: React.FC = () => {
         </Link>
         <AllPostsWrapper>
           <h1>{auth.userData![1]}'s Posts</h1>
-          {userPosts.length > 0 &&
-            userPosts.map((post, i) => (
+          {posts &&
+            posts.map((post, i) => (
               <Post
                 key={i}
                 title={post.title}
                 content={post.content}
-                creator={post.creator}
+                creator={post.creatorName}
                 isCreatorShown={false}
                 postId={post._id}
               />

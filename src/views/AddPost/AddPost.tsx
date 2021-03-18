@@ -9,6 +9,7 @@ import { AddPostButton } from 'shared/components/AddPostButton';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import AuthContext from 'shared/context/auth-context';
+import { PostsContext } from 'shared/context/postsProvider';
 
 interface NewPost {
   title: string;
@@ -25,6 +26,7 @@ const AddPost: React.FC = () => {
     initialNewPostObj
   );
   const auth = useContext(AuthContext);
+  const { handleAddPost } = useContext(PostsContext);
   const history = useHistory();
 
   const handleInputChange = (
@@ -35,14 +37,14 @@ const AddPost: React.FC = () => {
       [event.target.name]: event.target.value,
     });
 
-  const handleAddNewPost = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleAddNewPost = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (
       newPostContent.title.length < 100 &&
       newPostContent.description.length > 3 &&
       newPostContent.description.length < 2000
     ) {
-      axios.post(
+      const responseData = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/posts/createPost`,
         {
           title: newPostContent.title,
@@ -56,6 +58,8 @@ const AddPost: React.FC = () => {
           },
         }
       );
+      const { title, content, creatorName, _id } = responseData.data.post;
+      handleAddPost({ title, content, creatorName, _id });
       history.push('/');
     }
   };

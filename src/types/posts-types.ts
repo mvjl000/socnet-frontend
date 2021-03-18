@@ -1,6 +1,6 @@
 export interface PostType {
   title: string;
   content: string;
-  creator: string;
+  creatorName: string;
   _id: string;
 }

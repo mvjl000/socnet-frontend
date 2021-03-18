@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import axios from 'axios';
-// import AuthContext from 'shared/context/auth-context';
+import { PostsContext } from 'shared/context/postsProvider';
 import Post from 'components/Post/Post';
-import { PostType } from 'types/posts-types';
 import { Wrapper, Heading } from './Main.styles';
 
 const Main: React.FC = () => {
-  const [fetchedPosts, setFetchedPosts] = useState<PostType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  // const auth = useContext(AuthContext);
+  const { posts, setFetchedPosts } = useContext(PostsContext);
 
   useEffect(() => {
     const reqData = async () => {
@@ -20,20 +18,20 @@ const Main: React.FC = () => {
       setFetchedPosts(response.data.posts.reverse());
     };
     reqData();
-  }, []);
+  }, [setFetchedPosts]);
 
   return (
     <>
       <Heading>See what's going on - all posts section</Heading>
       <Wrapper>
         {isLoading && <h2>Loading...</h2>}
-        {fetchedPosts &&
-          fetchedPosts.map((post, i) => (
+        {posts &&
+          posts.map((post, i) => (
             <Post
               key={i}
               title={post.title}
               content={post.content}
-              creator={post.creator}
+              creator={post.creatorName}
               isCreatorShown={true}
               postId={post._id}
             />
