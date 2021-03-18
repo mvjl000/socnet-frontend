@@ -5,12 +5,14 @@ interface PostsContextProps {
   posts: PostType[];
   setFetchedPosts: (posts: PostType[]) => void;
   handleAddPost: (postObj: PostType) => void;
+  handleDeletePostFromContext: (postId: string) => void;
 }
 
 export const PostsContext = createContext<PostsContextProps>({
   posts: [],
   setFetchedPosts: () => {},
   handleAddPost: () => {},
+  handleDeletePostFromContext: () => {},
 });
 
 const PostsProvider: React.FC = ({ children }) => {
@@ -23,8 +25,20 @@ const PostsProvider: React.FC = ({ children }) => {
     []
   );
 
+  const handleDeletePostFromContext = (postId: string) => {
+    const newPosts = posts.filter((post) => post._id !== postId);
+    setPosts([...newPosts]);
+  };
+
   return (
-    <PostsContext.Provider value={{ posts, setFetchedPosts, handleAddPost }}>
+    <PostsContext.Provider
+      value={{
+        posts,
+        setFetchedPosts,
+        handleAddPost,
+        handleDeletePostFromContext,
+      }}
+    >
       {children}
     </PostsContext.Provider>
   );

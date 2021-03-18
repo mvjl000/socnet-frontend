@@ -13,6 +13,7 @@ import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import PostOptionsList from './PostOptionsList/PostOptionsList';
 import AuthContext from 'shared/context/auth-context';
+import { PostsContext } from 'shared/context/postsProvider';
 
 interface PostProps {
   title: string;
@@ -31,6 +32,7 @@ const Post: React.FC<PostProps> = ({
 }) => {
   const [areOptionsVisible, setAreOptionsVisible] = useState(false);
   const auth = useContext(AuthContext);
+  const { handleDeletePostFromContext } = useContext(PostsContext);
 
   const handleDeletePost = async () => {
     try {
@@ -42,6 +44,7 @@ const Post: React.FC<PostProps> = ({
           },
         }
       );
+      handleDeletePostFromContext(postId);
     } catch (error) {}
   };
 
