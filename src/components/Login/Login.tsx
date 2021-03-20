@@ -110,7 +110,12 @@ const Login: React.FC = () => {
           responseData.data.token
         );
       } catch (error) {
-        dispatch({ type: 'reject', payload: error.response.data.message });
+        dispatch({
+          type: 'reject',
+          payload: error.response
+            ? error.response.data.message
+            : 'Unexpted error occured.',
+        });
       }
     } else if (
       !isLoading &&
@@ -129,7 +134,12 @@ const Login: React.FC = () => {
         dispatch({ type: 'switchMode' });
         history.push('/');
       } catch (error) {
-        dispatch({ type: 'reject', payload: error.response.data.message });
+        dispatch({
+          type: 'reject',
+          payload: error.response
+            ? error.response.data.message
+            : 'Unexpted error occured.',
+        });
       }
     }
   };
