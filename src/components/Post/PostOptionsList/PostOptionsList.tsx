@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Wrapper, ListItem } from './PostOptionsList.styles';
+import AuthContext from 'shared/context/auth-context';
 
 interface PostOptionsListProps {
   handleDeletePost: () => void;
+  postCreatorId: string;
 }
 
 const PostOptionsList: React.FC<PostOptionsListProps> = ({
   handleDeletePost,
+  postCreatorId,
 }) => {
+  const auth = useContext(AuthContext);
+
   return (
     <Wrapper
       initial={{ opacity: 0 }}
@@ -16,10 +21,14 @@ const PostOptionsList: React.FC<PostOptionsListProps> = ({
       transition={{ duration: 0.2 }}
     >
       <ListItem colorVariant='1'>Report</ListItem>
-      <ListItem colorVariant='2'>Edit</ListItem>
-      <ListItem onClick={handleDeletePost} colorVariant='3'>
-        Delete
-      </ListItem>
+      {auth.userData![0] === postCreatorId && (
+        <>
+          <ListItem colorVariant='2'>Edit</ListItem>
+          <ListItem onClick={handleDeletePost} colorVariant='3'>
+            Delete
+          </ListItem>
+        </>
+      )}
     </Wrapper>
   );
 };

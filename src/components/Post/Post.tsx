@@ -20,6 +20,7 @@ interface PostProps {
   title: string;
   content: string;
   creator: string;
+  creatorId: string;
   isCreatorShown: boolean;
   postId: string;
   creationDate: string;
@@ -29,6 +30,7 @@ const Post: React.FC<PostProps> = ({
   title,
   content,
   creator,
+  creatorId,
   isCreatorShown,
   postId,
   creationDate,
@@ -54,7 +56,10 @@ const Post: React.FC<PostProps> = ({
   return (
     <Wrapper>
       {areOptionsVisible && (
-        <PostOptionsList handleDeletePost={handleDeletePost} />
+        <PostOptionsList
+          handleDeletePost={handleDeletePost}
+          postCreatorId={creatorId}
+        />
       )}
       <PostOptions onClick={() => setAreOptionsVisible(!areOptionsVisible)}>
         <MoreVertIcon />
