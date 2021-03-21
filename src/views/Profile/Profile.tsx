@@ -47,7 +47,7 @@ const Profile: React.FC = () => {
         }`
       );
       setIsLoading(false);
-      setFetchedPosts(response.data.posts);
+      setFetchedPosts(response.data.posts.reverse());
     };
     reqData();
   }, [auth.userData, setFetchedPosts]);
