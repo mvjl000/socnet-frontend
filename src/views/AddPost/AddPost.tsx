@@ -58,8 +58,14 @@ const AddPost: React.FC = () => {
           },
         }
       );
-      const { title, content, creatorName, _id } = responseData.data.post;
-      handleAddPost({ title, content, creatorName, _id });
+      const {
+        title,
+        content,
+        creatorName,
+        _id,
+        creationDate,
+      } = responseData.data.post;
+      handleAddPost({ title, content, creatorName, _id, creationDate });
       history.push('/');
     }
   };

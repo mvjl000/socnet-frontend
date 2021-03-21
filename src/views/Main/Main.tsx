@@ -34,6 +34,7 @@ const Main: React.FC = () => {
               creator={post.creatorName}
               isCreatorShown={true}
               postId={post._id}
+              creationDate={post.creationDate}
             />
           ))}
       </Wrapper>

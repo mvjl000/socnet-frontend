@@ -3,4 +3,5 @@ export interface PostType {
   content: string;
   creatorName: string;
   _id: string;
+  creationDate: string;
 }

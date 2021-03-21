@@ -7,6 +7,7 @@ import {
   PostContent,
   ReactionsContainer,
   PostOptions,
+  PostDate,
 } from './Post.styles';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
@@ -21,6 +22,7 @@ interface PostProps {
   creator: string;
   isCreatorShown: boolean;
   postId: string;
+  creationDate: string;
 }
 
 const Post: React.FC<PostProps> = ({
@@ -29,6 +31,7 @@ const Post: React.FC<PostProps> = ({
   creator,
   isCreatorShown,
   postId,
+  creationDate,
 }) => {
   const [areOptionsVisible, setAreOptionsVisible] = useState(false);
   const auth = useContext(AuthContext);
@@ -62,6 +65,7 @@ const Post: React.FC<PostProps> = ({
       </Title>
       <PostContent>{content}</PostContent>
       <ReactionsContainer>
+        <PostDate>{creationDate}</PostDate>
         <ThumbUpAltIcon />
         <ChatBubbleIcon />
       </ReactionsContainer>

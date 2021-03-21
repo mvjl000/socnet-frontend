@@ -112,6 +112,7 @@ const Profile: React.FC = () => {
                 creator={post.creatorName}
                 isCreatorShown={false}
                 postId={post._id}
+                creationDate={post.creationDate}
               />
             ))}
         </AllPostsWrapper>

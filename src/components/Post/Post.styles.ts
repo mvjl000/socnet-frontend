@@ -68,6 +68,14 @@ export const PostContent = styled.p`
   }
 `;
 
+export const PostDate = styled.p`
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  font-size: 16px;
+  color: #aaa;
+`;
+
 export const ReactionsContainer = styled.div`
   position: absolute;
   left: 0;
