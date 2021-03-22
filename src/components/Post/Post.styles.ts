@@ -41,30 +41,34 @@ export const ProfilePhoto = styled.div`
   left: 15px;
   width: 50px;
   height: 50px;
-  background-color: #999;
+  background-color: #f73f52;
   border-radius: 50%;
 `;
 
-export const Title = styled.h2`
-  margin: 28px 0 15px 85px;
+export const Title = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 15px 0 0 85px;
   width: calc(100% - 85px);
-  height: 23px;
+  height: 50px;
   padding-right: 56px;
-  font-size: 20px;
-  font-weight: 500;
-  text-align: left;
 
-  span {
-    font-weight: 600;
+  h2 {
+    font-size: 20px;
+    font-weight: 300;
+    text-align: left;
+    span {
+      font-weight: 600;
+    }
   }
 `;
 
 export const PostContent = styled.p`
-  margin: 40px 10px 60px;
+  margin: 25px 15px 60px;
   font-size: 21px;
   color: #333;
   @media (min-width: 1024px) {
-    margin: 50px 30px 60px;
+    margin: 35px 30px 60px;
   }
 `;
 

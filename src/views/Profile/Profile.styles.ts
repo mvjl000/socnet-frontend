@@ -41,7 +41,7 @@ export const DescriptionWrapper = styled.div`
     padding: 0 0px;
   }
   p {
-    font-weight: 200;
+    font-weight: 300;
   }
   textarea {
     width: 100%;

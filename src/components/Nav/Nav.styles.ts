@@ -45,7 +45,7 @@ export const DesktopNavLinksContainer = styled.div`
 
 export const BurgerContainer = styled.div`
   position: fixed;
-  top: ${({ biggerNav }: StyledNavProps) => (biggerNav ? '35px' : '20px')};
+  top: ${({ biggerNav }: StyledNavProps) => (biggerNav ? '32px' : '15px')};
   right: 30px;
   z-index: 5;
   transition: 0.3s;
@@ -71,7 +71,7 @@ export const BurgerButton = styled.button`
       isBurgerActive ? '75%' : '100%'};
     height: 4px;
     background-color: ${({ isBurgerActive }: BurgerButtonProps) =>
-      isBurgerActive ? '#fff' : '#222'};
+      isBurgerActive ? '#fff' : '#333'};
     transition: width 0.2s ease, background-color 0.3s 0.1s;
   }
 
@@ -83,7 +83,7 @@ export const BurgerButton = styled.button`
     transform: translateY(-50%);
     height: 4px;
     background-color: ${({ isBurgerActive }: BurgerButtonProps) =>
-      isBurgerActive ? '#fff' : '#222'};
+      isBurgerActive ? '#fff' : '#333'};
     transition: width 0.2s ease, background-color 0.3s 0.1s;
   }
 

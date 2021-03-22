@@ -38,7 +38,7 @@ export const Wrapper = styled.form`
 export const Header = styled.h1`
   margin-bottom: 15px;
   text-align: center;
-  font-weight: 300;
+  font-weight: 500;
 `;
 
 export const Input = styled.input`
@@ -61,7 +61,7 @@ export const Button = styled.button`
   padding: 3px 20px;
   background-color: transparent;
   font-size: 16px;
-  font-weight: 200;
+  font-weight: 400;
   border-radius: 5px;
   border: 1px solid rgba(247, 63, 82, 0.5);
   cursor: pointer;
@@ -85,7 +85,7 @@ export const CreateAccountButton = styled.button`
     display: block;
     content: '';
     height: 1px;
-    width: 88px;
+    width: 100px;
     background-color: #f73f52;
   }
   &:hover {

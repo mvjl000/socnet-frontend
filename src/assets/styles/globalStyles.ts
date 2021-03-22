@@ -8,12 +8,12 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     body {
-        font-family: 'Montserrat', sans-serif;
+        font-family: 'Poppins', sans-serif;
         background-color: #fff;
     }
 
     a, button, label {
-        font-family: 'Montserrat', sans-serif;
+        font-family: 'Poppins', sans-serif;
     }
 
     input:focus,

@@ -66,7 +66,9 @@ const Post: React.FC<PostProps> = ({
       </PostOptions>
       <ProfilePhoto />
       <Title>
-        {isCreatorShown && <span>{creator}</span>} {title}
+        <h2>
+          {isCreatorShown && <span>{creator}</span>} {title}
+        </h2>
       </Title>
       <PostContent>{content}</PostContent>
       <ReactionsContainer>
