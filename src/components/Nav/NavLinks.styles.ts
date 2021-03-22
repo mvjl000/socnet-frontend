@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const ulElement = {
   elementMixin: () => `
   color: #fff;
-  font-weight: 600;
+  font-weight: 500;
   transition: 0.2s;
   @media (min-width: 1024px) {
     color: #222;

@@ -37,7 +37,7 @@ export const DescriptionWrapper = styled.div`
     align-self: flex-start;
     font-weight: 400;
     background-color: white;
-    transform: translate(30px, -25px);
+    transform: translate(30px, -30px);
     padding: 0 0px;
   }
   p {
