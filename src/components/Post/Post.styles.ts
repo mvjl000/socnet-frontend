@@ -74,10 +74,12 @@ export const PostContent = styled.p`
 
 export const PostDate = styled.p`
   position: absolute;
-  left: 20px;
-  bottom: 20px;
+  left: 15px;
   font-size: 16px;
   color: #aaa;
+  @media (min-width: 1024px) {
+    left: 30px;
+  }
 `;
 
 export const ReactionsContainer = styled.div`
