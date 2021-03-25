@@ -28,9 +28,6 @@ const Header: React.FC<NavProps> = ({ isNavExpanded }) => {
 
   const closeDropDown = () => setIsBurgerActive(false);
 
-  console.log(isSearchBarVisible);
-  
-
   return (
     <>
       <Navigation biggerNav={isNavExpanded}>

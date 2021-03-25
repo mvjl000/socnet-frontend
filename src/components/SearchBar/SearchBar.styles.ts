@@ -12,5 +12,9 @@ export const Input = styled.input`
     @media (min-width: 1024px) {
         width: 220px;
         height: 35px;
+        padding: 1px 20px;
+    }
+    @media (min-width: 1400px) {
+        width: 320px;
     }
 `;
