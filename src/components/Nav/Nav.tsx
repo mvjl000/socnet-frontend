@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useToggleSearchBar } from 'hooks/useToggleSearchBar';
 import AuthContext from 'shared/context/auth-context';
 import Logo from 'assets/images/socnet-logo.png';
 import {
@@ -10,6 +11,7 @@ import {
 } from './Nav.styles';
 import DropDownMenu from './DropDownMenu';
 import NavLinks from './NavLinks';
+import SearchBar from 'components/SearchBar/SearchBar';
 
 interface NavProps {
   isNavExpanded: boolean;
@@ -18,6 +20,7 @@ interface NavProps {
 const Header: React.FC<NavProps> = ({ isNavExpanded }) => {
   const [isBurgerActive, setIsBurgerActive] = useState(false);
   const auth = useContext(AuthContext);
+  const { isSearchBarVisible } = useToggleSearchBar(false);
 
   const handleLogout = () => auth.logout();
 
@@ -43,9 +46,12 @@ const Header: React.FC<NavProps> = ({ isNavExpanded }) => {
           <img src={Logo} alt='logo' />
         </Link>
         {auth.isLoggedIn && (
+          <>
+          <SearchBar/>
           <DesktopNavLinksContainer>
             <NavLinks handleLogout={handleLogout} />
           </DesktopNavLinksContainer>
+          </>
         )}
       </Navigation>
       {auth.isLoggedIn && (
