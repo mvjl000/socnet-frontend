@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 export const useToggleSearchBar = (isMobile: boolean) => {
-    const [isSearchBarVisible, setIsSearchBarVisible] = useState(window.innerWidth < 1025);
+    const [isSearchBarVisible, setIsSearchBarVisible] = useState(isMobile);
 
     const toggleResize = () => window.innerWidth < 1025 ? setIsSearchBarVisible(isMobile ? true : false) : setIsSearchBarVisible(isMobile ? false : true);
 

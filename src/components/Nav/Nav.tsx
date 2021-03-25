@@ -28,6 +28,9 @@ const Header: React.FC<NavProps> = ({ isNavExpanded }) => {
 
   const closeDropDown = () => setIsBurgerActive(false);
 
+  console.log(isSearchBarVisible);
+  
+
   return (
     <>
       <Navigation biggerNav={isNavExpanded}>
@@ -47,7 +50,7 @@ const Header: React.FC<NavProps> = ({ isNavExpanded }) => {
         </Link>
         {auth.isLoggedIn && (
           <>
-          <SearchBar/>
+          {isSearchBarVisible && <SearchBar/>}
           <DesktopNavLinksContainer>
             <NavLinks handleLogout={handleLogout} />
           </DesktopNavLinksContainer>
