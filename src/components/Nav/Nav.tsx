@@ -8,7 +8,6 @@ import {
   BurgerContainer,
   DesktopNavLinksContainer,
 } from './Nav.styles';
-// import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import DropDownMenu from './DropDownMenu';
 import NavLinks from './NavLinks';
 
