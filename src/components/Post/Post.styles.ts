@@ -102,7 +102,7 @@ export const ReactionsContainer = styled.div`
   }
 
   svg {
-    margin: 0 20px;
+    margin: 0 11px;
     color: #666;
     transform: scale(1.5);
     transition: 0.2s;
@@ -139,5 +139,17 @@ export const EditField = styled.textarea`
   resize: none;
   @media (min-width: 1024px) {
     margin: 35px 30px 60px;
+  }
+`;
+
+export const EditedInfo = styled.p`
+  position: absolute;
+  left: 15px;
+  bottom: 35px;
+  font-size: 16px;
+  color: #aaa;
+  @media (min-width: 1024px) {
+    left: 190px;
+    bottom: 13px;
   }
 `;

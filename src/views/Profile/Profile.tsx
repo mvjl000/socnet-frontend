@@ -114,6 +114,7 @@ const Profile: React.FC = () => {
                 postId={post._id}
                 creationDate={post.creationDate}
                 creatorId={post.creatorId}
+                edited={post.edited}
               />
             ))}
         </AllPostsWrapper>

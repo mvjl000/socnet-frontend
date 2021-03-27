@@ -65,6 +65,7 @@ const AddPost: React.FC = () => {
         _id,
         creationDate,
         creatorId,
+        edited
       } = responseData.data.post;
       handleAddPost({
         title,
@@ -73,6 +74,7 @@ const AddPost: React.FC = () => {
         _id,
         creationDate,
         creatorId,
+        edited
       });
       history.push('/');
     }

@@ -5,4 +5,5 @@ export interface PostType {
   creatorId: string;
   _id: string;
   creationDate: string;
+  edited: boolean
 }

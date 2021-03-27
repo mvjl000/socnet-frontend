@@ -9,7 +9,8 @@ import {
   PostOptions,
   PostDate,
   EditPostButton,
-  EditField
+  EditField,
+  EditedInfo,
 } from './Post.styles';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
@@ -26,6 +27,7 @@ interface PostProps {
   isCreatorShown: boolean;
   postId: string;
   creationDate: string;
+  edited: boolean
 }
 
 const Post: React.FC<PostProps> = ({
@@ -36,14 +38,13 @@ const Post: React.FC<PostProps> = ({
   isCreatorShown,
   postId,
   creationDate,
+  edited,
 }) => {
   const [areOptionsVisible, setAreOptionsVisible] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [contentData, setContentData] = useState<string>(content);
   const auth = useContext(AuthContext);
   const { handleDeletePostFromContext, handleEditPostFromContext } = useContext(PostsContext);
-
-  const textareaElement = useRef<HTMLTextAreaElement>(null);
 
   const handleDeletePost = async () => {
     try {
@@ -100,6 +101,7 @@ const Post: React.FC<PostProps> = ({
       </Title>
       {isEditMode ? <EditField value={contentData} onChange={handleContentChange} /> : <PostContent>{content}</PostContent>}
       <ReactionsContainer>
+        {edited && <EditedInfo>-Post edited-</EditedInfo>}
         <PostDate>{creationDate}</PostDate>
         {isEditMode ? (
         <>

@@ -37,7 +37,8 @@ const PostsProvider: React.FC = ({ children }) => {
       if (post._id === postId) {
         return {
           ...post,
-          content: content
+          content: content,
+          edited: true
         }
       }
       return post;
