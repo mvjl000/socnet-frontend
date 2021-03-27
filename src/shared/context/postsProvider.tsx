@@ -6,6 +6,7 @@ interface PostsContextProps {
   setFetchedPosts: (posts: PostType[]) => void;
   handleAddPost: (postObj: PostType) => void;
   handleDeletePostFromContext: (postId: string) => void;
+  handleEditPostFromContext: (postId: string, content: string) => void;
 }
 
 export const PostsContext = createContext<PostsContextProps>({
@@ -13,6 +14,7 @@ export const PostsContext = createContext<PostsContextProps>({
   setFetchedPosts: () => {},
   handleAddPost: () => {},
   handleDeletePostFromContext: () => {},
+  handleEditPostFromContext: () => {},
 });
 
 const PostsProvider: React.FC = ({ children }) => {
@@ -30,6 +32,19 @@ const PostsProvider: React.FC = ({ children }) => {
     setPosts([...newPosts]);
   };
 
+  const handleEditPostFromContext = (postId: string, content: string) => {
+    const newPosts = posts.map(post => {
+      if (post._id === postId) {
+        return {
+          ...post,
+          content: content
+        }
+      }
+      return post;
+    })
+    setPosts([...newPosts]);
+  };
+
   return (
     <PostsContext.Provider
       value={{
@@ -37,6 +52,7 @@ const PostsProvider: React.FC = ({ children }) => {
         setFetchedPosts,
         handleAddPost,
         handleDeletePostFromContext,
+        handleEditPostFromContext
       }}
     >
       {children}

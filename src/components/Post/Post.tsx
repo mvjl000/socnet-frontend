@@ -41,7 +41,7 @@ const Post: React.FC<PostProps> = ({
   const [isEditMode, setIsEditMode] = useState(false);
   const [contentData, setContentData] = useState<string>(content);
   const auth = useContext(AuthContext);
-  const { handleDeletePostFromContext } = useContext(PostsContext);
+  const { handleDeletePostFromContext, handleEditPostFromContext } = useContext(PostsContext);
 
   const textareaElement = useRef<HTMLTextAreaElement>(null);
 
@@ -72,10 +72,11 @@ const Post: React.FC<PostProps> = ({
   const handleContentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => setContentData(event.target.value);
 
   const handleEditPost = async () => {
-    await axios.patch(`${process.env.REACT_APP_BACKEND_URL}/posts/editPost/${postId}`, { content: contentData }, { 
+    const responseData = await axios.patch(`${process.env.REACT_APP_BACKEND_URL}/posts/editPost/${postId}`, { content: contentData }, { 
       headers: {
         Authorization: `Bearer ${auth.token}`,
-      }, })
+      }, });
+    handleEditPostFromContext(postId, responseData.data.content)
     setIsEditMode(false);
   };
 
