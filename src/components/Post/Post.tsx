@@ -71,8 +71,11 @@ const Post: React.FC<PostProps> = ({
 
   const handleContentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => setContentData(event.target.value);
 
-  const handleEditPost = () => {
-    console.log(contentData);
+  const handleEditPost = async () => {
+    await axios.patch(`${process.env.REACT_APP_BACKEND_URL}/posts/editPost/${postId}`, { content: contentData }, { 
+      headers: {
+        Authorization: `Bearer ${auth.token}`,
+      }, })
     setIsEditMode(false);
   };
 
