@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useRef } from 'react';
 import axios from 'axios';
 import {
   Title,
@@ -43,6 +43,8 @@ const Post: React.FC<PostProps> = ({
   const auth = useContext(AuthContext);
   const { handleDeletePostFromContext } = useContext(PostsContext);
 
+  const textareaElement = useRef<HTMLTextAreaElement>(null);
+
   const handleDeletePost = async () => {
     try {
       await axios.delete(
@@ -60,16 +62,19 @@ const Post: React.FC<PostProps> = ({
   const openEditMode = () => {
     setAreOptionsVisible(false);
     setIsEditMode(true);
-  }
+  };
 
-  const closeEditMode = () => setIsEditMode(false);
+  const closeEditMode = () => {
+    setIsEditMode(false);
+    setContentData(content);
+  }
 
   const handleContentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => setContentData(event.target.value);
 
   const handleEditPost = () => {
     console.log(contentData);
     setIsEditMode(false);
-  }
+  };
 
   return (
     <Wrapper>
@@ -89,7 +94,7 @@ const Post: React.FC<PostProps> = ({
           {isCreatorShown && <span>{creator}</span>} {title}
         </h2>
       </Title>
-      {isEditMode ? <EditField value={contentData} onChange={handleContentChange}></EditField> : <PostContent>{content}</PostContent>}
+      {isEditMode ? <EditField value={contentData} onChange={handleContentChange} /> : <PostContent>{content}</PostContent>}
       <ReactionsContainer>
         <PostDate>{creationDate}</PostDate>
         {isEditMode ? (

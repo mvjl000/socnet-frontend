@@ -121,14 +121,23 @@ export const EditPostButton = styled(EditButton)<EditPostButtonProps>`
   transform: none;
   background-color: ${({ cancelVariant }) => cancelVariant ? '#fff' : '#ccc'};
   border: ${({ cancelVariant }) => cancelVariant ? '1px solid #444' : 'none'};
+  @media (min-width: 1024px) {
+    margin: 10px 20px;
+  }
 `;
 
 export const EditField = styled.textarea`
   margin: 25px 10px;
   width: 90%;
   height: 45%;
+  color: #333;
   font-family: inherit;
+    font-size: 21px;
+    color: #444;
   border: none;
   outline: none;
   resize: none;
+  @media (min-width: 1024px) {
+    margin: 35px 30px 60px;
+  }
 `;
