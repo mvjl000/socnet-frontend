@@ -132,8 +132,8 @@ export const EditField = styled.textarea`
   height: 45%;
   color: #333;
   font-family: inherit;
-    font-size: 21px;
-    color: #444;
+  font-size: 21px;
+  color: #444;
   border: none;
   outline: none;
   resize: none;
