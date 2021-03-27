@@ -1,4 +1,9 @@
 import styled from 'styled-components';
+import { EditButton } from 'views/Profile/Profile.styles';
+
+interface EditPostButtonProps {
+  cancelVariant?: boolean
+}
 
 export const Wrapper = styled.div`
   position: relative;
@@ -109,4 +114,21 @@ export const ReactionsContainer = styled.div`
       margin: 0 35px;
     }
   }
+`;
+
+export const EditPostButton = styled(EditButton)<EditPostButtonProps>`
+  margin: 10px 1px;
+  transform: none;
+  background-color: ${({ cancelVariant }) => cancelVariant ? '#fff' : '#ccc'};
+  border: ${({ cancelVariant }) => cancelVariant ? '1px solid #444' : 'none'};
+`;
+
+export const EditField = styled.textarea`
+  margin: 25px 10px;
+  width: 90%;
+  height: 45%;
+  font-family: inherit;
+  border: none;
+  outline: none;
+  resize: none;
 `;

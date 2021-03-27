@@ -5,11 +5,13 @@ import AuthContext from 'shared/context/auth-context';
 interface PostOptionsListProps {
   handleDeletePost: () => void;
   postCreatorId: string;
+  openEditMode: () => void;
 }
 
 const PostOptionsList: React.FC<PostOptionsListProps> = ({
   handleDeletePost,
   postCreatorId,
+  openEditMode
 }) => {
   const auth = useContext(AuthContext);
 
@@ -23,7 +25,7 @@ const PostOptionsList: React.FC<PostOptionsListProps> = ({
       <ListItem colorVariant='1'>Report</ListItem>
       {auth.userData![0] === postCreatorId && (
         <>
-          <ListItem colorVariant='2'>Edit</ListItem>
+          <ListItem onClick={openEditMode} colorVariant='2'>Edit</ListItem>
           <ListItem onClick={handleDeletePost} colorVariant='3'>
             Delete
           </ListItem>

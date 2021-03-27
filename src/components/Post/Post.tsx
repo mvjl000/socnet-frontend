@@ -8,6 +8,8 @@ import {
   ReactionsContainer,
   PostOptions,
   PostDate,
+  EditPostButton,
+  EditField
 } from './Post.styles';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
@@ -36,6 +38,8 @@ const Post: React.FC<PostProps> = ({
   creationDate,
 }) => {
   const [areOptionsVisible, setAreOptionsVisible] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [contentData, setContentData] = useState<string>(content);
   const auth = useContext(AuthContext);
   const { handleDeletePostFromContext } = useContext(PostsContext);
 
@@ -53,12 +57,27 @@ const Post: React.FC<PostProps> = ({
     } catch (error) {}
   };
 
+  const openEditMode = () => {
+    setAreOptionsVisible(false);
+    setIsEditMode(true);
+  }
+
+  const closeEditMode = () => setIsEditMode(false);
+
+  const handleContentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => setContentData(event.target.value);
+
+  const handleEditPost = () => {
+    console.log(contentData);
+    setIsEditMode(false);
+  }
+
   return (
     <Wrapper>
       {areOptionsVisible && (
         <PostOptionsList
           handleDeletePost={handleDeletePost}
           postCreatorId={creatorId}
+          openEditMode={openEditMode}
         />
       )}
       <PostOptions onClick={() => setAreOptionsVisible(!areOptionsVisible)}>
@@ -70,11 +89,19 @@ const Post: React.FC<PostProps> = ({
           {isCreatorShown && <span>{creator}</span>} {title}
         </h2>
       </Title>
-      <PostContent>{content}</PostContent>
+      {isEditMode ? <EditField value={contentData} onChange={handleContentChange}></EditField> : <PostContent>{content}</PostContent>}
       <ReactionsContainer>
         <PostDate>{creationDate}</PostDate>
-        <ThumbUpAltIcon />
-        <ChatBubbleIcon />
+        {isEditMode ? (
+        <>
+          <EditPostButton cancelVariant onClick={closeEditMode}>Cancel</EditPostButton>
+          <EditPostButton onClick={handleEditPost}>Confirm</EditPostButton>
+        </> ) : (
+        <>
+          <ThumbUpAltIcon />
+          <ChatBubbleIcon />
+        </>
+        )}
       </ReactionsContainer>
     </Wrapper>
   );
