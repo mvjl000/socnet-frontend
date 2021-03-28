@@ -21,6 +21,7 @@ interface ParamsTypes {
 }
 
 const Profile: React.FC = () => {
+  const [usernameState, setUsernameState] = useState('');
   const [isEditMode, setIsEditMode] = useState(false);
   const [userDescription, setUserDescripion] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -29,7 +30,10 @@ const Profile: React.FC = () => {
   const { posts, setFetchedPosts } = useContext(PostsContext);
 
   const { uname } = useParams<ParamsTypes>();
-  console.log(uname);
+
+  const isMyProfile = uname === auth.userData![1];
+  console.log(isMyProfile);
+  
 
   useEffect(() => {
     const reqData = async () => {
@@ -39,7 +43,7 @@ const Profile: React.FC = () => {
       setUserDescripion(response.data.description);
     };
     reqData();
-  }, [auth.userData]);
+  }, [auth.userData, uname]);
 
   useEffect(() => {
     const reqData = async () => {
@@ -51,7 +55,7 @@ const Profile: React.FC = () => {
       setFetchedPosts(response.data.posts.reverse());
     };
     reqData();
-  }, [auth.userData, setFetchedPosts]);
+  }, [auth.userData, setFetchedPosts, uname]);
 
   const handleDescChange = (event: React.ChangeEvent<HTMLTextAreaElement>) =>
     setUserDescripion(event.target.value);
@@ -76,7 +80,7 @@ const Profile: React.FC = () => {
   return (
     <>
       <Heading>
-        <span>{auth.userData![1]}</span> - this is your profile
+        <span>{uname}</span> - {isMyProfile ? 'this is your profile' : 'profile'}
       </Heading>
       {isLoading && <h2>Loading...</h2>}
       <Wrapper>
