@@ -26,13 +26,11 @@ const Profile: React.FC = () => {
 
   useEffect(() => {
     const reqData = async () => {
-      setIsLoading(true);
       const response = await axios.get(
         `${process.env.REACT_APP_BACKEND_URL}/user/getUserData/${
-          auth.userData![0]
+          auth.userData![1]
         }`
       );
-      setIsLoading(false);
       setUserDescripion(response.data.description);
     };
     reqData();
@@ -43,7 +41,7 @@ const Profile: React.FC = () => {
       setIsLoading(true);
       const response = await axios.get(
         `${process.env.REACT_APP_BACKEND_URL}/posts/getUserPosts/${
-          auth.userData![0]
+          auth.userData![1]
         }`
       );
       setIsLoading(false);
