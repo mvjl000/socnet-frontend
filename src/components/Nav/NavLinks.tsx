@@ -18,7 +18,7 @@ const NavLinks: React.FC<NavLinksProps> = ({ closeDropDown, handleLogout, userna
   return (
     <StyledNavLinks>
       {isSearchBarVisible && <li>
-        <SearchBar/>
+        <SearchBar closeDropDown={closeDropDown}/>
       </li>}
       <li>
         <NavLink to={`/profile/${username}`} onClick={closeDropDown}>

@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Input } from './SearchBar.styles';
 
-const SearchBar: React.FC = () => {
+interface SearchBarProps {
+  closeDropDown?: () => void;
+}
+
+const SearchBar: React.FC<SearchBarProps> = ({ closeDropDown }) => {
     const [barValue, setBarValue] = useState('');
 
     const history = useHistory();
@@ -13,6 +17,9 @@ const SearchBar: React.FC = () => {
         event.preventDefault();
         history.push(`/profile/${barValue}`);
         setBarValue('');
+        if (closeDropDown) {
+            closeDropDown();
+        }
     };
 
     return (
