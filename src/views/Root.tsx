@@ -25,7 +25,7 @@ const Root: React.FC = () => {
     routes = (
       <Switch>
         <Route path='/' component={Main} exact />
-        <Route path='/profile' component={Profile} />
+        <Route path='/profile/:uname' component={Profile} />
         <Route path='/new-post' component={AddPost} />
         <Redirect to='/' />
       </Switch>
