@@ -68,18 +68,21 @@ export const TextAreaContainer = styled.div`
 
   p {
     position: absolute;
-    top: -8px;
+    top: -7px;
     left: 25px;
     background-color: #fff;
     font-size: 18px;
+    font-family: 'Poppins', sans-serif;
+    line-height: 0.9;
     z-index: 1;
     @media (min-width: 1024px) {
       font-size: 22px;
-      top: -13px;
+      top: -10px;
     }
   }
 
   textarea {
+    padding: 50px;
     position: relative;
     display: block;
     width: 60vw;
