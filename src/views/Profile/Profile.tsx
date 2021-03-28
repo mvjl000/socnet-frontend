@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import AuthContext from 'shared/context/auth-context';
 import { PostsContext } from 'shared/context/postsProvider';
@@ -16,6 +16,10 @@ import Post from 'components/Post/Post';
 import { AddPostButton } from 'shared/components/AddPostButton';
 import SettingsIcon from '@material-ui/icons/Settings';
 
+interface ParamsTypes {
+  uname: string
+}
+
 const Profile: React.FC = () => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [userDescription, setUserDescripion] = useState('');
@@ -24,12 +28,13 @@ const Profile: React.FC = () => {
   const auth = useContext(AuthContext);
   const { posts, setFetchedPosts } = useContext(PostsContext);
 
+  const { uname } = useParams<ParamsTypes>();
+  console.log(uname);
+
   useEffect(() => {
     const reqData = async () => {
       const response = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/user/getUserData/${
-          auth.userData![1]
-        }`
+        `${process.env.REACT_APP_BACKEND_URL}/user/getUserData/${uname}`
       );
       setUserDescripion(response.data.description);
     };
@@ -40,9 +45,7 @@ const Profile: React.FC = () => {
     const reqData = async () => {
       setIsLoading(true);
       const response = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/posts/getUserPosts/${
-          auth.userData![1]
-        }`
+        `${process.env.REACT_APP_BACKEND_URL}/posts/getUserPosts/${uname}`
       );
       setIsLoading(false);
       setFetchedPosts(response.data.posts.reverse());

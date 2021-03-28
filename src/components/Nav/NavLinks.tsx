@@ -9,9 +9,10 @@ import SearchBar from 'components/SearchBar/SearchBar';
 interface NavLinksProps {
   handleLogout: () => void;
   closeDropDown?: () => void;
+  username: string
 }
 
-const NavLinks: React.FC<NavLinksProps> = ({ closeDropDown, handleLogout }) => {
+const NavLinks: React.FC<NavLinksProps> = ({ closeDropDown, handleLogout, username }) => {
   const { isSearchBarVisible } = useToggleSearchBar(true);
 
   return (
@@ -20,7 +21,7 @@ const NavLinks: React.FC<NavLinksProps> = ({ closeDropDown, handleLogout }) => {
         <SearchBar/>
       </li>}
       <li>
-        <NavLink to='/profile' onClick={closeDropDown}>
+        <NavLink to={`/profile/${username}`} onClick={closeDropDown}>
           My Profile
           <PersonIcon />
         </NavLink>

@@ -39,6 +39,7 @@ const Header: React.FC<NavProps> = ({ isNavExpanded }) => {
             <NavLinks
               handleLogout={handleLogout}
               closeDropDown={closeDropDown}
+              username={auth.userData![1]}
             />
           </DropDownMenu>
         )}
@@ -49,7 +50,7 @@ const Header: React.FC<NavProps> = ({ isNavExpanded }) => {
           <>
           {isSearchBarVisible && <SearchBar/>}
           <DesktopNavLinksContainer>
-            <NavLinks handleLogout={handleLogout} />
+            <NavLinks handleLogout={handleLogout} username={auth.userData![1]} />
           </DesktopNavLinksContainer>
           </>
         )}
