@@ -20,7 +20,7 @@ export const Heading = styled.h1`
   }
 `;
 
-export const DescriptionWrapper = styled.div`
+export const DescriptionWrapper = styled.div<{ isEditButtonVisible: boolean}>`
   margin: 50px 0;
   width: 75%;
   max-width: 800px;
@@ -42,10 +42,12 @@ export const DescriptionWrapper = styled.div`
   }
   p {
     font-weight: 300;
+    margin-bottom: ${({ isEditButtonVisible }) => isEditButtonVisible ? '0' : '62px'};
   }
   textarea {
     width: 100%;
     height: 200px;
+    font-family: 'Poppins', sans-serif;
     border: none;
     outline: none;
     resize: none;

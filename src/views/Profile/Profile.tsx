@@ -84,7 +84,7 @@ const Profile: React.FC = () => {
       </Heading>
       {isLoading && <h2>Loading...</h2>}
       <Wrapper>
-        <DescriptionWrapper>
+        <DescriptionWrapper isEditButtonVisible={isMyProfile}>
           <h2>{isEditMode && 'edit '}description</h2>
           {isEditMode ? (
             <>
@@ -97,9 +97,9 @@ const Profile: React.FC = () => {
           ) : (
             <>
               <p>{userDescription}</p>
-              <EditButton onClick={() => setIsEditMode(!isEditMode)}>
+              {isMyProfile && <EditButton onClick={() => setIsEditMode(!isEditMode)}>
                 Edit
-              </EditButton>
+              </EditButton>}
             </>
           )}
         </DescriptionWrapper>
