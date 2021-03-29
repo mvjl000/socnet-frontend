@@ -65,9 +65,8 @@ const Profile: React.FC = () => {
 
   const handleDescEdit = async () => {
     if (userDescription.length < 1000) {
-      let responseData;
       try {
-        responseData = await axios.patch(
+        await axios.patch(
           `${process.env.REACT_APP_BACKEND_URL}/user/updateDesc/${
             auth.userData![0]
           }`,
