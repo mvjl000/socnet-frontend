@@ -25,6 +25,7 @@ const Profile: React.FC = () => {
   const [userDescription, setUserDescripion] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [reqError, setReqError] = useState('');
   const auth = useContext(AuthContext);
   const { posts, setFetchedPosts } = useContext(PostsContext);
 
@@ -58,13 +59,22 @@ const Profile: React.FC = () => {
     setUserDescripion(event.target.value);
 
   const handleDescEdit = async () => {
-    await axios.patch(
-      `${process.env.REACT_APP_BACKEND_URL}/user/updateDesc/${
-        auth.userData![0]
-      }`,
-      { description: userDescription }
-    );
-    setIsEditMode(!isEditMode);
+    if (userDescription.length < 1000) {
+      let responseData;
+      try {
+        responseData = await axios.patch(
+          `${process.env.REACT_APP_BACKEND_URL}/user/updateDesc/${
+            auth.userData![0]
+          }`,
+          { description: userDescription }
+        );
+        setIsEditMode(!isEditMode);
+      } catch (err) {
+        setReqError(err.response.data.message);
+      }
+    } else {
+      setReqError('Description needs to be between 1 and 1000 characters!');
+    }
   };
 
   const handleDeleteUser = async () => {
@@ -99,6 +109,7 @@ const Profile: React.FC = () => {
               </EditButton>}
             </>
           )}
+          {reqError && <p>{reqError}</p>}
         </DescriptionWrapper>
         <Link to='/new-post'>
           <AddPostButton>Add New Post</AddPostButton>
