@@ -21,7 +21,6 @@ interface ParamsTypes {
 }
 
 const Profile: React.FC = () => {
-  const [usernameState, setUsernameState] = useState('');
   const [isEditMode, setIsEditMode] = useState(false);
   const [userDescription, setUserDescripion] = useState('');
   const [isLoading, setIsLoading] = useState(false);
