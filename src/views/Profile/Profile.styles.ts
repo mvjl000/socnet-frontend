@@ -131,3 +131,7 @@ export const SettingsIconContainer = styled.div`
     }
   }
 `;
+
+export const ErrorMessage = styled.p`
+  color: red;
+`;

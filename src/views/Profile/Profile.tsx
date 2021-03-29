@@ -10,6 +10,7 @@ import {
   EditButton,
   AllPostsWrapper,
   SettingsIconContainer,
+  ErrorMessage
 } from './Profile.styles';
 import SettingsModal from 'components/SettingsModal/SettingsModal';
 import Post from 'components/Post/Post';
@@ -55,8 +56,12 @@ const Profile: React.FC = () => {
     reqData();
   }, [auth.userData, setFetchedPosts, uname]);
 
-  const handleDescChange = (event: React.ChangeEvent<HTMLTextAreaElement>) =>
+  const handleDescChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setUserDescripion(event.target.value);
+    if (reqError) {
+      setReqError('');
+    }
+  };
 
   const handleDescEdit = async () => {
     if (userDescription.length < 1000) {
@@ -109,7 +114,7 @@ const Profile: React.FC = () => {
               </EditButton>}
             </>
           )}
-          {reqError && <p>{reqError}</p>}
+          {reqError && <ErrorMessage>{reqError}</ErrorMessage>}
         </DescriptionWrapper>
         <Link to='/new-post'>
           <AddPostButton>Add New Post</AddPostButton>
