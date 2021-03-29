@@ -31,9 +31,7 @@ const Profile: React.FC = () => {
 
   const { uname } = useParams<ParamsTypes>();
 
-  const isMyProfile = uname === auth.userData![1];
-  console.log(isMyProfile);
-  
+  const isMyProfile = uname === auth.userData![1];  
 
   useEffect(() => {
     const reqData = async () => {
