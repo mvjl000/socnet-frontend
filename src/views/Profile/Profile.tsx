@@ -10,8 +10,8 @@ import {
   EditButton,
   AllPostsWrapper,
   SettingsIconContainer,
-  ErrorMessage
 } from './Profile.styles';
+import { ErrorMessage } from 'shared/components/reusable.styles'
 import SettingsModal from 'components/SettingsModal/SettingsModal';
 import Post from 'components/Post/Post';
 import { AddPostButton } from 'shared/components/AddPostButton';

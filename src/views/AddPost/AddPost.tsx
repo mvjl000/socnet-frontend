@@ -5,6 +5,7 @@ import {
   StyledForm,
   TextAreaContainer,
 } from './AddPost.styles';
+import { ErrorMessage } from 'shared/components/reusable.styles'
 import { AddPostButton } from 'shared/components/AddPostButton';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
@@ -25,17 +26,22 @@ const AddPost: React.FC = () => {
   const [newPostContent, setNewPostContent] = useState<NewPost>(
     initialNewPostObj
   );
+  const [reqError, setReqError] = useState('');
   const auth = useContext(AuthContext);
   const { handleAddPost } = useContext(PostsContext);
   const history = useHistory();
 
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) =>
-    setNewPostContent({
-      ...newPostContent,
-      [event.target.name]: event.target.value,
-    });
+  ) => {
+      setNewPostContent({
+        ...newPostContent,
+        [event.target.name]: event.target.value,
+      });
+      if (reqError) {
+      setReqError('');
+    }
+  }
 
   const handleAddNewPost = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -44,39 +50,45 @@ const AddPost: React.FC = () => {
       newPostContent.description.length > 3 &&
       newPostContent.description.length < 2000
     ) {
-      const responseData = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/posts/createPost`,
-        {
-          title: newPostContent.title,
-          content: newPostContent.description,
-          creatorId: auth.userData![0],
-          creator: auth.userData![1],
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${auth.token}`,
+      try {
+        const responseData = await axios.post(
+          `${process.env.REACT_APP_BACKEND_URL}/posts/createPost`,
+          {
+            title: newPostContent.title,
+            content: newPostContent.description,
+            creatorId: auth.userData![0],
+            creator: auth.userData![1],
           },
-        }
-      );
-      const {
-        title,
-        content,
-        creatorName,
-        _id,
-        creationDate,
-        creatorId,
-        edited
-      } = responseData.data.post;
-      handleAddPost({
-        title,
-        content,
-        creatorName,
-        _id,
-        creationDate,
-        creatorId,
-        edited
-      });
-      history.push('/');
+          {
+            headers: {
+              Authorization: `Bearer ${auth.token}`,
+            },
+          }
+        );
+        const {
+          title,
+          content,
+          creatorName,
+          _id,
+          creationDate,
+          creatorId,
+          edited
+        } = responseData.data.post;
+        handleAddPost({
+          title,
+          content,
+          creatorName,
+          _id,
+          creationDate,
+          creatorId,
+          edited
+        });
+        history.push('/');
+      } catch (err) {
+        setReqError(err.response.data.message);
+      }
+    } else {
+      setReqError('Post fields are too long, or too short.');
     }
   };
 
@@ -102,6 +114,7 @@ const AddPost: React.FC = () => {
             onChange={handleInputChange}
           ></textarea>
         </TextAreaContainer>
+        {reqError && <ErrorMessage>{reqError}</ErrorMessage>}
         <AddPostButton>Add Post</AddPostButton>
       </StyledForm>
     </Wrapper>

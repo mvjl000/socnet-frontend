@@ -12,7 +12,7 @@ export const GlobalStyle = createGlobalStyle`
         background-color: #fff;
     }
 
-    a, button, label {
+    a, button, label, textarea {
         font-family: 'Poppins', sans-serif;
     }
 
