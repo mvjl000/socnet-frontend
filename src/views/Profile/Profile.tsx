@@ -116,9 +116,9 @@ const Profile: React.FC = () => {
           )}
           {reqError && <ErrorMessage>{reqError}</ErrorMessage>}
         </DescriptionWrapper>
-        <Link to='/new-post'>
+        {isMyProfile && <Link to='/new-post'>
           <AddPostButton>Add New Post</AddPostButton>
-        </Link>
+        </Link>}
         <AllPostsWrapper>
           <h1>{auth.userData![1]}'s Posts</h1>
           {posts &&
