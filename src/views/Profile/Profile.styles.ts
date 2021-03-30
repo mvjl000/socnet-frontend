@@ -136,7 +136,7 @@ export const FetchErrorInfo = styled.div`
   padding: 0 20px;
 
   h1 {
-    font-size: 36px;
+    font-size: 46px;
     font-weight: 600;
     color: red;
     text-align: center;
