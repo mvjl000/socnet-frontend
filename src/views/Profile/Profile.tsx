@@ -27,6 +27,7 @@ const Profile: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [reqError, setReqError] = useState('');
+  const [fetchError, setFetchError] = useState('');
   const auth = useContext(AuthContext);
   const { posts, setFetchedPosts } = useContext(PostsContext);
 
@@ -36,22 +37,30 @@ const Profile: React.FC = () => {
 
   useEffect(() => {
     const reqData = async () => {
-      const response = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/user/getUserData/${uname}`
-      );
-      setUserDescripion(response.data.description);
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/user/getUserData/${uname}`
+        );
+        setUserDescripion(response.data.description);
+      } catch (error) {
+        setFetchError(`No user found for provided name - ${uname}`);
+      }
     };
     reqData();
   }, [auth.userData, uname]);
 
   useEffect(() => {
     const reqData = async () => {
-      setIsLoading(true);
-      const response = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/posts/getUserPosts/${uname}`
-      );
-      setIsLoading(false);
-      setFetchedPosts(response.data.posts.reverse());
+      try {
+        setIsLoading(true);
+        const response = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/posts/getUserPosts/${uname}`
+        );
+        setIsLoading(false);
+        setFetchedPosts(response.data.posts.reverse());
+      } catch (error) {
+        setFetchError(`No user found for provided name - ${uname}`);
+      }
     };
     reqData();
   }, [auth.userData, setFetchedPosts, uname]);
@@ -90,6 +99,8 @@ const Profile: React.FC = () => {
 
   return (
     <>
+    {!fetchError ? (
+      <>
       <Heading>
         <span>{uname}</span> - {isMyProfile ? 'this is your profile' : 'profile'}
       </Heading>
@@ -145,6 +156,17 @@ const Profile: React.FC = () => {
           <SettingsIcon onClick={() => setIsSettingsOpen(true)} />
         </SettingsIconContainer>
       </Wrapper>
+      </>
+    ) : (
+      <>
+        <Heading>
+          404
+        </Heading>
+        <Heading>
+          {fetchError}
+        </Heading>
+      </>
+    )}
     </>
   );
 };
