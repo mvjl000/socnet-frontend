@@ -119,7 +119,7 @@ const Profile: React.FC = () => {
           <AddPostButton>Add New Post</AddPostButton>
         </Link>}
         <AllPostsWrapper>
-          <h1>{auth.userData![1]}'s Posts</h1>
+          <h1>{uname}'s Posts</h1>
           {posts &&
             posts.map((post, i) => (
               <Post
