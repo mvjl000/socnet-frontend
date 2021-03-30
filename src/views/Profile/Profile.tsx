@@ -10,6 +10,7 @@ import {
   EditButton,
   AllPostsWrapper,
   SettingsIconContainer,
+  FetchErrorInfo
 } from './Profile.styles';
 import { ErrorMessage } from 'shared/components/reusable.styles'
 import SettingsModal from 'components/SettingsModal/SettingsModal';
@@ -158,14 +159,14 @@ const Profile: React.FC = () => {
       </Wrapper>
       </>
     ) : (
-      <>
-        <Heading>
+      <FetchErrorInfo>
+        <h1>
           404
-        </Heading>
-        <Heading>
+        </h1>
+        <h2>
           {fetchError}
-        </Heading>
-      </>
+        </h2>
+      </FetchErrorInfo>
     )}
     </>
   );

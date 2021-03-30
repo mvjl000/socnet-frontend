@@ -131,3 +131,20 @@ export const SettingsIconContainer = styled.div`
     }
   }
 `;
+
+export const FetchErrorInfo = styled.div`
+  padding: 0 20px;
+
+  h1 {
+    font-size: 36px;
+    font-weight: 600;
+    color: red;
+    text-align: center;
+  };
+
+  h2 {
+    font-size: 30px;
+    font-weight: 400;
+    text-align: center;
+  }
+`;
