@@ -48,7 +48,7 @@ const Post: React.FC<PostProps> = ({
   const [isEditMode, setIsEditMode] = useState(false);
   const [contentData, setContentData] = useState<string>(content);
   const auth = useContext(AuthContext);
-  const { handleDeletePostFromContext, handleEditPostFromContext } = useContext(PostsContext);
+  const { handleDeletePostFromContext, handleEditPostFromContext, handleLikeActionContext } = useContext(PostsContext);
 
   const handleDeletePost = async () => {
     try {
@@ -93,6 +93,7 @@ const Post: React.FC<PostProps> = ({
         headers: {
           Authorization: `Bearer ${auth.token}`,
         }, });
+        handleLikeActionContext(postId, auth.userData![0], "LIKE");
       } catch (err) {
         console.log(err.response.data.message);
       }
@@ -103,6 +104,7 @@ const Post: React.FC<PostProps> = ({
         headers: {
           Authorization: `Bearer ${auth.token}`,
         }, });
+        handleLikeActionContext(postId, auth.userData![0], "DISLIKE");
       } catch (err) {
         console.log(err.response.data.message);
       }
