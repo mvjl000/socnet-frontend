@@ -85,6 +85,30 @@ const Post: React.FC<PostProps> = ({
     setIsEditMode(false);
   };
 
+  const handleLikeAction = async () => {
+    if (!isPostLikedByUser) {
+      // LIKE
+      try {
+        await axios.post(`${process.env.REACT_APP_BACKEND_URL}/posts/likeAction`, { actionType: "LIKE", postId }, { 
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+        }, });
+      } catch (err) {
+        console.log(err.response.data.message);
+      }
+    } else {
+      // DISLIKE
+      try {
+        await axios.post(`${process.env.REACT_APP_BACKEND_URL}/posts/likeAction`, { actionType: "DISLIKE", postId }, { 
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+        }, });
+      } catch (err) {
+        console.log(err.response.data.message);
+      }
+    }
+  };
+
   return (
     <Wrapper>
       {areOptionsVisible && (
@@ -113,7 +137,7 @@ const Post: React.FC<PostProps> = ({
           <EditPostButton onClick={handleEditPost}>Confirm</EditPostButton>
         </> ) : (
         <>
-          <LikeIcon isPostLikedByUser={isPostLikedByUser} />{likesCount}
+          <LikeIcon isPostLikedByUser={isPostLikedByUser} onClick={handleLikeAction} />{likesCount}
           <CommentIcon />
         </>
         )}
