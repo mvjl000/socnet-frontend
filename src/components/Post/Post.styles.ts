@@ -112,9 +112,6 @@ export const ReactionsContainer = styled.div`
     transform: scale(1.5);
     transition: 0.2s;
     cursor: pointer;
-    &:hover {
-      color: #65def1;
-    }
     @media (min-width: 1024px) {
       margin: 0 35px;
     }
