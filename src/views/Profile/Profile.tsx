@@ -37,6 +37,7 @@ const Profile: React.FC = () => {
   const isMyProfile = uname === auth.userData![1];  
 
   useEffect(() => {
+    setFetchError('');
     const reqData = async () => {
       try {
         const response = await axios.get(
