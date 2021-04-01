@@ -1,12 +1,14 @@
 import React, { useEffect, useContext, useState } from 'react';
 import axios from 'axios';
 import { PostsContext } from 'shared/context/postsProvider';
+import AuthContext from 'shared/context/auth-context';
 import Post from 'components/Post/Post';
 import { Wrapper, Heading } from './Main.styles';
 
 const Main: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { posts, setFetchedPosts } = useContext(PostsContext);
+  const auth = useContext(AuthContext);
 
   useEffect(() => {
     const reqData = async () => {
@@ -26,8 +28,9 @@ const Main: React.FC = () => {
       <Wrapper>
         {isLoading && <h2>Loading...</h2>}
         {posts &&
-          posts.map((post, i) => (
-            <Post
+          posts.map((post, i) => {
+            const isPostLikedByLoggedUser = post.likedBy.find(userId => userId === auth.userData![0]);
+            return <Post
               key={i}
               title={post.title}
               content={post.content}
@@ -37,8 +40,10 @@ const Main: React.FC = () => {
               creationDate={post.creationDate}
               creatorId={post.creatorId}
               edited={post.edited}
+              likesCount={post.likesCount}
+              isPostLikedByUser={!!isPostLikedByLoggedUser}
             />
-          ))}
+          })}
       </Wrapper>
     </>
   );

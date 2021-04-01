@@ -133,8 +133,10 @@ const Profile: React.FC = () => {
         <AllPostsWrapper>
           <h1>{uname}'s Posts</h1>
           {posts &&
-            posts.map((post, i) => (
-              <Post
+            posts.map((post, i) => {
+              const isPostLikedByLoggedUser = post.likedBy.find(userId => userId === auth.userData![0]);
+
+              return <Post
                 key={i}
                 title={post.title}
                 content={post.content}
@@ -144,8 +146,10 @@ const Profile: React.FC = () => {
                 creationDate={post.creationDate}
                 creatorId={post.creatorId}
                 edited={post.edited}
+                likesCount={post.likesCount}
+                isPostLikedByUser={!!isPostLikedByLoggedUser}
               />
-            ))}
+            })}
         </AllPostsWrapper>
         {isSettingsOpen && (
           <SettingsModal
