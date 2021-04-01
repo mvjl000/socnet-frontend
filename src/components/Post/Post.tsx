@@ -11,9 +11,9 @@ import {
   EditPostButton,
   EditField,
   EditedInfo,
+  LikeIcon,
+  CommentIcon,
 } from './Post.styles';
-import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
-import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import PostOptionsList from './PostOptionsList/PostOptionsList';
 import AuthContext from 'shared/context/auth-context';
@@ -104,7 +104,7 @@ const Post: React.FC<PostProps> = ({
         </h2>
       </Title>
       {isEditMode ? <EditField value={contentData} onChange={handleContentChange} /> : <PostContent>{content}</PostContent>}
-      <ReactionsContainer isPostLikedByUser={isPostLikedByUser}>
+      <ReactionsContainer>
         {edited && <EditedInfo>-Post edited-</EditedInfo>}
         <PostDate>{creationDate}</PostDate>
         {isEditMode ? (
@@ -113,8 +113,8 @@ const Post: React.FC<PostProps> = ({
           <EditPostButton onClick={handleEditPost}>Confirm</EditPostButton>
         </> ) : (
         <>
-          <ThumbUpAltIcon />{likesCount}
-          <ChatBubbleIcon />
+          <LikeIcon isPostLikedByUser={isPostLikedByUser} />{likesCount}
+          <CommentIcon />
         </>
         )}
       </ReactionsContainer>

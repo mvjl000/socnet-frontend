@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import { EditButton } from 'views/Profile/Profile.styles';
+import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
+import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
 
 interface EditPostButtonProps {
   cancelVariant?: boolean;
@@ -91,7 +93,7 @@ export const PostDate = styled.p`
   }
 `;
 
-export const ReactionsContainer = styled.div<ReactionsProps>`
+export const ReactionsContainer = styled.div`
   position: absolute;
   left: 0;
   bottom: 7px;
@@ -107,7 +109,6 @@ export const ReactionsContainer = styled.div<ReactionsProps>`
 
   svg {
     margin: 0 11px;
-    color: ${({ isPostLikedByUser }) => isPostLikedByUser ? '#65def1' : '#666'};
     transform: scale(1.5);
     transition: 0.2s;
     cursor: pointer;
@@ -118,6 +119,14 @@ export const ReactionsContainer = styled.div<ReactionsProps>`
       margin: 0 35px;
     }
   }
+`;
+
+export const LikeIcon = styled(ThumbUpAltIcon)<ReactionsProps>`
+  color: ${({ isPostLikedByUser }) => isPostLikedByUser ? '#65def1' : '#666'};
+`;
+
+export const CommentIcon = styled(ChatBubbleIcon)`
+  color: #666;
 `;
 
 export const EditPostButton = styled(EditButton)<EditPostButtonProps>`
