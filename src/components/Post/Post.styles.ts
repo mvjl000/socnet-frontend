@@ -2,7 +2,11 @@ import styled from 'styled-components';
 import { EditButton } from 'views/Profile/Profile.styles';
 
 interface EditPostButtonProps {
-  cancelVariant?: boolean
+  cancelVariant?: boolean;
+};
+
+interface ReactionsProps {
+  isPostLikedByUser: boolean;
 }
 
 export const Wrapper = styled.div`
@@ -87,7 +91,7 @@ export const PostDate = styled.p`
   }
 `;
 
-export const ReactionsContainer = styled.div`
+export const ReactionsContainer = styled.div<ReactionsProps>`
   position: absolute;
   left: 0;
   bottom: 7px;
@@ -103,7 +107,7 @@ export const ReactionsContainer = styled.div`
 
   svg {
     margin: 0 11px;
-    color: #666;
+    color: ${({ isPostLikedByUser }) => isPostLikedByUser ? '#65def1' : '#666'};
     transform: scale(1.5);
     transition: 0.2s;
     cursor: pointer;
