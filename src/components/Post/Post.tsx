@@ -27,7 +27,9 @@ interface PostProps {
   isCreatorShown: boolean;
   postId: string;
   creationDate: string;
-  edited: boolean
+  edited: boolean;
+  likesCount: number;
+  isPostLikedByUser: boolean;
 }
 
 const Post: React.FC<PostProps> = ({
@@ -39,6 +41,8 @@ const Post: React.FC<PostProps> = ({
   postId,
   creationDate,
   edited,
+  likesCount,
+  isPostLikedByUser
 }) => {
   const [areOptionsVisible, setAreOptionsVisible] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
@@ -100,7 +104,7 @@ const Post: React.FC<PostProps> = ({
         </h2>
       </Title>
       {isEditMode ? <EditField value={contentData} onChange={handleContentChange} /> : <PostContent>{content}</PostContent>}
-      <ReactionsContainer>
+      <ReactionsContainer isPostLikedByUser={isPostLikedByUser}>
         {edited && <EditedInfo>-Post edited-</EditedInfo>}
         <PostDate>{creationDate}</PostDate>
         {isEditMode ? (
@@ -109,7 +113,7 @@ const Post: React.FC<PostProps> = ({
           <EditPostButton onClick={handleEditPost}>Confirm</EditPostButton>
         </> ) : (
         <>
-          <ThumbUpAltIcon />
+          <ThumbUpAltIcon />{likesCount}
           <ChatBubbleIcon />
         </>
         )}
