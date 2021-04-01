@@ -72,7 +72,9 @@ const AddPost: React.FC = () => {
           _id,
           creationDate,
           creatorId,
-          edited
+          edited,
+          likesCount,
+          likedBy
         } = responseData.data.post;
         handleAddPost({
           title,
@@ -81,7 +83,9 @@ const AddPost: React.FC = () => {
           _id,
           creationDate,
           creatorId,
-          edited
+          edited,
+          likesCount,
+          likedBy
         });
         history.push('/');
       } catch (err) {
