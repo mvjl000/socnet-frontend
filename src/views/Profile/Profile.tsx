@@ -96,7 +96,12 @@ const Profile: React.FC = () => {
   const handleDeleteUser = async () => {
     auth.logout();
     await axios.delete(
-      `${process.env.REACT_APP_BACKEND_URL}/user/delete/${auth.userData![0]}`
+      `${process.env.REACT_APP_BACKEND_URL}/user/delete/${auth.userData![0]}`,
+      {
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+        },
+      }
     );
   };
 
