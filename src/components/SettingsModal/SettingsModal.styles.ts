@@ -52,12 +52,13 @@ export const CloseIconContainer = styled.div`
 `;
 
 export const Heading = styled.h3`
-  margin: 40px 0;
+  margin: 40px 0 15px;
   font-size: 24px;
   font-weight: 300;
   text-align: center;
   @media (min-width: 1024px) {
     font-size: 34px;
+    margin-bottom: 30px;
   }
 `;
 
