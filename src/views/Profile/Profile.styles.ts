@@ -54,17 +54,11 @@ export const DescriptionWrapper = styled.div<{ isEditButtonVisible: boolean}>`
   }
 `;
 
-export const EditButton = styled.button`
-  align-self: flex-end;
-  margin: 15px 0;
-  transform: translateX(-40px);
-  width: 80px;
-  height: 25px;
-  border: none;
-  background-color: #ccc;
-  color: #444;
-  border-radius: 20px;
-  cursor: pointer;
+export const EditWrapper = styled.div`
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 export const DeleteButton = styled.button`

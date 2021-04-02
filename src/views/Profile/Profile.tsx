@@ -7,11 +7,12 @@ import {
   Wrapper,
   Heading,
   DescriptionWrapper,
-  EditButton,
   AllPostsWrapper,
+  EditWrapper,
   SettingsIconContainer,
   FetchErrorInfo
 } from './Profile.styles';
+import { EditButton, EditPostButton } from 'shared/components/EditButton.styles';
 import { ErrorMessage } from 'shared/components/reusable.styles'
 import SettingsModal from 'components/SettingsModal/SettingsModal';
 import Post from 'components/Post/Post';
@@ -116,12 +117,15 @@ const Profile: React.FC = () => {
                 value={userDescription}
                 onChange={handleDescChange}
               ></textarea>
-              <EditButton onClick={handleDescEdit}>Confirm</EditButton>
+              <EditWrapper>
+                <EditPostButton cancelVariant onClick={() => setIsEditMode(false)}>Cancel</EditPostButton>
+                <EditPostButton onClick={handleDescEdit}>Confirm</EditPostButton>
+              </EditWrapper>
             </>
           ) : (
             <>
               <p>{userDescription}</p>
-              {isMyProfile && <EditButton onClick={() => setIsEditMode(!isEditMode)}>
+              {isMyProfile && <EditButton onClick={() => setIsEditMode(true)}>
                 Edit
               </EditButton>}
             </>

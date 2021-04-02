@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { EditButton } from 'views/Profile/Profile.styles';
+import { EditButton } from 'shared/components/EditButton.styles';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
 
