@@ -19,11 +19,13 @@ import DeleteSweepIcon from '@material-ui/icons/DeleteSweep';
 interface SettingsModalProps {
   closeModal: (close: boolean) => void;
   deleteUser: () => void;
+  deletePosts: () => void;
 }
 
 const SettingsModal: React.FC<SettingsModalProps> = ({
   closeModal,
   deleteUser,
+  deletePosts
 }) => {
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 
@@ -52,7 +54,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
               <p>Edit Name</p>
               <EditIcon />
             </Option>
-            <Option>
+            <Option onClick={deletePosts}>
               <p>Delete all posts</p>
               <DeleteSweepIcon />
             </Option>

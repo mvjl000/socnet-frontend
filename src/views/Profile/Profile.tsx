@@ -110,6 +110,17 @@ const Profile: React.FC = () => {
     );
   };
 
+  const handleDeletePosts = async () => {
+    await axios.delete(
+      `${process.env.REACT_APP_BACKEND_URL}/user/deletePosts/${auth.userData![0]}`,
+      {
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+        },
+      }
+    );
+  };
+
   return (
     <>
     {!fetchError ? (
@@ -170,6 +181,7 @@ const Profile: React.FC = () => {
           <SettingsModal
             closeModal={setIsSettingsOpen}
             deleteUser={handleDeleteUser}
+            deletePosts={handleDeletePosts}
           />
         )}
         <SettingsIconContainer>
