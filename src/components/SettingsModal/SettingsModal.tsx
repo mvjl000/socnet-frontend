@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { motion } from 'framer-motion';
+import AuthContext from 'shared/context/auth-context';
+import { PostsContext } from 'shared/context/postsProvider';
 import {
   Wrapper,
   Content,
@@ -34,6 +36,9 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
 }) => {
   const [isConfirmOpen, setIsConfirmOpen] = useState<ConfirmStateProps>({ isOpen: false, actionType: ''});
 
+  const auth = useContext(AuthContext);
+  const { handleDeleteUserPosts } = useContext(PostsContext);
+
   const handleConfirmOpen = (action: string) => setIsConfirmOpen({isOpen: true, actionType: action});
 
   const handleDeleteAction = () => {
@@ -41,6 +46,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
       deleteUser();
     } else if (isConfirmOpen.actionType === 'DELETE_POSTS') {
       deletePosts();
+      handleDeleteUserPosts(auth.userData![0]);
       setIsConfirmOpen({ isOpen: false, actionType: '' });
     }
   }

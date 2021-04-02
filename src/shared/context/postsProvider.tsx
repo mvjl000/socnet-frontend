@@ -6,6 +6,7 @@ interface PostsContextProps {
   setFetchedPosts: (posts: PostType[]) => void;
   handleAddPost: (postObj: PostType) => void;
   handleDeletePostFromContext: (postId: string) => void;
+  handleDeleteUserPosts: (userId: string) => void;
   handleEditPostFromContext: (postId: string, content: string) => void;
   handleLikeActionContext: (postId: string, userId: string, actionType: "LIKE" | "DISLIKE") => void;
 }
@@ -15,6 +16,7 @@ export const PostsContext = createContext<PostsContextProps>({
   setFetchedPosts: () => {},
   handleAddPost: () => {},
   handleDeletePostFromContext: () => {},
+  handleDeleteUserPosts: () => {},
   handleEditPostFromContext: () => {},
   handleLikeActionContext: () => {},
 });
@@ -33,6 +35,11 @@ const PostsProvider: React.FC = ({ children }) => {
     const newPosts = posts.filter((post) => post._id !== postId);
     setPosts([...newPosts]);
   };
+
+  const handleDeleteUserPosts = (userId: string) => {
+    const newPosts = posts.filter((post) => post.creatorId !== userId);
+    setPosts([...newPosts]);
+  }
 
   const handleEditPostFromContext = (postId: string, content: string) => {
     const newPosts = posts.map(post => {
@@ -84,6 +91,7 @@ const PostsProvider: React.FC = ({ children }) => {
         setFetchedPosts,
         handleAddPost,
         handleDeletePostFromContext,
+        handleDeleteUserPosts,
         handleEditPostFromContext,
         handleLikeActionContext
       }}
