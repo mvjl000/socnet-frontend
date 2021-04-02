@@ -9,7 +9,7 @@ const ulElement = {
     color: #222;
   }
   &:hover {
-    color: #65def1;
+    color: #f73f52;
   }
     `,
 };

@@ -27,7 +27,7 @@ export const DropDownContent = styled.div`
   justify-content: center;
   width: 100%;
   height: 30%;
-  background-color: #564256;
+  background-color: #333;
 `;
 
 export const BlurArea = styled.div`
