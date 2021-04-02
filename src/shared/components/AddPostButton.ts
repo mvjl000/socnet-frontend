@@ -13,6 +13,5 @@ export const AddPostButton = styled.button`
   &:hover {
     letter-spacing: 1px;
     background-color: #ccc;
-    border-width: 2px;
   }
 `;
