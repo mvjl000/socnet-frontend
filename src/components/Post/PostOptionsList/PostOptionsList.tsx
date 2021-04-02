@@ -22,7 +22,7 @@ const PostOptionsList: React.FC<PostOptionsListProps> = ({
       exit={{ opacity: 0 }}
       transition={{ duration: 0.2 }}
     >
-      <ListItem colorVariant='1'>Report</ListItem>
+      {auth.userData![0] !== postCreatorId && <ListItem colorVariant='1'>Report</ListItem>}
       {auth.userData![0] === postCreatorId && (
         <>
           <ListItem onClick={openEditMode} colorVariant='2'>Edit</ListItem>
