@@ -82,7 +82,12 @@ const Profile: React.FC = () => {
           `${process.env.REACT_APP_BACKEND_URL}/user/updateDesc/${
             auth.userData![0]
           }`,
-          { description: userDescription }
+          { description: userDescription },
+          {
+            headers: {
+              Authorization: `Bearer ${auth.token}`,
+            },
+          }
         );
         setIsEditMode(!isEditMode);
       } catch (err) {
