@@ -20,6 +20,11 @@ interface SettingsModalProps {
   closeModal: (close: boolean) => void;
   deleteUser: () => void;
   deletePosts: () => void;
+};
+
+type ConfirmStateProps = {
+  isOpen: boolean,
+  actionType: string
 }
 
 const SettingsModal: React.FC<SettingsModalProps> = ({
@@ -27,7 +32,18 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
   deleteUser,
   deletePosts
 }) => {
-  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  const [isConfirmOpen, setIsConfirmOpen] = useState<ConfirmStateProps>({ isOpen: false, actionType: ''});
+
+  const handleConfirmOpen = (action: string) => setIsConfirmOpen({isOpen: true, actionType: action});
+
+  const handleDeleteAction = () => {
+    if (isConfirmOpen.actionType === 'DELETE_ACCOUNT') {
+      deleteUser();
+    } else if (isConfirmOpen.actionType === 'DELETE_POSTS') {
+      deletePosts();
+      setIsConfirmOpen({ isOpen: false, actionType: '' });
+    }
+  }
 
   return (
     <Wrapper
@@ -40,13 +56,13 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
           <CloseIcon onClick={() => closeModal(false)} />
         </CloseIconContainer>
         <Heading>Account Settings</Heading>
-        {!isConfirmOpen && (
+        {!isConfirmOpen.isOpen && (
           <OptionsList
             exit={{ x: '-100%' }}
             animate={{ x: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <Option onClick={() => setIsConfirmOpen(true)}>
+            <Option onClick={() => handleConfirmOpen('DELETE_ACCOUNT')}>
               <p>Delete account</p>
               <DeleteIcon />
             </Option>
@@ -54,7 +70,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
               <p>Edit Name</p>
               <EditIcon />
             </Option>
-            <Option onClick={deletePosts}>
+            <Option onClick={() => handleConfirmOpen('DELETE_POSTS')}>
               <p>Delete all posts</p>
               <DeleteSweepIcon />
             </Option>
@@ -70,10 +86,10 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
               This operation is irreversible! Do you want to proceed?
             </SubHeading>
             <ButtonsContainer>
-              <ConfirmButton onClick={() => setIsConfirmOpen(false)}>
+              <ConfirmButton onClick={() => setIsConfirmOpen({ isOpen: false, actionType: '' })}>
                 Cancel
               </ConfirmButton>
-              <ConfirmButton onClick={() => deleteUser()} deleteVersion={true}>
+              <ConfirmButton onClick={handleDeleteAction} deleteVersion={true}>
                 Delete
               </ConfirmButton>
             </ButtonsContainer>
