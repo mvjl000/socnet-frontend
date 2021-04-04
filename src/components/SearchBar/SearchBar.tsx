@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-import { Input } from './SearchBar.styles';
+import { Input, ResultsContainer, Wrapper, ListItem } from './SearchBar.styles';
 
 interface SearchBarProps {
   closeDropDown?: () => void;
@@ -45,16 +45,16 @@ const SearchBar: React.FC<SearchBarProps> = ({ closeDropDown }) => {
     };
 
     return (
-        <>
+        <Wrapper>
         <form onSubmit={handleSearch}>
-        <Input placeholder='Search for person' value={barValue} onChange={handleInputChange}/>
+        <Input placeholder='Search for person' value={barValue} onChange={handleInputChange} isListActive={searchResults.length > 0}/>
         </form>
         {searchResults && (
-            <ul>
-                {searchResults.map(username => <li key={username}>{username}</li>)}
-            </ul>
+            <ResultsContainer isListActive={searchResults.length > 0}>
+                {searchResults.map(username => <ListItem to={`/profile/${username}`} onClick={closeDropDown} key={username}>{username}</ListItem>)}
+            </ResultsContainer>
         )}
-        </>
+        </Wrapper>
     )
 }
 
