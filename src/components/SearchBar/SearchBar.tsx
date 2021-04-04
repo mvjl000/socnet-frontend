@@ -44,6 +44,13 @@ const SearchBar: React.FC<SearchBarProps> = ({ closeDropDown }) => {
         }
     };
 
+    const handleUserClick = () => {
+        if (closeDropDown) {
+            closeDropDown();
+        };
+        setSearchResults([]);
+    };
+
     return (
         <Wrapper>
         <form onSubmit={handleSearch}>
@@ -51,7 +58,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ closeDropDown }) => {
         </form>
         {searchResults.length > 0 && (
             <ResultsContainer isListActive={searchResults.length > 0}>
-                {searchResults.map(username => <ListItem to={`/profile/${username}`} onClick={closeDropDown} key={username}>{username}</ListItem>)}
+                {searchResults.map(username => <ListItem to={`/profile/${username}`} onClick={handleUserClick} key={username}>{username}</ListItem>)}
             </ResultsContainer>
         )}
         </Wrapper>
