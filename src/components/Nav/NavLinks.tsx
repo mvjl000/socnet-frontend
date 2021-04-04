@@ -22,7 +22,7 @@ const NavLinks: React.FC<NavLinksProps> = ({ closeDropDown, handleLogout, userna
       </li>}
       <li>
         <NavLink to={`/profile/${username}`} onClick={closeDropDown}>
-          My Profile
+          {username}
           <PersonIcon />
         </NavLink>
       </li>
