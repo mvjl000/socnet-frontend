@@ -49,7 +49,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ closeDropDown }) => {
         <form onSubmit={handleSearch}>
         <Input placeholder='Search for person' value={barValue} onChange={handleInputChange} isListActive={searchResults.length > 0}/>
         </form>
-        {searchResults && (
+        {searchResults.length > 0 && (
             <ResultsContainer isListActive={searchResults.length > 0}>
                 {searchResults.map(username => <ListItem to={`/profile/${username}`} onClick={closeDropDown} key={username}>{username}</ListItem>)}
             </ResultsContainer>
