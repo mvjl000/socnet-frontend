@@ -30,7 +30,7 @@ export const StyledNavLinks = styled.ul`
     }
   }
 
-  li {
+  & > li {
     display: flex;
     justify-content: space-between;
     align-items: center;
