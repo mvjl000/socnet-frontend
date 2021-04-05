@@ -48,6 +48,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ closeDropDown }) => {
         if (closeDropDown) {
             closeDropDown();
         };
+        setBarValue('');
         setSearchResults([]);
     };
 
