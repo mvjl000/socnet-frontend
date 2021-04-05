@@ -10,10 +10,17 @@ interface NavLinksProps {
   handleLogout: () => void;
   closeDropDown?: () => void;
   username: string
-}
+};
 
 const NavLinks: React.FC<NavLinksProps> = ({ closeDropDown, handleLogout, username }) => {
   const { isSearchBarVisible } = useToggleSearchBar(true);
+
+  const handleLogoutClick = () => {
+  if (closeDropDown) {
+    closeDropDown();
+  };
+  handleLogout();
+}
 
   return (
     <StyledNavLinks>
@@ -26,7 +33,7 @@ const NavLinks: React.FC<NavLinksProps> = ({ closeDropDown, handleLogout, userna
           <PersonIcon />
         </NavLink>
       </li>
-      <li onClick={handleLogout}>
+      <li onClick={handleLogoutClick}>
         Logout <ExitToAppIcon />
       </li>
     </StyledNavLinks>
