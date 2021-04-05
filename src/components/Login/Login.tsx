@@ -79,7 +79,6 @@ const Login: React.FC = () => {
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(
     false
   );
-  const [isPickImageMode, setIsPickImageMode] = useState(false);
   const [isLoginOrFill, setIsLoginOrFill] = useState(true);
   const [availableImages, setAvailableImages] = useState<string[]>([]);
   const auth = useContext(AuthContext);
@@ -171,30 +170,6 @@ const Login: React.FC = () => {
       }
     }
   };
-
-  const handleCreateUser = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    dispatch({ type: 'proceed' });
-      try {
-        await axios.post(`${process.env.REACT_APP_BACKEND_URL}/user/signup`, {
-          username,
-          password,
-          repeatPassword,
-          image: profilePicture
-        });
-        dispatch({ type: 'success' });
-        dispatch({ type: 'switchMode', payload: 'LOGIN' });
-        history.push('/');
-      } catch (error) {
-        dispatch({
-          type: 'reject',
-          payload: error.response
-            ? error.response.data.message
-            : 'Unexpted error occured.',
-        });
-      }
-  }
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     dispatch({
