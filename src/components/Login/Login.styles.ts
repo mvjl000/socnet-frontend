@@ -116,3 +116,20 @@ export const ErrorMessage = styled.p`
     font-size: 16px;
   }
 `;
+
+export const PhotosWrapper = styled.div`
+  margin-top: 10px;
+  width: 75%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+`;
+
+export const ProfilePhoto = styled.div`
+  margin: 10px 20px;
+  width: 50px;
+  height: 50px;
+  background-color: #f73f52;
+  border-radius: 50%;
+`;

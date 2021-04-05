@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import AuthContext from 'shared/context/auth-context';
 import Loader from 'shared/components/Loader';
+import PickImage from './PickImage';
 import {
   Button,
   CreateAccountButton,
@@ -73,6 +74,7 @@ const Login: React.FC = () => {
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(
     false
   );
+  const [isPickImageMode, setIsPickImageMode] = useState(false);
   const auth = useContext(AuthContext);
   const history = useHistory();
 
@@ -118,29 +120,30 @@ const Login: React.FC = () => {
         });
       }
     } else if (
-      !isLoading &&
+      !isLoginMode &&
       username.length >= 3 &&
       password.length >= 5 &&
       password === repeatPassword
     ) {
-      dispatch({ type: 'proceed' });
-      try {
-        await axios.post(`${process.env.REACT_APP_BACKEND_URL}/user/signup`, {
-          username,
-          password,
-          repeatPassword,
-        });
-        dispatch({ type: 'success' });
-        dispatch({ type: 'switchMode' });
-        history.push('/');
-      } catch (error) {
-        dispatch({
-          type: 'reject',
-          payload: error.response
-            ? error.response.data.message
-            : 'Unexpted error occured.',
-        });
-      }
+      setIsPickImageMode(true);
+      // dispatch({ type: 'proceed' });
+      // try {
+      //   await axios.post(`${process.env.REACT_APP_BACKEND_URL}/user/signup`, {
+      //     username,
+      //     password,
+      //     repeatPassword,
+      //   });
+      //   dispatch({ type: 'success' });
+      //   dispatch({ type: 'switchMode' });
+      //   history.push('/');
+      // } catch (error) {
+      //   dispatch({
+      //     type: 'reject',
+      //     payload: error.response
+      //       ? error.response.data.message
+      //       : 'Unexpted error occured.',
+      //   });
+      // }
     }
   };
 
@@ -151,7 +154,9 @@ const Login: React.FC = () => {
       payload: event.target.value,
     });
 
-  const handleToggleMode = () => dispatch({ type: 'switchMode' });
+  const handleToggleMode = () => {
+    dispatch({ type: 'switchMode' });
+  };
 
   const handleTogglePasswordVisibility = () =>
     setIsPasswordVisible(!isPasswordVisible);
@@ -160,7 +165,9 @@ const Login: React.FC = () => {
     setIsConfirmPasswordVisible(!isConfirmPasswordVisible);
 
   return (
-    <Wrapper onSubmit={handleLoginFormSubmit}>
+    <>
+    {isPickImageMode === false ? (
+      <Wrapper onSubmit={handleLoginFormSubmit}>
       <Header>{isLoginMode ? 'Log in' : 'Create account'}</Header>
       <label htmlFor=''>
         Username
@@ -208,13 +215,17 @@ const Login: React.FC = () => {
           </ToggleVisibilityButton>
         </label>
       )}
-      <Button type='submit'>{isLoginMode ? 'Sign in' : 'Sign up'}</Button>
+      <Button type='submit'>{isLoginMode ? 'Sign in' : 'Next step'}</Button>
       <CreateAccountButton type='button' onClick={handleToggleMode}>
         {isLoginMode ? 'Create account' : 'Switch to login'}
       </CreateAccountButton>
       {error && <ErrorMessage>{error}</ErrorMessage>}
       {isLoading && <Loader />}
     </Wrapper>
+    ) : (
+      <PickImage />
+    )}
+    </>
   );
 };
 
