@@ -1,10 +1,13 @@
+type formModes = 'LOGIN' | 'FILL' | 'PICK_IMAGE'
+
 interface LoginState {
   username: string;
   password: string;
   repeatPassword: string;
-  isLoginMode: boolean;
+  currentMode: formModes;
   isLoading: boolean;
   error: string;
+  profilePicture: string;
 }
 
 type Action =
@@ -15,6 +18,7 @@ type Action =
     }
   | {
       type: 'switchMode';
+      payload: formModes;
     }
   | {
       type: 'success';
@@ -25,6 +29,13 @@ type Action =
     }
   | {
       type: 'proceed';
+    }
+  | {
+      type: 'selectImage';
+      payload: string;
+    }
+  | {
+      type: 'clearState';
     };
 
 type LoginReducer = (state: LoginState, action: Action) => LoginState;
