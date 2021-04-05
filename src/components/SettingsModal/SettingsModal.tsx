@@ -72,10 +72,6 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
               <p>Delete account</p>
               <DeleteIcon />
             </Option>
-            <Option>
-              <p>Edit Name</p>
-              <EditIcon />
-            </Option>
             <Option onClick={() => handleConfirmOpen('DELETE_POSTS')}>
               <p>Delete all posts</p>
               <DeleteSweepIcon />

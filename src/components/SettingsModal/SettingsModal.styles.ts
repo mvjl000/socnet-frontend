@@ -74,7 +74,7 @@ export const SubHeading = styled.h4`
 `;
 
 export const OptionsList = styled(motion.ul)`
-  margin: 30px 0;
+  margin: 60px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -114,12 +114,6 @@ export const Option = styled.li`
     color: #333;
     transform: scale(1.2);
     transition: 0.2s;
-  }
-
-  &:nth-child(2) {
-    &:hover svg {
-      color: #65def1;
-    }
   }
 
   &:hover svg {
