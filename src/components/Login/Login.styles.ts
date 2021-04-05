@@ -16,7 +16,8 @@ export const Wrapper = styled.form`
   flex-direction: column;
   width: 75%;
   max-width: 600px;
-  height: 380px;
+  min-height: 380px;
+  padding: 20px 10px;
   border: 1px solid transparent;
   border-radius: 10px;
   box-shadow: 0 5px 22px -10px rgba(247, 63, 82, 0.6);
