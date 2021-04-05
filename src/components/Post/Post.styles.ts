@@ -46,13 +46,12 @@ export const PostOptions = styled.button`
   }
 `;
 
-export const ProfilePhoto = styled.div`
+export const ProfilePhoto = styled.img`
   position: absolute;
   top: 15px;
   left: 15px;
   width: 50px;
   height: 50px;
-  background-color: #f73f52;
   border-radius: 50%;
 `;
 

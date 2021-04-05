@@ -125,7 +125,7 @@ const Post: React.FC<PostProps> = ({
       <PostOptions onClick={() => setAreOptionsVisible(!areOptionsVisible)}>
         <MoreVertIcon />
       </PostOptions>
-      <ProfilePhoto />
+      <ProfilePhoto src={`${process.env.REACT_APP_ASSETS_URL}/${creatorImage}`} />
       <Title>
         <h2>
           {isCreatorShown && <span>{creator}</span>} {title}
