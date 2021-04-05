@@ -147,7 +147,7 @@ const Login: React.FC = () => {
     ) {
       console.log(username, password, repeatPassword, profilePicture);
       dispatch({ type: 'switchMode', payload: 'PICK_IMAGE'});
-    } else if (currentMode === 'PICK_IMAGE') {
+    } else if (currentMode === 'PICK_IMAGE' && profilePicture.length > 0) {
       dispatch({ type: 'proceed' });
       try {
         await axios.post(`${process.env.REACT_APP_BACKEND_URL}/user/signup`, {
