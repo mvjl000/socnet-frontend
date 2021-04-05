@@ -184,9 +184,11 @@ const Profile: React.FC = () => {
             deletePosts={handleDeletePosts}
           />
         )}
-        <SettingsIconContainer>
-          <SettingsIcon onClick={() => setIsSettingsOpen(true)} />
-        </SettingsIconContainer>
+        {isMyProfile && (
+          <SettingsIconContainer>
+            <SettingsIcon onClick={() => setIsSettingsOpen(true)} />
+          </SettingsIconContainer>
+        )}
       </Wrapper>
       </>
     ) : (
