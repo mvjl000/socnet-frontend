@@ -167,6 +167,7 @@ const Profile: React.FC = () => {
                 title={post.title}
                 content={post.content}
                 creator={post.creatorName}
+                creatorImage={post.creatorImage}
                 isCreatorShown={false}
                 postId={post._id}
                 creationDate={post.creationDate}

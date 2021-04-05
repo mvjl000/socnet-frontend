@@ -3,6 +3,7 @@ export interface PostType {
   content: string;
   creatorName: string;
   creatorId: string;
+  creatorImage: string;
   _id: string;
   creationDate: string;
   edited: boolean;

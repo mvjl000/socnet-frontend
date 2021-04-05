@@ -24,6 +24,7 @@ interface PostProps {
   content: string;
   creator: string;
   creatorId: string;
+  creatorImage: string;
   isCreatorShown: boolean;
   postId: string;
   creationDate: string;
@@ -37,6 +38,7 @@ const Post: React.FC<PostProps> = ({
   content,
   creator,
   creatorId,
+  creatorImage,
   isCreatorShown,
   postId,
   creationDate,

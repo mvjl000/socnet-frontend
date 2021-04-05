@@ -35,6 +35,7 @@ const Main: React.FC = () => {
               title={post.title}
               content={post.content}
               creator={post.creatorName}
+              creatorImage={post.creatorImage}
               isCreatorShown={true}
               postId={post._id}
               creationDate={post.creationDate}
