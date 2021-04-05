@@ -1,9 +1,8 @@
-import React, { useContext, useReducer, useState } from 'react';
+import React, { useContext, useEffect, useReducer, useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import AuthContext from 'shared/context/auth-context';
 import Loader from 'shared/components/Loader';
-import PickImage from './PickImage';
 import {
   Button,
   CreateAccountButton,
@@ -12,6 +11,7 @@ import {
   Wrapper,
   ErrorMessage,
   ToggleVisibilityButton,
+  PhotosWrapper, ProfilePhotoContainer, ProfilePhoto
 } from './Login.styles';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
@@ -20,9 +20,10 @@ const initialState: LoginState = {
   username: '',
   password: '',
   repeatPassword: '',
-  isLoginMode: true,
+  currentMode: 'LOGIN',
   isLoading: false,
   error: '',
+  profilePicture: ''
 };
 
 const loginReducer: LoginReducer = (state, action) => {
@@ -55,12 +56,16 @@ const loginReducer: LoginReducer = (state, action) => {
     case 'switchMode':
       return {
         ...state,
-        username: '',
-        password: '',
-        repeatPassword: '',
-        isLoginMode: !state.isLoginMode,
+        currentMode: action.payload,
         error: '',
       };
+    case 'selectImage':
+      return {
+        ...state,
+        profilePicture: action.payload
+      }
+    case 'clearState':
+      return initialState;
     default:
       return {
         ...state,
@@ -75,6 +80,8 @@ const Login: React.FC = () => {
     false
   );
   const [isPickImageMode, setIsPickImageMode] = useState(false);
+  const [isLoginOrFill, setIsLoginOrFill] = useState(true);
+  const [availableImages, setAvailableImages] = useState<string[]>([]);
   const auth = useContext(AuthContext);
   const history = useHistory();
 
@@ -82,17 +89,31 @@ const Login: React.FC = () => {
     username,
     password,
     repeatPassword,
-    isLoginMode,
+    currentMode,
     isLoading,
     error,
+    profilePicture
   } = state;
+
+
+  useEffect(() => {
+    const reqData = async () => {
+        try {
+            const responseData = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/user/profilePictures`);
+            setAvailableImages(responseData.data.images);
+        } catch (err) {
+            console.log(err.response.data.message);
+        }
+    };
+    reqData();
+  }, []);
 
   const handleLoginFormSubmit = async (
     event: React.FormEvent<HTMLFormElement>
   ) => {
     event.preventDefault();
     if (
-      isLoginMode &&
+      currentMode === 'LOGIN' &&
       username.trim().length > 0 &&
       password.trim().length > 0
     ) {
@@ -120,32 +141,60 @@ const Login: React.FC = () => {
         });
       }
     } else if (
-      !isLoginMode &&
+      currentMode === 'FILL' &&
       username.length >= 3 &&
       password.length >= 5 &&
       password === repeatPassword
     ) {
-      setIsPickImageMode(true);
-      // dispatch({ type: 'proceed' });
-      // try {
-      //   await axios.post(`${process.env.REACT_APP_BACKEND_URL}/user/signup`, {
-      //     username,
-      //     password,
-      //     repeatPassword,
-      //   });
-      //   dispatch({ type: 'success' });
-      //   dispatch({ type: 'switchMode' });
-      //   history.push('/');
-      // } catch (error) {
-      //   dispatch({
-      //     type: 'reject',
-      //     payload: error.response
-      //       ? error.response.data.message
-      //       : 'Unexpted error occured.',
-      //   });
-      // }
+      console.log(username, password, repeatPassword, profilePicture);
+      dispatch({ type: 'switchMode', payload: 'PICK_IMAGE'});
+    } else if (currentMode === 'PICK_IMAGE') {
+      dispatch({ type: 'proceed' });
+      try {
+        await axios.post(`${process.env.REACT_APP_BACKEND_URL}/user/signup`, {
+          username,
+          password,
+          repeatPassword,
+          image: profilePicture
+        });
+        dispatch({ type: 'success' });
+        dispatch({ type: 'clearState' });
+        dispatch({ type: 'switchMode', payload: 'LOGIN' });
+        history.push('/');
+      } catch (error) {
+        dispatch({
+          type: 'reject',
+          payload: error.response
+            ? error.response.data.message
+            : 'Unexpted error occured.',
+        });
+      }
     }
   };
+
+  const handleCreateUser = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    dispatch({ type: 'proceed' });
+      try {
+        await axios.post(`${process.env.REACT_APP_BACKEND_URL}/user/signup`, {
+          username,
+          password,
+          repeatPassword,
+          image: profilePicture
+        });
+        dispatch({ type: 'success' });
+        dispatch({ type: 'switchMode', payload: 'LOGIN' });
+        history.push('/');
+      } catch (error) {
+        dispatch({
+          type: 'reject',
+          payload: error.response
+            ? error.response.data.message
+            : 'Unexpted error occured.',
+        });
+      }
+  }
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     dispatch({
@@ -155,7 +204,11 @@ const Login: React.FC = () => {
     });
 
   const handleToggleMode = () => {
-    dispatch({ type: 'switchMode' });
+    if (currentMode === 'LOGIN') {
+      dispatch({ type: 'switchMode', payload: 'FILL' });
+    } else {
+      dispatch({ type: 'switchMode', payload: 'LOGIN' });
+    }
   };
 
   const handleTogglePasswordVisibility = () =>
@@ -164,11 +217,22 @@ const Login: React.FC = () => {
   const handleToggleConfirmPasswordVisibility = () =>
     setIsConfirmPasswordVisible(!isConfirmPasswordVisible);
 
+  const handleImageClick = (image: string) => dispatch({ type: 'selectImage', payload: image})
+
+  useEffect(() => {
+    if (currentMode === 'LOGIN' || currentMode === 'FILL') {
+    setIsLoginOrFill(true);
+  } else {
+    setIsLoginOrFill(false);
+  }
+  }, [currentMode]);
+  
+
   return (
     <>
-    {isPickImageMode === false ? (
+    {isLoginOrFill ? (
       <Wrapper onSubmit={handleLoginFormSubmit}>
-      <Header>{isLoginMode ? 'Log in' : 'Create account'}</Header>
+      <Header>{currentMode === 'LOGIN' ? 'Log in' : 'Create account'}</Header>
       <label htmlFor=''>
         Username
         <Input
@@ -193,7 +257,7 @@ const Login: React.FC = () => {
           {isPasswordVisible ? <VisibilityOffIcon /> : <VisibilityIcon />}
         </ToggleVisibilityButton>
       </label>
-      {!isLoginMode && (
+      {currentMode === 'FILL' && (
         <label htmlFor=''>
           Confirm password
           <Input
@@ -215,15 +279,26 @@ const Login: React.FC = () => {
           </ToggleVisibilityButton>
         </label>
       )}
-      <Button type='submit'>{isLoginMode ? 'Sign in' : 'Next step'}</Button>
+      <Button type='submit'>{currentMode === 'LOGIN' ? 'Sign in' : 'Next step'}</Button>
       <CreateAccountButton type='button' onClick={handleToggleMode}>
-        {isLoginMode ? 'Create account' : 'Switch to login'}
+        {currentMode === 'LOGIN' ? 'Create account' : 'Switch to login'}
       </CreateAccountButton>
       {error && <ErrorMessage>{error}</ErrorMessage>}
       {isLoading && <Loader />}
     </Wrapper>
     ) : (
-      <PickImage />
+      <Wrapper onSubmit={handleLoginFormSubmit}>
+            <Header>Pick profile picture</Header>
+            <PhotosWrapper>
+                {availableImages.length > 0 && availableImages.map(image => {
+                    let isImageActive = image === profilePicture;
+                    return (<ProfilePhotoContainer key={image} onClick={() => handleImageClick(image)} isActive={isImageActive}>
+                        <ProfilePhoto src={`${process.env.REACT_APP_ASSETS_URL}/${image}`}/>
+                    </ProfilePhotoContainer>)
+              })}
+            </PhotosWrapper>
+            <Button>Sign up</Button>
+        </Wrapper>
     )}
     </>
   );

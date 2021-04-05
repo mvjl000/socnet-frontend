@@ -2,6 +2,10 @@ import styled from 'styled-components';
 
 interface StyledInputProps {
   expand?: boolean;
+};
+
+interface ProfilePhotoContainerProps {
+  isActive: boolean
 }
 
 export const Wrapper = styled.form`
@@ -119,17 +123,31 @@ export const ErrorMessage = styled.p`
 
 export const PhotosWrapper = styled.div`
   margin-top: 10px;
-  width: 75%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   flex-wrap: wrap;
 `;
 
-export const ProfilePhoto = styled.div`
-  margin: 10px 20px;
-  width: 50px;
-  height: 50px;
-  background-color: #f73f52;
+export const ProfilePhotoContainer = styled.div<ProfilePhotoContainerProps>`
+  margin: 20px 20px 40px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+  transition: .2s ease-out;
+  border: ${({ isActive }) => isActive ? '4px solid white' : 'none'};
+  box-shadow: ${({ isActive }) => isActive ? '0 0 0px 2px #f73f52' : 'none'};
+  transform: ${({ isActive }) => isActive ? 'scale(1.15)' : 'none'};
+
+  &:hover {
+    transform: scale(1.15);
+  }
+`;
+
+export const ProfilePhoto = styled.img`
+  width: 100%;
+  object-fit: fill;
 `;
