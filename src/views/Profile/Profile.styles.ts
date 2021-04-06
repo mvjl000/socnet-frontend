@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+interface AllPostsWrapperProps {
+  isDesktopMode: boolean;
+}
+
 export const Wrapper = styled.div`
   width: 100%;
   max-width: 1300px;
@@ -116,7 +120,7 @@ export const DeleteButton = styled.button`
   }
 `;
 
-export const AllPostsWrapper = styled.div`
+export const AllPostsWrapper = styled.div<AllPostsWrapperProps>`
   margin: 50px 0 10px;
   position: relative;
   width: 100%;
@@ -125,6 +129,7 @@ export const AllPostsWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  border-top: ${({ isDesktopMode }) => isDesktopMode ? 'none' : '2px solid #999'};
 
   @media (min-width: 1024px) {
     width: 100%;

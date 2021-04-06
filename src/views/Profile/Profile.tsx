@@ -134,7 +134,7 @@ const Profile: React.FC = () => {
       <Wrapper>
         <ProfileInfo>
       <ProfilePicture>
-      <img src={`${process.env.REACT_APP_ASSETS_URL}/${userImage}`}/>
+      <img src={`${process.env.REACT_APP_ASSETS_URL}/${userImage}`} alt="Profile"/>
       </ProfilePicture>
       <Heading>
         <span>{uname}</span>
@@ -172,7 +172,7 @@ const Profile: React.FC = () => {
           </SettingsIconContainer>
         )}
         </ProfileInfo>
-        <AllPostsWrapper>
+        <AllPostsWrapper isDesktopMode={isDesktopMode}>
           <h1>{uname}'s Posts</h1>
           {posts.length > 0 ?
             posts.map((post, i) => {
