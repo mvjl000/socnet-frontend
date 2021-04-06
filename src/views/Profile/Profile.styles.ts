@@ -116,7 +116,7 @@ export const AllPostsWrapper = styled.div`
   margin: 50px 0 10px;
   position: relative;
   width: 100%;
-  min-height: 100px;
+  min-height: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -133,6 +133,7 @@ export const AllPostsWrapper = styled.div`
 
 
   h1 {
+    margin-bottom: 50px;
     position: absolute;
     top: 0;
     left: 50%;
@@ -143,6 +144,12 @@ export const AllPostsWrapper = styled.div`
     text-align: center;
     @media (min-width: 480px) {
       font-size: 32px;
+    }
+  }
+  h2 {
+    font-size: 20px;
+    @media (min-width: 480px) {
+      font-size: 25px;
     }
   }
 `;

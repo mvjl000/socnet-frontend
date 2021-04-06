@@ -192,7 +192,7 @@ const Profile: React.FC = () => {
                 likesCount={post.likesCount}
                 isPostLikedByUser={!!isPostLikedByLoggedUser}
               />
-            }) : <Heading as='h2'>This user has no posts yet</Heading>}
+            }) : <Heading as='h2'>This user hasn't got any post yet</Heading>}
             {isMyProfile && !isDesktopMode && (
           <SettingsIconContainer>
             <SettingsIcon onClick={() => setIsSettingsOpen(true)} />
