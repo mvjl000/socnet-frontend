@@ -10,7 +10,6 @@ export const Wrapper = styled.div`
   flex-direction: column;
   
   @media (min-width: 1300px) {
-    height: calc(100vh - 1000px);
     display: grid;
     grid-template-columns: 1fr 1fr;
   }
@@ -128,7 +127,7 @@ export const AllPostsWrapper = styled.div`
   };
 
   @media (min-width: 1300px) {
-    top: 400px;
+    min-height: 300px;
     grid-column: 2 / 3;
   }
 

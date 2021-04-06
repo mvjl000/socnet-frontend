@@ -174,7 +174,7 @@ const Profile: React.FC = () => {
         </ProfileInfo>
         <AllPostsWrapper>
           <h1>{uname}'s Posts</h1>
-          {posts &&
+          {posts.length > 0 ?
             posts.map((post, i) => {
               const isPostLikedByLoggedUser = post.likedBy.find(userId => userId === auth.userData![0]);
 
@@ -192,7 +192,7 @@ const Profile: React.FC = () => {
                 likesCount={post.likesCount}
                 isPostLikedByUser={!!isPostLikedByLoggedUser}
               />
-            })}
+            }) : <Heading as='h2'>This user has no posts yet</Heading>}
             {isMyProfile && !isDesktopMode && (
           <SettingsIconContainer>
             <SettingsIcon onClick={() => setIsSettingsOpen(true)} />
