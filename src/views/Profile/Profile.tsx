@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
+import { useScreenInfo } from 'hooks/useScreenInfo';
 import AuthContext from 'shared/context/auth-context';
 import { PostsContext } from 'shared/context/postsProvider';
 import {
@@ -35,10 +36,11 @@ const Profile: React.FC = () => {
   const [fetchError, setFetchError] = useState('');
   const auth = useContext(AuthContext);
   const { posts, setFetchedPosts } = useContext(PostsContext);
+  const { isDesktopMode } = useScreenInfo();
 
   const { uname } = useParams<ParamsTypes>();
 
-  const isMyProfile = uname === auth.userData![1];  
+  const isMyProfile = uname === auth.userData![1];    
 
   useEffect(() => {
     setFetchError('');
@@ -164,6 +166,11 @@ const Profile: React.FC = () => {
         {isMyProfile && <Link to='/new-post'>
           <AddPostButton>Add New Post</AddPostButton>
         </Link>}
+        {isMyProfile && isDesktopMode && (
+          <SettingsIconContainer>
+            <SettingsIcon onClick={() => setIsSettingsOpen(true)} />
+          </SettingsIconContainer>
+        )}
         </ProfileInfo>
         <AllPostsWrapper>
           <h1>{uname}'s Posts</h1>
@@ -186,7 +193,7 @@ const Profile: React.FC = () => {
                 isPostLikedByUser={!!isPostLikedByLoggedUser}
               />
             })}
-            {isMyProfile && (
+            {isMyProfile && !isDesktopMode && (
           <SettingsIconContainer>
             <SettingsIcon onClick={() => setIsSettingsOpen(true)} />
           </SettingsIconContainer>
