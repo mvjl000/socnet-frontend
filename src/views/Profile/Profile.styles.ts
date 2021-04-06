@@ -52,6 +52,10 @@ margin: 10px 0 40px;
   img {
   width: 100%;  
   }
+  @media (min-width: 1300px) {
+    width: 250px;
+    height: 250px;
+  }
 `;
 
 export const DescriptionWrapper = styled.div<{ isEditButtonVisible: boolean}>`
