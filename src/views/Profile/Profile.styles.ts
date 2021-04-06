@@ -84,7 +84,7 @@ export const DescriptionWrapper = styled.div<{ isEditButtonVisible: boolean}>`
   }
   textarea {
     width: 100%;
-    height: 200px;
+    height: 100px;
     font-family: 'Poppins', sans-serif;
     border: none;
     outline: none;
