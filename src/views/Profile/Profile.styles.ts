@@ -8,6 +8,29 @@ export const Wrapper = styled.div`
   align-items: center;
   justify-content: space-around;
   flex-direction: column;
+  
+  @media (min-width: 1300px) {
+    height: calc(100vh - 1000px);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+`;
+
+export const ProfileInfo = styled.div`
+  width: 100%;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+  @media (min-width: 1300px) {
+    width: 600px;
+    position: fixed;
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%);
+    grid-column: 1 / 2;
+  }
 `;
 
 export const Heading = styled.h1`
@@ -99,12 +122,16 @@ export const AllPostsWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-top: 2px solid #999;
-  border-bottom: 2px solid #999;
 
   @media (min-width: 1024px) {
     width: 100%;
+  };
+
+  @media (min-width: 1300px) {
+    top: 400px;
+    grid-column: 2 / 3;
   }
+
 
   h1 {
     position: absolute;

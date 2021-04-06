@@ -5,6 +5,7 @@ import AuthContext from 'shared/context/auth-context';
 import { PostsContext } from 'shared/context/postsProvider';
 import {
   Wrapper,
+  ProfileInfo,
   Heading,
   ProfilePicture,
   DescriptionWrapper,
@@ -128,6 +129,8 @@ const Profile: React.FC = () => {
     <>
     {!fetchError ? (
       <>
+      <Wrapper>
+        <ProfileInfo>
       <ProfilePicture>
       <img src={`${process.env.REACT_APP_ASSETS_URL}/${userImage}`}/>
       </ProfilePicture>
@@ -135,7 +138,6 @@ const Profile: React.FC = () => {
         <span>{uname}</span>
       </Heading>
       {isLoading && <h2>Loading...</h2>}
-      <Wrapper>
         <DescriptionWrapper isEditButtonVisible={isMyProfile}>
           <h2>{isEditMode && 'edit '}description</h2>
           {isEditMode ? (
@@ -162,6 +164,7 @@ const Profile: React.FC = () => {
         {isMyProfile && <Link to='/new-post'>
           <AddPostButton>Add New Post</AddPostButton>
         </Link>}
+        </ProfileInfo>
         <AllPostsWrapper>
           <h1>{uname}'s Posts</h1>
           {posts &&
@@ -183,6 +186,11 @@ const Profile: React.FC = () => {
                 isPostLikedByUser={!!isPostLikedByLoggedUser}
               />
             })}
+            {isMyProfile && (
+          <SettingsIconContainer>
+            <SettingsIcon onClick={() => setIsSettingsOpen(true)} />
+          </SettingsIconContainer>
+        )}
         </AllPostsWrapper>
         {isSettingsOpen && (
           <SettingsModal
@@ -190,11 +198,6 @@ const Profile: React.FC = () => {
             deleteUser={handleDeleteUser}
             deletePosts={handleDeletePosts}
           />
-        )}
-        {isMyProfile && (
-          <SettingsIconContainer>
-            <SettingsIcon onClick={() => setIsSettingsOpen(true)} />
-          </SettingsIconContainer>
         )}
       </Wrapper>
       </>
