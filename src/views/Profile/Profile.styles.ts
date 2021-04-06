@@ -11,12 +11,24 @@ export const Wrapper = styled.div`
 `;
 
 export const Heading = styled.h1`
+  padding: 0 10px;
   font-size: 28px;
   font-weight: 300;
   text-align: center;
 
   span {
     font-weight: 600;
+  }
+`;
+
+export const ProfilePicture = styled.div`
+margin: 10px 0 40px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+  img {
+  width: 100%;  
   }
 `;
 

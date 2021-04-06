@@ -6,6 +6,7 @@ import { PostsContext } from 'shared/context/postsProvider';
 import {
   Wrapper,
   Heading,
+  ProfilePicture,
   DescriptionWrapper,
   AllPostsWrapper,
   EditWrapper,
@@ -21,11 +22,12 @@ import SettingsIcon from '@material-ui/icons/Settings';
 
 interface ParamsTypes {
   uname: string
-}
+};
 
 const Profile: React.FC = () => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [userDescription, setUserDescripion] = useState('');
+  const [userImage, setUserImage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [reqError, setReqError] = useState('');
@@ -45,6 +47,7 @@ const Profile: React.FC = () => {
           `${process.env.REACT_APP_BACKEND_URL}/user/getUserData/${uname}`
         );
         setUserDescripion(response.data.description);
+        setUserImage(response.data.image);
       } catch (error) {
         setFetchError(`No user found for provided name - ${uname}`);
       }
@@ -125,8 +128,11 @@ const Profile: React.FC = () => {
     <>
     {!fetchError ? (
       <>
+      <ProfilePicture>
+      <img src={`${process.env.REACT_APP_ASSETS_URL}/${userImage}`}/>
+      </ProfilePicture>
       <Heading>
-        <span>{uname}</span> - {isMyProfile ? 'this is your profile' : 'profile'}
+        <span>{uname}</span>
       </Heading>
       {isLoading && <h2>Loading...</h2>}
       <Wrapper>
