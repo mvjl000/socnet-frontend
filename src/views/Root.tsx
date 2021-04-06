@@ -14,11 +14,11 @@ import Profile from 'views/Profile/Profile';
 import AddPost from 'views/AddPost/AddPost';
 import { Wrapper } from './Root.styles';
 import { useAuth } from 'hooks/useAuth';
-import { useNavExpand } from 'hooks/useNavExpand';
+import { useScreenInfo } from 'hooks/useScreenInfo';
 
 const Root: React.FC = () => {
   const { token, loginUser, logoutUser, userData } = useAuth();
-  const { isNavExpanded } = useNavExpand();
+  const { isNavExpanded } = useScreenInfo();
 
   let routes;
   if (token) {

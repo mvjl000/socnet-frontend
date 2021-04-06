@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-export const useNavExpand = () => {
+export const useScreenInfo = () => {
   const [isNavExpanded, setIsNavExpanded] = useState(true);
 
   const changeNav = () => {
