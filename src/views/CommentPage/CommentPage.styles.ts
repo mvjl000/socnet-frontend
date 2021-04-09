@@ -10,6 +10,7 @@ export const Wrapper = styled.div`
 `;
 
 export const CommentsWrapper = styled.div`
+    margin-bottom: 80px;
     width: 100%;
     max-width: 1050px;
     padding: 0 20px;
@@ -21,8 +22,13 @@ export const CommentsWrapper = styled.div`
 
 export const Comment = styled.div`
     margin: 15px 0;
+    padding: 5px 10px;
     width: 100%;
     min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
     border: 1px solid #bbb;
 `;
 
@@ -60,4 +66,25 @@ export const AddCommentButton = styled.button`
     &:hover svg {
         color: #444;
     }
+`;
+
+export const AuthorInfo = styled.div`
+    margin: 5px;
+    margin-left: 0;
+    min-width: 60px;
+    display: flex;
+    align-items: center;
+`;
+
+export const ProfilePicture = styled.div`
+    width: 40px;
+    height: 40px;
+    background-color: #666;
+    border-radius: 50%;
+`;
+
+export const CommentAuthor = styled.p`
+    margin-left: 5px;
+    font-weight: 500;
+    font-size: 18px;
 `;
