@@ -1,9 +1,12 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { useScreenInfo } from 'hooks/useScreenInfo';
 import Post from 'components/Post/Post';
 import AuthContext from 'shared/context/auth-context';
 import { PostType } from 'types/posts-types';
+import { Wrapper, CommentsWrapper, Comment, AddCommentButton } from './CommentPage.styles';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 interface ParamsProps {
     postId: string;
@@ -13,6 +16,7 @@ const CommentPage: React.FC = () => {
     const [postData, setPostData] = useState<PostType>();
     const { postId } = useParams<ParamsProps>();
     const auth = useContext(AuthContext);
+    const { isDesktopMode } = useScreenInfo();
 
     useEffect(() => {
     const reqData = async () => {
@@ -32,7 +36,7 @@ const CommentPage: React.FC = () => {
   const isPostLikedByLoggedUser = postData && postData.likedBy.find(userId => userId === auth.userData![0])
 
     return (
-        <>
+        <Wrapper>
             {postData && <Post title={postData.title}
                 content={postData.content}
                 creator={postData.creatorName}
@@ -45,7 +49,15 @@ const CommentPage: React.FC = () => {
                 likesCount={postData.likesCount}
                 isPostLikedByUser={!!isPostLikedByLoggedUser}/>
             }
-        </>
+            <CommentsWrapper>
+                <Comment/>
+                <Comment/>
+                <Comment/>
+                <AddCommentButton>
+                    <AddCircleIcon /> {isDesktopMode && 'Add Comment'}
+                </AddCommentButton>
+            </CommentsWrapper>
+        </Wrapper>
     )
 }
 
