@@ -8,6 +8,11 @@ import { PostType } from 'types/posts-types';
 import { Wrapper, CommentsWrapper, Comment, AddCommentButton, AuthorInfo, ProfilePicture, CommentAuthor } from './CommentPage.styles';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 
+const DUMMY_POSTS: { content: string }[] = [
+    { content: 'LOREM1'},
+    
+];
+
 interface ParamsProps {
     postId: string;
 }
@@ -23,8 +28,7 @@ const CommentPage: React.FC = () => {
       try {
         const response = await axios.get(
           `${process.env.REACT_APP_BACKEND_URL}/posts/post/${postId}`
-        );
-        console.log(response.data.post);
+        )
         setPostData(response.data.post);
       } catch (err) {
         console.log(err.response.data.message);
@@ -33,7 +37,9 @@ const CommentPage: React.FC = () => {
     reqData();
   }, []);
 
-  const isPostLikedByLoggedUser = postData && postData.likedBy.find(userId => userId === auth.userData![0])
+  const isPostLikedByLoggedUser = postData && postData.likedBy.find(userId => userId === auth.userData![0]);
+
+  const commentsSize: number[] = [];
 
     return (
         <Wrapper>
@@ -49,17 +55,47 @@ const CommentPage: React.FC = () => {
                 likesCount={postData.likesCount}
                 isPostLikedByUser={!!isPostLikedByLoggedUser}/>
             }
-            <CommentsWrapper>
-                <Comment>
+            <CommentsWrapper isOnlyOneComment={DUMMY_POSTS.length === 1}>
+                {DUMMY_POSTS.map((comment) => (
+                    <Comment key={comment.content}>
+                        <AuthorInfo>
+                        <ProfilePicture />
+                        <CommentAuthor>User</CommentAuthor>
+                    </AuthorInfo>
+                    <p>{comment.content}</p>
+                    </Comment>
+                ))}
+                {/* <Comment ref={el => {
+                    if (!el) return;
+                    console.log('1', el.getBoundingClientRect().height);
+                }}>
                     <AuthorInfo>
                         <ProfilePicture />
                         <CommentAuthor>User</CommentAuthor>
                     </AuthorInfo>
                     <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Est animi molestias facilis, architecto voluptas ipsam.</p>
                 </Comment>
+                <Comment ref={el => {
+                    if (!el) return;
+                    console.log('2', el.getBoundingClientRect().height);
+                }}>
+                    <AuthorInfo>
+                        <ProfilePicture />
+                        <CommentAuthor>User</CommentAuthor>
+                    </AuthorInfo>
+                    <p>Lorem, ipsum dolor sit amet consectetulis, architecto voluptas ipsam.</p>
+                </Comment>
+                <Comment>
+                    <AuthorInfo>
+                        <ProfilePicture />
+                        <CommentAuthor>User</CommentAuthor>
+                    </AuthorInfo>
+                    <p>Lorem,</p>
+                </Comment>
                 <Comment />
                 <Comment />
                 <Comment />
+                <Comment /> */}
                 <AddCommentButton>
                     <AddCircleIcon /> {isDesktopMode && 'Add Comment'}
                 </AddCommentButton>

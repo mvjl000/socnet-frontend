@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+interface CommentsWrapperProps {
+    isOnlyOneComment: boolean | undefined;
+};
+
 export const Wrapper = styled.div`
   width: 100%;
   max-width: 1300px;
@@ -9,7 +13,7 @@ export const Wrapper = styled.div`
   justify-content: space-around;
 `;
 
-export const CommentsWrapper = styled.div`
+export const CommentsWrapper = styled.div<CommentsWrapperProps>`
     position: relative;
     margin-bottom: 80px;
     width: 80%;
@@ -26,10 +30,13 @@ export const CommentsWrapper = styled.div`
         top: -50px;
         left: 0px;
         width: 2px;
-        height: 90%;
+        height: ${({ isOnlyOneComment }) => isOnlyOneComment ? '60%' : '100%'};
         background-color: #bbb;
         @media (min-width: 1024px) {
             left: 0px;
+        }
+        @media (min-width: 1300px) {
+            height: ${({ isOnlyOneComment }) => isOnlyOneComment ? '60%' : 'calc(100% - 80px)'};
         }
     }
 `;
@@ -39,7 +46,7 @@ export const Comment = styled.div`
     margin: 15px 0;
     padding: 5px 10px;
     width: 100%;
-    min-height: 50px;
+    min-height: 62px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -56,13 +63,19 @@ export const Comment = styled.div`
         transform: translateY(-50%);
         content: '';
         width: 19px;
-        height: 10px;
+        height: 100px;
+        transform: translateY(-100%);
         border-radius: 0px;
         border: 2px solid #bbb;
         border-top: none;
         border-right: none;
     }
-`;
+    &:nth-child(1) {
+        &::before {
+            height: 80px;
+        }
+    }
+    `;
 
 export const AddCommentButton = styled.button`
     position: fixed;
