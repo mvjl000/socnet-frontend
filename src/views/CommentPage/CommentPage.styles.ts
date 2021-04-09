@@ -10,17 +10,32 @@ export const Wrapper = styled.div`
 `;
 
 export const CommentsWrapper = styled.div`
+    position: relative;
     margin-bottom: 80px;
-    width: 100%;
-    max-width: 1050px;
+    width: 80%;
+    max-width: 1000px;
     padding: 0 20px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: space-evenly;
+
+    &::before {
+        position: absolute;
+        content: '';
+        top: -50px;
+        left: 0px;
+        width: 2px;
+        height: 90%;
+        background-color: #bbb;
+        @media (min-width: 1024px) {
+            left: 0px;
+        }
+    }
 `;
 
 export const Comment = styled.div`
+    position: relative;
     margin: 15px 0;
     padding: 5px 10px;
     width: 100%;
@@ -30,6 +45,23 @@ export const Comment = styled.div`
     justify-content: space-between;
     flex-wrap: wrap;
     border: 1px solid #bbb;
+    @media (min-width: 1024px) {
+        width: 100%;
+    }
+
+    &::before {
+        position: absolute;
+        top: 50%;
+        left: -21px;
+        transform: translateY(-50%);
+        content: '';
+        width: 19px;
+        height: 10px;
+        border-radius: 0px;
+        border: 2px solid #bbb;
+        border-top: none;
+        border-right: none;
+    }
 `;
 
 export const AddCommentButton = styled.button`
