@@ -12,6 +12,7 @@ import Login from 'components/Login/Login';
 import Main from 'views/Main/Main';
 import Profile from 'views/Profile/Profile';
 import AddPost from 'views/AddPost/AddPost';
+import CommentPage from 'views/CommentPage/CommentPage';
 import { Wrapper } from './Root.styles';
 import { useAuth } from 'hooks/useAuth';
 import { useScreenInfo } from 'hooks/useScreenInfo';
@@ -25,8 +26,9 @@ const Root: React.FC = () => {
     routes = (
       <Switch>
         <Route path='/' component={Main} exact />
-        <Route path='/profile/:uname' component={Profile} />
         <Route path='/new-post' component={AddPost} />
+        <Route path='/post/:postId' component={CommentPage} />
+        <Route path='/profile/:uname' component={Profile} />
         <Redirect to='/' />
       </Switch>
     );
