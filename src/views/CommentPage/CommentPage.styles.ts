@@ -42,6 +42,8 @@ export const AddCommentButton = styled.button`
         width: 200px;
         height: 55px;
         padding-left: 1px;
+        font-size: 16px;
+        font-weight: 500;
         border: 2px solid #666;
         border-radius: 50px;
     }
@@ -52,7 +54,7 @@ export const AddCommentButton = styled.button`
         color: #666;
         transition: .2s;
         @media (min-width: 1300px) {
-        margin-right: 15px;
+        margin-right: 11px;
         }
     }
     &:hover svg {
