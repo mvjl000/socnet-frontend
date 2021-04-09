@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import {
   Title,
@@ -142,7 +143,7 @@ const Post: React.FC<PostProps> = ({
         </> ) : (
         <>
           <LikeIcon isPostLikedByUser={isPostLikedByUser} onClick={handleLikeAction} />{likesCount}
-          <CommentIcon />
+          <Link to={`/post/${postId}`}><CommentIcon /></Link>
         </>
         )}
       </ReactionsContainer>
