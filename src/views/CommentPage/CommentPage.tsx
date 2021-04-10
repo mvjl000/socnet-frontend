@@ -9,7 +9,6 @@ import { Wrapper, CommentsWrapper, Comment, AddCommentButton, AuthorInfo, Profil
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 const DUMMY_POSTS: { content: string }[] = [
-    { content: 'HELLO WORLD'}
 ];
 
 interface ParamsProps {
@@ -34,7 +33,7 @@ const CommentPage: React.FC = () => {
       }
     };
     reqData();
-  }, []);
+  }, [postId]);
 
   const isPostLikedByLoggedUser = postData && postData.likedBy.find(userId => userId === auth.userData![0]);
 
@@ -62,37 +61,6 @@ const CommentPage: React.FC = () => {
                     <p>{comment.content}</p>
                     </Comment>
                 ))}
-                {/* <Comment ref={el => {
-                    if (!el) return;
-                    console.log('1', el.getBoundingClientRect().height);
-                }}>
-                    <AuthorInfo>
-                        <ProfilePicture />
-                        <CommentAuthor>User</CommentAuthor>
-                    </AuthorInfo>
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Est animi molestias facilis, architecto voluptas ipsam.</p>
-                </Comment>
-                <Comment ref={el => {
-                    if (!el) return;
-                    console.log('2', el.getBoundingClientRect().height);
-                }}>
-                    <AuthorInfo>
-                        <ProfilePicture />
-                        <CommentAuthor>User</CommentAuthor>
-                    </AuthorInfo>
-                    <p>Lorem, ipsum dolor sit amet consectetulis, architecto voluptas ipsam.</p>
-                </Comment>
-                <Comment>
-                    <AuthorInfo>
-                        <ProfilePicture />
-                        <CommentAuthor>User</CommentAuthor>
-                    </AuthorInfo>
-                    <p>Lorem,</p>
-                </Comment>
-                <Comment />
-                <Comment />
-                <Comment />
-                <Comment /> */}
                 <AddCommentButton>
                     <AddCircleIcon /> {isDesktopMode && 'Add Comment'}
                 </AddCommentButton>
