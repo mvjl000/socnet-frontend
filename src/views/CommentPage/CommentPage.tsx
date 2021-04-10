@@ -86,7 +86,7 @@ const CommentPage: React.FC = () => {
                 content={postData.content}
                 creator={postData.creatorName}
                 creatorImage={postData.creatorImage}
-                isCreatorShown={false}
+                isCreatorShown={true}
                 postId={postData._id}
                 creationDate={postData.creationDate}
                 creatorId={postData.creatorId}
