@@ -78,6 +78,15 @@ export const Comment = styled.div<CommentsProps>`
         height: ${({ isLastComment }) => isLastComment ? 'calc(50% + 32px)' : 'calc(100% + 32px)'};
         background-color: #bbb;
     }
+
+    & > svg {
+        color: #555;
+        transition: .2s;
+        cursor: pointer;
+        &:hover {
+            color: red;
+        }
+    }
     `;
 
 export const AddComment = styled.form`
@@ -140,7 +149,7 @@ export const ProfilePicture = styled.img`
 `;
 
 export const CommentAuthor = styled.p`
-    margin-left: 5px;
+    margin-left: 10px;
     font-weight: 500;
     font-size: 18px;
 `;

@@ -7,6 +7,7 @@ import AuthContext from 'shared/context/auth-context';
 import { PostType } from 'types/posts-types';
 import { Wrapper, CommentsWrapper, Comment, AddComment, AuthorInfo, ProfilePicture, CommentAuthor, CommentDate } from './CommentPage.styles';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 interface ParamsProps {
     postId: string;
@@ -78,6 +79,23 @@ const CommentPage: React.FC = () => {
       }
   };
 
+  const handleDeleteComment = async (commentId: string) => {
+    try {
+      await axios.delete(
+        `${process.env.REACT_APP_BACKEND_URL}/posts/comment/${postId}/${commentId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${auth.token}`,
+          },
+        }
+      );
+      const newComments = postComments.filter(comment => comment._id !== commentId);
+      setPostComments(newComments);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const isPostLikedByLoggedUser = postData && postData.likedBy.find(userId => userId === auth.userData![0]);
 
     return (
@@ -105,6 +123,7 @@ const CommentPage: React.FC = () => {
                       </AuthorInfo>
                     <p>{comment.content}</p>
                     <CommentDate>{comment.commentDate}</CommentDate>
+                    {comment.commentAuthorId === auth.userData![0] && <DeleteIcon onClick={() => handleDeleteComment(comment._id)}/>}
                     </Comment>
                 ))}
                 <AddComment onSubmit={handleSubmitComment}>
