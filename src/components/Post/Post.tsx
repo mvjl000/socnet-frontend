@@ -32,6 +32,7 @@ interface PostProps {
   edited: boolean;
   likesCount: number;
   isPostLikedByUser: boolean;
+  commentsCount: number;
 }
 
 const Post: React.FC<PostProps> = ({
@@ -45,7 +46,8 @@ const Post: React.FC<PostProps> = ({
   creationDate,
   edited,
   likesCount,
-  isPostLikedByUser
+  isPostLikedByUser,
+  commentsCount
 }) => {
   const [areOptionsVisible, setAreOptionsVisible] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
@@ -143,7 +145,7 @@ const Post: React.FC<PostProps> = ({
         </> ) : (
         <>
           <LikeIcon isPostLikedByUser={isPostLikedByUser} onClick={handleLikeAction} />{likesCount}
-          <Link to={`/post/${postId}`}><CommentIcon /></Link>
+          <Link to={`/post/${postId}`}><CommentIcon /></Link>{commentsCount}
         </>
         )}
       </ReactionsContainer>

@@ -9,4 +9,5 @@ export interface PostType {
   edited: boolean;
   likesCount: number;
   likedBy: string[];
+  commentsCount: number;
 }

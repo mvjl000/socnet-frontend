@@ -43,6 +43,7 @@ const Main: React.FC = () => {
               edited={post.edited}
               likesCount={post.likesCount}
               isPostLikedByUser={!!isPostLikedByLoggedUser}
+              commentsCount={post.commentsCount}
             />
           })}
       </Wrapper>

@@ -191,6 +191,7 @@ const Profile: React.FC = () => {
                 edited={post.edited}
                 likesCount={post.likesCount}
                 isPostLikedByUser={!!isPostLikedByLoggedUser}
+                commentsCount={post.commentsCount}
               />
             }) : <Heading as='h2'>This user hasn't got any post yet</Heading>}
             {isMyProfile && !isDesktopMode && (

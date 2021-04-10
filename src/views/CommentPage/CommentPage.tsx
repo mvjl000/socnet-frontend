@@ -73,7 +73,9 @@ const CommentPage: React.FC = () => {
                 creatorId={postData.creatorId}
                 edited={postData.edited}
                 likesCount={postData.likesCount}
-                isPostLikedByUser={!!isPostLikedByLoggedUser}/>
+                isPostLikedByUser={!!isPostLikedByLoggedUser}
+                commentsCount={postData?.commentsCount}
+                />
             }
             <CommentsWrapper commentsExist={postComments.length > 0}>
                 {postComments.map((comment, i) => (
