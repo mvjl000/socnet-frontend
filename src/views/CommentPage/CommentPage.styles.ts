@@ -135,3 +135,9 @@ export const CommentAuthor = styled.p`
     font-weight: 500;
     font-size: 18px;
 `;
+
+export const CommentDate = styled.p`
+    margin: 0 10px 0 auto;
+    color: #aaa;
+    font-size: 13px;
+`;

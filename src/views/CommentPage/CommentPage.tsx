@@ -5,7 +5,7 @@ import { useScreenInfo } from 'hooks/useScreenInfo';
 import Post from 'components/Post/Post';
 import AuthContext from 'shared/context/auth-context';
 import { PostType } from 'types/posts-types';
-import { Wrapper, CommentsWrapper, Comment, AddCommentButton, AuthorInfo, ProfilePicture, CommentAuthor } from './CommentPage.styles';
+import { Wrapper, CommentsWrapper, Comment, AddCommentButton, AuthorInfo, ProfilePicture, CommentAuthor, CommentDate } from './CommentPage.styles';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 const DUMMY_POSTS: { content: string }[] = [
@@ -85,6 +85,7 @@ const CommentPage: React.FC = () => {
                         <CommentAuthor>{comment.commentAuthorName}</CommentAuthor>
                       </AuthorInfo>
                     <p>{comment.content}</p>
+                    <CommentDate>{comment.commentDate}</CommentDate>
                     </Comment>
                 ))}
                 <AddCommentButton>
