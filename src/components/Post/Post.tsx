@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import {
   Title,
@@ -54,6 +54,8 @@ const Post: React.FC<PostProps> = ({
   const [contentData, setContentData] = useState<string>(content);
   const auth = useContext(AuthContext);
   const { handleDeletePostFromContext, handleEditPostFromContext, handleLikeActionContext } = useContext(PostsContext);
+  const { pathname } = useLocation();
+  const history = useHistory();  
 
   const handleDeletePost = async () => {
     try {
@@ -66,7 +68,12 @@ const Post: React.FC<PostProps> = ({
         }
       );
       handleDeletePostFromContext(postId);
-    } catch (error) {}
+      if (pathname.split('/')[1] === 'post') {
+        history.push('/');
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const openEditMode = () => {
