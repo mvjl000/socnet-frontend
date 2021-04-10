@@ -1,8 +1,12 @@
 import styled from 'styled-components';
 
 interface CommentsWrapperProps {
-    isOnlyOneComment: boolean | undefined;
+    commentsExist: boolean;
 };
+
+interface CommentsProps {
+    isLastComment: boolean;
+}
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -30,18 +34,15 @@ export const CommentsWrapper = styled.div<CommentsWrapperProps>`
         top: -50px;
         left: 0px;
         width: 2px;
-        height: ${({ isOnlyOneComment }) => isOnlyOneComment ? '60%' : '100%'};
+        height: ${({ commentsExist }) => commentsExist ? '50px' : '0'};
         background-color: #bbb;
         @media (min-width: 1024px) {
             left: 0px;
         }
-        @media (min-width: 1300px) {
-            height: ${({ isOnlyOneComment }) => isOnlyOneComment ? '60%' : 'calc(100% - 80px)'};
-        }
     }
 `;
 
-export const Comment = styled.div`
+export const Comment = styled.div<CommentsProps>`
     position: relative;
     margin: 15px 0;
     padding: 5px 10px;
@@ -56,24 +57,26 @@ export const Comment = styled.div`
         width: 100%;
     }
 
-    &::before {
+    &::after {
+        content: '';
         position: absolute;
         top: 50%;
+        left: -20px;
+        transform: translateY(-50%);
+        width: 20px;
+        height: 2px;
+        background-color: #bbb;
+    }
+
+    &::before {
+        position: absolute;
+        top: ${({ isLastComment }) => isLastComment ? 'calc(25% - 15px)' : 'calc(50% - 15px)'};
         left: -21px;
         transform: translateY(-50%);
         content: '';
-        width: 19px;
-        height: 100px;
-        transform: translateY(-100%);
-        border-radius: 0px;
-        border: 2px solid #bbb;
-        border-top: none;
-        border-right: none;
-    }
-    &:nth-child(1) {
-        &::before {
-            height: 80px;
-        }
+        width: 2px;
+        height: ${({ isLastComment }) => isLastComment ? 'calc(50% + 32px)' : 'calc(100% + 32px)'};
+        background-color: #bbb;
     }
     `;
 

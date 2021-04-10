@@ -9,8 +9,7 @@ import { Wrapper, CommentsWrapper, Comment, AddCommentButton, AuthorInfo, Profil
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 const DUMMY_POSTS: { content: string }[] = [
-    { content: 'LOREM1'},
-    
+    { content: 'HELLO WORLD'}
 ];
 
 interface ParamsProps {
@@ -39,8 +38,6 @@ const CommentPage: React.FC = () => {
 
   const isPostLikedByLoggedUser = postData && postData.likedBy.find(userId => userId === auth.userData![0]);
 
-  const commentsSize: number[] = [];
-
     return (
         <Wrapper>
             {postData && <Post title={postData.title}
@@ -55,9 +52,9 @@ const CommentPage: React.FC = () => {
                 likesCount={postData.likesCount}
                 isPostLikedByUser={!!isPostLikedByLoggedUser}/>
             }
-            <CommentsWrapper isOnlyOneComment={DUMMY_POSTS.length === 1}>
-                {DUMMY_POSTS.map((comment) => (
-                    <Comment key={comment.content}>
+            <CommentsWrapper commentsExist={DUMMY_POSTS.length > 0}>
+                {DUMMY_POSTS.map((comment, i) => (
+                    <Comment key={comment.content} isLastComment={i === DUMMY_POSTS.length - 1}>
                         <AuthorInfo>
                         <ProfilePicture />
                         <CommentAuthor>User</CommentAuthor>
