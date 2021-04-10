@@ -24,6 +24,7 @@ interface PostCommentsType {
 const CommentPage: React.FC = () => {
     const [postData, setPostData] = useState<PostType>();
     const [postComments, setPostComments] = useState<PostCommentsType[]>([]);
+    const [newCommentValue, setNewCommentValue] = useState('');
     const { postId } = useParams<ParamsProps>();
     const auth = useContext(AuthContext);
     const { isDesktopMode } = useScreenInfo();
@@ -56,6 +57,27 @@ const CommentPage: React.FC = () => {
     reqData();
   }, [postId]);
 
+  const handleAddCommentValue = (event: React.ChangeEvent<HTMLInputElement>) => setNewCommentValue(event.target.value);
+
+  const handleSubmitComment = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    try {
+        const { data } = await axios.post(
+          `${process.env.REACT_APP_BACKEND_URL}/posts/comment`,
+          { postId, content: newCommentValue },
+          {
+            headers: {
+              Authorization: `Bearer ${auth.token}`,
+            },
+          }
+        );
+        setNewCommentValue('');
+        setPostComments([...postComments, data.comment]);
+      } catch (err) {
+        console.log(err.response.data.message);
+      }
+  };
+
   const isPostLikedByLoggedUser = postData && postData.likedBy.find(userId => userId === auth.userData![0]);
 
     return (
@@ -85,8 +107,8 @@ const CommentPage: React.FC = () => {
                     <CommentDate>{comment.commentDate}</CommentDate>
                     </Comment>
                 ))}
-                <AddComment>
-                    <input placeholder="Add Comment"/>
+                <AddComment onSubmit={handleSubmitComment}>
+                    <input placeholder="Add Comment" value={newCommentValue} onChange={handleAddCommentValue}/>
                     <button><AddCircleIcon /></button>
                 </AddComment>
             </CommentsWrapper>
