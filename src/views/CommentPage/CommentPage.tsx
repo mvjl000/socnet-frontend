@@ -5,11 +5,8 @@ import { useScreenInfo } from 'hooks/useScreenInfo';
 import Post from 'components/Post/Post';
 import AuthContext from 'shared/context/auth-context';
 import { PostType } from 'types/posts-types';
-import { Wrapper, CommentsWrapper, Comment, AddCommentButton, AuthorInfo, ProfilePicture, CommentAuthor, CommentDate } from './CommentPage.styles';
+import { Wrapper, CommentsWrapper, Comment, AddComment, AuthorInfo, ProfilePicture, CommentAuthor, CommentDate } from './CommentPage.styles';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-
-const DUMMY_POSTS: { content: string }[] = [
-];
 
 interface ParamsProps {
     postId: string;
@@ -88,9 +85,10 @@ const CommentPage: React.FC = () => {
                     <CommentDate>{comment.commentDate}</CommentDate>
                     </Comment>
                 ))}
-                <AddCommentButton>
-                    <AddCircleIcon /> {isDesktopMode && 'Add Comment'}
-                </AddCommentButton>
+                <AddComment>
+                    <input placeholder="Add Comment"/>
+                    <button><AddCircleIcon /></button>
+                </AddComment>
             </CommentsWrapper>
         </Wrapper>
     )

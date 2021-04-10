@@ -80,39 +80,48 @@ export const Comment = styled.div<CommentsProps>`
     }
     `;
 
-export const AddCommentButton = styled.button`
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    background-color: #fff;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    @media (min-width: 1300px) {
-        position: static;
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        width: 200px;
-        height: 55px;
-        padding-left: 1px;
-        font-size: 16px;
-        font-weight: 500;
-        border: 2px solid #666;
-        border-radius: 50px;
-    }
+export const AddComment = styled.form`
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: 80px;
 
-    svg {
-        width: 50px;
+    &::after {
+            content: '';
+            display: block;
+            position: absolute;
+            bottom: 14px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #bbb;
+            @media (min-width: 1024px) {
+                width: 80%;
+            }
+        }
+
+    & > input {
+        padding: 0 20px;
         height: 50px;
-        color: #666;
-        transition: .2s;
-        @media (min-width: 1300px) {
-        margin-right: 11px;
+        width: 100%;
+        font-size: 16px;
+        border: none;
+        @media (min-width: 1024px) {
+            width: 76%;
         }
     }
-    &:hover svg {
-        color: #444;
+
+    & > button {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        svg {
+            width: 40px;
+            height: 40px;
+            color: #666;
+        }
     }
 `;
 
