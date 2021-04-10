@@ -13,10 +13,20 @@ const DUMMY_POSTS: { content: string }[] = [
 
 interface ParamsProps {
     postId: string;
+};
+
+interface PostCommentsType {
+    _id: string;
+    commentAuthorId: string;
+    commentAuthorName: string;
+    commentAuthorImage: string;
+    content: string;
+    commentDate: string;
 }
 
 const CommentPage: React.FC = () => {
     const [postData, setPostData] = useState<PostType>();
+    const [postComments, setPostComments] = useState<PostCommentsType[]>([]);
     const { postId } = useParams<ParamsProps>();
     const auth = useContext(AuthContext);
     const { isDesktopMode } = useScreenInfo();
@@ -28,6 +38,20 @@ const CommentPage: React.FC = () => {
           `${process.env.REACT_APP_BACKEND_URL}/posts/post/${postId}`
         )
         setPostData(response.data.post);
+      } catch (err) {
+        console.log(err.response.data.message);
+      }
+    };
+    reqData();
+  }, [postId]);
+
+  useEffect(() => {
+    const reqData = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/posts/comments/${postId}`
+        )
+        setPostComments(response.data.comments);
       } catch (err) {
         console.log(err.response.data.message);
       }
@@ -51,12 +75,12 @@ const CommentPage: React.FC = () => {
                 likesCount={postData.likesCount}
                 isPostLikedByUser={!!isPostLikedByLoggedUser}/>
             }
-            <CommentsWrapper commentsExist={DUMMY_POSTS.length > 0}>
-                {DUMMY_POSTS.map((comment, i) => (
-                    <Comment key={comment.content} isLastComment={i === DUMMY_POSTS.length - 1}>
+            <CommentsWrapper commentsExist={postComments.length > 0}>
+                {postComments.map((comment, i) => (
+                    <Comment key={comment._id} isLastComment={i === postComments.length - 1}>
                         <AuthorInfo>
-                        <ProfilePicture />
-                        <CommentAuthor>User</CommentAuthor>
+                        <ProfilePicture src={`${process.env.REACT_APP_ASSETS_URL}/${comment.commentAuthorImage}`}/>
+                        <CommentAuthor>{comment.commentAuthorName}</CommentAuthor>
                     </AuthorInfo>
                     <p>{comment.content}</p>
                     </Comment>
