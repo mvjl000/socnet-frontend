@@ -50,7 +50,7 @@ export const Comment = styled.div<CommentsProps>`
     min-height: 62px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     flex-wrap: wrap;
     border: 1px solid #bbb;
     @media (min-width: 1024px) {
@@ -117,8 +117,7 @@ export const AddCommentButton = styled.button`
 `;
 
 export const AuthorInfo = styled.div`
-    margin: 5px;
-    margin-left: 0;
+    margin: 5px 20px 5px 0;
     min-width: 60px;
     display: flex;
     align-items: center;

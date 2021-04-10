@@ -80,10 +80,10 @@ const CommentPage: React.FC = () => {
             <CommentsWrapper commentsExist={postComments.length > 0}>
                 {postComments.map((comment, i) => (
                     <Comment key={comment._id} isLastComment={i === postComments.length - 1}>
-                        <AuthorInfo>
+                      <AuthorInfo>
                         <ProfilePicture src={`${process.env.REACT_APP_ASSETS_URL}/${comment.commentAuthorImage}`}/>
                         <CommentAuthor>{comment.commentAuthorName}</CommentAuthor>
-                    </AuthorInfo>
+                      </AuthorInfo>
                     <p>{comment.content}</p>
                     </Comment>
                 ))}
