@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import Post from 'components/Post/Post';
 
 export const Wrapper = styled.div`
     width: 100%;

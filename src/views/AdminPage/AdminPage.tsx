@@ -27,7 +27,7 @@ const AdminPage: React.FC = () => {
         }    
         };
         reqData();
-    }, []);
+    }, [auth.token, setFetchedPosts]);
 
     return (
         <Wrapper>
