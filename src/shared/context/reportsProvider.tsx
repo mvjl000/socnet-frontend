@@ -4,13 +4,13 @@ import { PostType } from 'types/posts-types';
 interface ReportsContextProps {
   posts: PostType[];
   setFetchedPosts: (posts: PostType[]) => void;
-  handleDiscardReport: (postId: string) => void;
+  handleDeleteReport: (postId: string) => void;
 };
 
 export const ReportsContext = createContext<ReportsContextProps>({
   posts: [],
   setFetchedPosts: () => {},
-  handleDiscardReport: () => {}
+  handleDeleteReport: () => {}
 });
 
 const ReportsProvider: React.FC = ({ children }) => {
@@ -21,13 +21,13 @@ const ReportsProvider: React.FC = ({ children }) => {
     []
   );
 
-  const handleDiscardReport = (postId: string) => {
+  const handleDeleteReport = (postId: string) => {
     const newPosts = posts.filter((post) => post._id !== postId);
     setPosts([...newPosts]);
   };
 
     return (
-        <ReportsContext.Provider value={{ posts, setFetchedPosts, handleDiscardReport }}>
+        <ReportsContext.Provider value={{ posts, setFetchedPosts, handleDeleteReport }}>
           {children}
         </ReportsContext.Provider>
     )

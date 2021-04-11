@@ -5,7 +5,6 @@ import { ReportsContext } from 'shared/context/reportsProvider';
 import { Wrapper, PostsWrapper, Heading } from './AdminPage.styles';
 import Loader from 'shared/components/Loader';
 import Post from 'components/Post/Post';
-import { PostType } from 'types/posts-types';
 
 const AdminPage: React.FC = () => {
     const [isLoading, setIsLoading] = useState(false);

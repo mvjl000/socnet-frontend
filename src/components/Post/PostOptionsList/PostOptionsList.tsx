@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { Wrapper, ListItem } from './PostOptionsList.styles';
 import AuthContext from 'shared/context/auth-context';
+import { ReportsContext } from 'shared/context/reportsProvider';
 
 interface PostOptionsListProps {
   handleDeletePost: () => void;
@@ -20,6 +21,7 @@ const PostOptionsList: React.FC<PostOptionsListProps> = ({
   postCreatorId,
 }) => {
   const auth = useContext(AuthContext);
+  const { handleDeleteReport } = useContext(ReportsContext);
   const { pathname } = useLocation();
   
   const handleReportPost = async () => {
@@ -33,11 +35,23 @@ const PostOptionsList: React.FC<PostOptionsListProps> = ({
     }
   };
 
+  const handleDiscardReport = async () => {
+    try {
+      closeOptions();
+      await axios.post(`${process.env.REACT_APP_BACKEND_URL}/posts/post/report`, { postId, discardReport: true }, { headers: {
+          Authorization: `Bearer ${auth.token}`,
+        }})
+      handleDeleteReport(postId);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   let properOptions;
   if (pathname.split('/')[1] === 'admin') {
     properOptions = (
       <>
-        <ListItem colorVariant='1'>
+        <ListItem onClick={handleDiscardReport} colorVariant='1'>
           Discard Report
         </ListItem>
         <ListItem onClick={handleDeletePost} colorVariant='3'>
