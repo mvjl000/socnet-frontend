@@ -3,6 +3,7 @@ import axios from 'axios';
 import { PostsContext } from 'shared/context/postsProvider';
 import AuthContext from 'shared/context/auth-context';
 import Post from 'components/Post/Post';
+import Loader from 'shared/components/Loader';
 import { Wrapper, Heading } from './Main.styles';
 
 const Main: React.FC = () => {
@@ -26,7 +27,6 @@ const Main: React.FC = () => {
     <>
       <Heading>See what's going on - all posts section</Heading>
       <Wrapper>
-        {isLoading && <h2>Loading...</h2>}
         {posts &&
           posts.map((post, i) => {
             const isPostLikedByLoggedUser = post.likedBy.find(userId => userId === auth.userData![0]);
@@ -46,6 +46,7 @@ const Main: React.FC = () => {
               commentsCount={post.commentsCount}
             />
           })}
+          {isLoading && <Loader/>}
       </Wrapper>
     </>
   );
