@@ -19,6 +19,7 @@ import { EditButton, EditPostButton } from 'shared/components/EditButton.styles'
 import { ErrorMessage } from 'shared/components/reusable.styles'
 import SettingsModal from 'components/SettingsModal/SettingsModal';
 import Post from 'components/Post/Post';
+import Loader from 'shared/components/Loader';
 import { AddPostButton } from 'shared/components/AddPostButton';
 import SettingsIcon from '@material-ui/icons/Settings';
 
@@ -46,9 +47,11 @@ const Profile: React.FC = () => {
     setFetchError('');
     const reqData = async () => {
       try {
+        setIsLoading(true);
         const response = await axios.get(
           `${process.env.REACT_APP_BACKEND_URL}/user/getUserData/${uname}`
         );
+        setIsLoading(false);
         setUserDescripion(response.data.description);
         setUserImage(response.data.image);
       } catch (error) {
@@ -139,7 +142,6 @@ const Profile: React.FC = () => {
       <Heading>
         <span>{uname}</span>
       </Heading>
-      {isLoading && <h2>Loading...</h2>}
         <DescriptionWrapper isEditButtonVisible={isMyProfile}>
           <h2>{isEditMode && 'edit '}description</h2>
           {isEditMode ? (
@@ -207,6 +209,7 @@ const Profile: React.FC = () => {
             deletePosts={handleDeletePosts}
           />
         )}
+        {isLoading && <Loader/>}
       </Wrapper>
       </>
     ) : (
