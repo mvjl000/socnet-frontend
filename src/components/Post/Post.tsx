@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import {
@@ -84,7 +84,9 @@ const Post: React.FC<PostProps> = ({
   const closeEditMode = () => {
     setIsEditMode(false);
     setContentData(content);
-  }
+  };
+
+  const closeOptions = useCallback(() => setAreOptionsVisible(false), []);
 
   const handleContentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => setContentData(event.target.value);
 
@@ -128,8 +130,10 @@ const Post: React.FC<PostProps> = ({
       {areOptionsVisible && (
         <PostOptionsList
           handleDeletePost={handleDeletePost}
-          postCreatorId={creatorId}
           openEditMode={openEditMode}
+          closeOptions={closeOptions}
+          postId={postId}
+          postCreatorId={creatorId}
         />
       )}
       <PostOptions onClick={() => setAreOptionsVisible(!areOptionsVisible)}>
