@@ -47,6 +47,11 @@ const PostOptionsList: React.FC<PostOptionsListProps> = ({
     }
   };
 
+  const deleteAsAdmin = (postId: string) => {
+    handleDeletePost();
+    handleDeleteReport(postId);
+  }
+
   let properOptions;
   if (pathname.split('/')[1] === 'admin') {
     properOptions = (
@@ -54,7 +59,7 @@ const PostOptionsList: React.FC<PostOptionsListProps> = ({
         <ListItem onClick={handleDiscardReport} colorVariant='1'>
           Discard Report
         </ListItem>
-        <ListItem onClick={handleDeletePost} colorVariant='3'>
+        <ListItem onClick={() => deleteAsAdmin(postId)} colorVariant='3'>
           Delete
         </ListItem>
       </>
