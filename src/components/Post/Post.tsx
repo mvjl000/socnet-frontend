@@ -155,7 +155,11 @@ const Post: React.FC<PostProps> = ({
           <EditPostButton onClick={handleEditPost}>Confirm</EditPostButton>
         </> ) : (
         <>
-          <LikeIcon isPostLikedByUser={isPostLikedByUser} onClick={handleLikeAction} />{likesCount}
+          {pathname.split('/')[1] !== 'admin' && (
+            <>
+              <LikeIcon isPostLikedByUser={isPostLikedByUser} onClick={handleLikeAction} />{likesCount}
+            </>
+          )}
           <Link to={`/post/${postId}`}><CommentIcon /></Link>{commentsCount}
         </>
         )}
