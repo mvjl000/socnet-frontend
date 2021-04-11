@@ -1,8 +1,8 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { useScreenInfo } from 'hooks/useScreenInfo';
 import Post from 'components/Post/Post';
+import Loader from 'shared/components/Loader';
 import AuthContext from 'shared/context/auth-context';
 import { PostType } from 'types/posts-types';
 import { Wrapper, CommentsWrapper, Comment, AddComment, AuthorInfo, ProfilePicture, CommentAuthor, CommentDate } from './CommentPage.styles';
@@ -26,16 +26,18 @@ const CommentPage: React.FC = () => {
     const [postData, setPostData] = useState<PostType>();
     const [postComments, setPostComments] = useState<PostCommentsType[]>([]);
     const [newCommentValue, setNewCommentValue] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
     const { postId } = useParams<ParamsProps>();
     const auth = useContext(AuthContext);
-    const { isDesktopMode } = useScreenInfo();
 
     useEffect(() => {
     const reqData = async () => {
       try {
+        setIsLoading(true);
         const response = await axios.get(
           `${process.env.REACT_APP_BACKEND_URL}/posts/post/${postId}`
         )
+        setIsLoading(false);
         setPostData(response.data.post);
       } catch (err) {
         console.log(err.response.data.message);
@@ -47,9 +49,11 @@ const CommentPage: React.FC = () => {
   useEffect(() => {
     const reqData = async () => {
       try {
+        setIsLoading(true);
         const response = await axios.get(
           `${process.env.REACT_APP_BACKEND_URL}/posts/comments/${postId}`
         )
+        setIsLoading(false);
         setPostComments(response.data.comments);
       } catch (err) {
         console.log(err.response.data.message);
@@ -101,7 +105,7 @@ const CommentPage: React.FC = () => {
 
     return (
         <Wrapper>
-            {postData && <Post title={postData.title}
+            {!isLoading && postData && <Post title={postData.title}
                 content={postData.content}
                 creator={postData.creatorName}
                 creatorImage={postData.creatorImage}
@@ -116,7 +120,7 @@ const CommentPage: React.FC = () => {
                 />
             }
             <CommentsWrapper commentsExist={postComments.length > 0}>
-                {postComments.map((comment, i) => (
+                {!isLoading && postComments.map((comment, i) => (
                     <Comment key={comment._id} isLastComment={i === postComments.length - 1}>
                       <AuthorInfo>
                         <ProfilePicture src={`${process.env.REACT_APP_ASSETS_URL}/${comment.commentAuthorImage}`}/>
@@ -132,6 +136,7 @@ const CommentPage: React.FC = () => {
                     <button><AddCircleIcon /></button>
                 </AddComment>
             </CommentsWrapper>
+            {isLoading && <Loader/>}
         </Wrapper>
     )
 }
