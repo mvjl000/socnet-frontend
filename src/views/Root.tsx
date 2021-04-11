@@ -7,6 +7,7 @@ import {
 import { GlobalStyle } from 'assets/styles/globalStyles';
 import AuthContext from 'shared/context/auth-context';
 import PostsProvider from 'shared/context/postsProvider';
+import ReportsProvider from 'shared/context/reportsProvider';
 import Header from 'components/Nav/Nav';
 import Login from 'components/Login/Login';
 import Main from 'views/Main/Main';
@@ -30,7 +31,11 @@ const Root: React.FC = () => {
         <Route path='/new-post' component={AddPost} />
         <Route path='/post/:postId' component={CommentPage} />
         <Route path='/profile/:uname' component={Profile} />
-        {userData![0] === process.env.REACT_APP_ADMIN_ID ? <Route path='/admin' component={AdminPage}/> : null}
+        {userData![0] === process.env.REACT_APP_ADMIN_ID ? (
+          <ReportsProvider>
+            <Route path='/admin' component={AdminPage}/>
+          </ReportsProvider>
+         ) : null}
         <Redirect to='/' />
       </Switch>
     );

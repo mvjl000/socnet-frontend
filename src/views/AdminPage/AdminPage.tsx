@@ -1,15 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import AuthContext from 'shared/context/auth-context';
+import { ReportsContext } from 'shared/context/reportsProvider';
 import { Wrapper, PostsWrapper, Heading } from './AdminPage.styles';
 import Loader from 'shared/components/Loader';
 import Post from 'components/Post/Post';
 import { PostType } from 'types/posts-types';
 
 const AdminPage: React.FC = () => {
-    const [posts, setPosts] = useState<PostType[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const auth = useContext(AuthContext);
+    const { posts, setFetchedPosts } = useContext(ReportsContext);
 
     useEffect(() => {
         const reqData = async () => {
@@ -21,7 +22,7 @@ const AdminPage: React.FC = () => {
               },
             })
             setIsLoading(false);
-            setPosts(data.posts);
+            setFetchedPosts(data.posts);
         } catch (err) {
             console.log(err);
         }    
