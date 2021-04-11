@@ -13,6 +13,7 @@ import Main from 'views/Main/Main';
 import Profile from 'views/Profile/Profile';
 import AddPost from 'views/AddPost/AddPost';
 import CommentPage from 'views/CommentPage/CommentPage';
+import AdminPage from 'views/AdminPage/AdminPage';
 import { Wrapper } from './Root.styles';
 import { useAuth } from 'hooks/useAuth';
 import { useScreenInfo } from 'hooks/useScreenInfo';
@@ -29,6 +30,7 @@ const Root: React.FC = () => {
         <Route path='/new-post' component={AddPost} />
         <Route path='/post/:postId' component={CommentPage} />
         <Route path='/profile/:uname' component={Profile} />
+        {userData![0] === process.env.REACT_APP_ADMIN_ID ? <Route path='/admin' component={AdminPage}/> : null}
         <Redirect to='/' />
       </Switch>
     );
