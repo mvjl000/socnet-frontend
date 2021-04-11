@@ -62,6 +62,7 @@ const CommentPage: React.FC = () => {
 
   const handleSubmitComment = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (newCommentValue.length < 1 || newCommentValue.length > 500) return;
     try {
         const { data } = await axios.post(
           `${process.env.REACT_APP_BACKEND_URL}/posts/comment`,
