@@ -20,6 +20,7 @@ export const Wrapper = styled.div`
   background-color: rgb(253, 253, 253);
   border: 2px solid #ddd;
   border-radius: 10px;
+  justify-self: center;
 
   &::before {
     content: '';
