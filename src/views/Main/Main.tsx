@@ -18,7 +18,7 @@ const Main: React.FC = () => {
         `${process.env.REACT_APP_BACKEND_URL}/posts/getAllPosts`
       );
       setIsLoading(false);
-      setFetchedPosts(response.data.posts.reverse());
+      setFetchedPosts(response.data.posts);
     };
     reqData();
   }, [setFetchedPosts]);

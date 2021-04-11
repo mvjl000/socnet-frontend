@@ -69,7 +69,7 @@ const Profile: React.FC = () => {
           `${process.env.REACT_APP_BACKEND_URL}/posts/getUserPosts/${uname}`
         );
         setIsLoading(false);
-        setFetchedPosts(response.data.posts.reverse());
+        setFetchedPosts(response.data.posts);
       } catch (error) {
         setFetchError(`No user found for provided name - ${uname}`);
       }
