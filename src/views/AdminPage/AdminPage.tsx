@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import AuthContext from 'shared/context/auth-context';
 import { ReportsContext } from 'shared/context/reportsProvider';
-import { Wrapper, PostsWrapper, Heading } from './AdminPage.styles';
+import { Wrapper, PostsWrapper, Heading, Subheading } from './AdminPage.styles';
 import Loader from 'shared/components/Loader';
 import Post from 'components/Post/Post';
 
@@ -33,7 +33,7 @@ const AdminPage: React.FC = () => {
         <Wrapper>
             <Heading>Reported Posts</Heading>
             <PostsWrapper>
-                {!isLoading ? posts.length < 1 ? <Heading as='h2'>There isn't any reported posts ( ͡o ͜ʖ ͡o)</Heading> : posts.map(post => <Post key={post._id}
+                {!isLoading ? posts.length < 1 ? <Subheading>There isn't any reported posts ( ͡o ͜ʖ ͡o)</Subheading> : posts.map(post => <Post key={post._id}
                 title={post.title}
                 content={post.content}
                 creator={post.creatorName}
