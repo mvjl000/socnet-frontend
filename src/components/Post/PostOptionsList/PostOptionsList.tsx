@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { Wrapper, ListItem } from './PostOptionsList.styles';
 import AuthContext from 'shared/context/auth-context';
@@ -19,6 +20,7 @@ const PostOptionsList: React.FC<PostOptionsListProps> = ({
   postCreatorId,
 }) => {
   const auth = useContext(AuthContext);
+  const { pathname } = useLocation();
   
   const handleReportPost = async () => {
     try {
@@ -31,15 +33,23 @@ const PostOptionsList: React.FC<PostOptionsListProps> = ({
     }
   };
 
-  return (
-    <Wrapper
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.2 }}
-    >
-      {auth.userData![0] !== postCreatorId && <ListItem onClick={handleReportPost} colorVariant='1'>Report</ListItem>}
-      {auth.userData![0] === postCreatorId && (
+  let properOptions;
+  if (pathname.split('/')[1] === 'admin') {
+    properOptions = (
+      <>
+        <ListItem colorVariant='1'>
+          Discard Report
+        </ListItem>
+        <ListItem onClick={handleDeletePost} colorVariant='3'>
+          Delete
+        </ListItem>
+      </>
+    )      
+  } else {
+    properOptions = (
+      <>
+        {auth.userData![0] !== postCreatorId && <ListItem onClick={handleReportPost} colorVariant='1'>Report</ListItem>}
+        {auth.userData![0] === postCreatorId && (
         <>
           <ListItem onClick={openEditMode} colorVariant='2'>Edit</ListItem>
           <ListItem onClick={handleDeletePost} colorVariant='3'>
@@ -47,6 +57,18 @@ const PostOptionsList: React.FC<PostOptionsListProps> = ({
           </ListItem>
         </>
       )}
+      </>
+    )
+  }
+
+  return (
+    <Wrapper
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.2 }}
+    >
+      {properOptions}
     </Wrapper>
   );
 };
