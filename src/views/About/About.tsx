@@ -11,7 +11,7 @@ const About: React.FC = () => {
             <ContentWrapper>
                 <Article>
                     <Title>What Is Socnet?</Title>
-                    <Content>It is a fullstack social media app built for study purpose. It allows to create account, add posts, interact with other users by commenting or liking their activity.
+                    <Content>It is a fullstack social media app built for study purpose. It allows to create account, add posts, interact with other users by commenting or liking their activity. I had also created simple admin tool for managing reported posts.
                         <br/>
                         <br/>
                     In the future I would like to add some new features, for example live chat and stuff like that.
