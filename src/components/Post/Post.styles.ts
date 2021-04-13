@@ -70,6 +70,17 @@ export const Title = styled.div`
     text-align: left;
     span {
       font-weight: 600;
+      margin-right: 10px;
+      padding: 1px 3px;
+      border-radius: 5px;
+      transition: .2s;
+      &:hover {
+        background-color: #eee;
+      }
+    }
+    a {
+      color: black;
+      text-decoration: none;
     }
   }
 `;

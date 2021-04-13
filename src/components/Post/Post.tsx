@@ -142,7 +142,7 @@ const Post: React.FC<PostProps> = ({
       <ProfilePhoto src={`${process.env.REACT_APP_ASSETS_URL}/${creatorImage}`} />
       <Title>
         <h2>
-          {isCreatorShown && <span>{creator}</span>} {title}
+          {isCreatorShown && <Link to={`/profile/${creator}`}><span>{creator}</span></Link>} {title}
         </h2>
       </Title>
       {isEditMode ? <EditField value={contentData} onChange={handleContentChange} /> : <PostContent>{content}</PostContent>}
