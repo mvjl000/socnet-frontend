@@ -82,6 +82,7 @@ const Login: React.FC = () => {
   );
   const [isLoginOrFill, setIsLoginOrFill] = useState(true);
   const [availableImages, setAvailableImages] = useState<string[]>([]);
+  const [isConsentOpen, setIsConsentOpen] = useState(true);
   const auth = useContext(AuthContext);
   const history = useHistory();
 
@@ -201,7 +202,8 @@ const Login: React.FC = () => {
     setIsLoginOrFill(false);
   }
   }, [currentMode]);
-  
+
+  const closeConsent = () => setIsConsentOpen(false);
 
   return (
     <>
@@ -279,7 +281,7 @@ const Login: React.FC = () => {
             {error && <ErrorMessage>{error}</ErrorMessage>}
         </Wrapper>
     )}
-    <CookiesConsent/>
+    {isConsentOpen && <CookiesConsent handleCloseConsent={closeConsent}/>}
     </>
   );
 };
