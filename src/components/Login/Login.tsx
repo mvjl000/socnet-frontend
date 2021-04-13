@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import AuthContext from 'shared/context/auth-context';
 import Loader from 'shared/components/Loader';
+import CookiesConsent from './CookiesConsent/CookiesConsent';
 import {
   Button,
   CreateAccountButton,
@@ -275,6 +276,7 @@ const Login: React.FC = () => {
             <Button>Sign up</Button>
         </Wrapper>
     )}
+    <CookiesConsent/>
     </>
   );
 };
