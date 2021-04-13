@@ -4,6 +4,7 @@ import { PostsContext } from 'shared/context/postsProvider';
 import AuthContext from 'shared/context/auth-context';
 import Post from 'components/Post/Post';
 import Loader from 'shared/components/Loader';
+import AboutButton from 'shared/components/AboutButton';
 import { Wrapper, Heading } from './Main.styles';
 
 const Main: React.FC = () => {
@@ -25,6 +26,7 @@ const Main: React.FC = () => {
 
   return (
     <>
+      <AboutButton/>
       <Heading>See what's going on - all posts section</Heading>
       <Wrapper>
         {posts &&

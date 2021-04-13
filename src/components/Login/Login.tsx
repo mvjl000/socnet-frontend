@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import AuthContext from 'shared/context/auth-context';
 import Loader from 'shared/components/Loader';
 import CookiesConsent from './CookiesConsent/CookiesConsent';
+import AboutButton from 'shared/components/AboutButton';
 import {
   Button,
   CreateAccountButton,
@@ -207,6 +208,7 @@ const Login: React.FC = () => {
 
   return (
     <>
+    <AboutButton/>
     {isLoginOrFill ? (
       <Wrapper onSubmit={handleLoginFormSubmit}>
       <Header>{currentMode === 'LOGIN' ? 'Log in' : 'Create account'}</Header>

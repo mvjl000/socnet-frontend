@@ -9,9 +9,6 @@ export const Wrapper = styled.div`
   width: 100%;
   min-height: calc(100vh - 150px);
   background-color: #fff;
-  @media (min-width: 1024px) {
-    margin-top: 170px;
-  }
 
   section {
     height: 100vh;
