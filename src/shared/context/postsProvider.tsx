@@ -9,6 +9,7 @@ interface PostsContextProps {
   handleDeleteUserPosts: (userId: string) => void;
   handleEditPostFromContext: (postId: string, content: string) => void;
   handleLikeActionContext: (postId: string, userId: string, actionType: "LIKE" | "DISLIKE") => void;
+  handleCommentAction: (postId: string, actionType: "COMMENT" | "DELETE_COMMENT") => void;
 }
 
 export const PostsContext = createContext<PostsContextProps>({
@@ -19,6 +20,7 @@ export const PostsContext = createContext<PostsContextProps>({
   handleDeleteUserPosts: () => {},
   handleEditPostFromContext: () => {},
   handleLikeActionContext: () => {},
+  handleCommentAction: () => {},
 });
 
 const PostsProvider: React.FC = ({ children }) => {
@@ -82,7 +84,33 @@ const PostsProvider: React.FC = ({ children }) => {
       });
       setPosts([...newPosts]);
     }
-  }
+  };
+  
+  const handleCommentAction = (postId: String, actionType: "COMMENT" | "DELETE_COMMENT") => {
+    if (actionType === "COMMENT") {
+      const newPosts = posts.map(post => {
+        if (post._id === postId) {
+          return {
+            ...post,
+            commentsCount: post.commentsCount + 1,
+          }
+        }
+        return post;
+      });
+      setPosts([...newPosts]);
+    } else {
+      const newPosts = posts.map(post => {
+        if (post._id === postId) {
+          return {
+            ...post,
+            commentsCount: post.commentsCount - 1,
+          }
+        }
+        return post;
+      });
+      setPosts([...newPosts]);
+    }
+  };
 
   return (
     <PostsContext.Provider
@@ -93,7 +121,8 @@ const PostsProvider: React.FC = ({ children }) => {
         handleDeletePostFromContext,
         handleDeleteUserPosts,
         handleEditPostFromContext,
-        handleLikeActionContext
+        handleLikeActionContext,
+        handleCommentAction
       }}
     >
       {children}
