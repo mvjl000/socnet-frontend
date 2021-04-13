@@ -27,7 +27,7 @@ const CommentPage: React.FC = () => {
   const [newCommentValue, setNewCommentValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { postId } = useParams<ParamsProps>();
-  const { posts } = useContext(PostsContext);
+  const { posts, handleCommentAction } = useContext(PostsContext);
   const auth = useContext(AuthContext);
 
   useEffect(() => {
@@ -63,6 +63,7 @@ const CommentPage: React.FC = () => {
         );
         setNewCommentValue('');
         setPostComments([...postComments, data.comment]);
+        handleCommentAction(postId, "COMMENT");
       } catch (err) {
         console.log(err.response.data.message);
       }
@@ -80,6 +81,7 @@ const CommentPage: React.FC = () => {
       );
       const newComments = postComments.filter(comment => comment._id !== commentId);
       setPostComments(newComments);
+      handleCommentAction(postId, "DELETE_COMMENT");
     } catch (err) {
       console.log(err);
     }
@@ -102,7 +104,7 @@ const CommentPage: React.FC = () => {
                 edited={post.edited}
                 likesCount={post.likesCount}
                 isPostLikedByUser={!!isPostLikedByLoggedUser}
-                commentsCount={post?.commentsCount}
+                commentsCount={post.commentsCount}
                 />
               )
             })}
