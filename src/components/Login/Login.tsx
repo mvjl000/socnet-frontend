@@ -146,7 +146,6 @@ const Login: React.FC = () => {
       password.length >= 5 &&
       password === repeatPassword
     ) {
-      console.log(username, password, repeatPassword, profilePicture);
       dispatch({ type: 'switchMode', payload: 'PICK_IMAGE'});
     } else if (currentMode === 'PICK_IMAGE' && profilePicture.length > 0) {
       dispatch({ type: 'proceed' });
@@ -274,6 +273,10 @@ const Login: React.FC = () => {
               })}
             </PhotosWrapper>
             <Button>Sign up</Button>
+            <CreateAccountButton type='button' onClick={handleToggleMode}>
+        {currentMode === 'LOGIN' ? 'Create account' : 'Switch to login'}
+      </CreateAccountButton>
+            {error && <ErrorMessage>{error}</ErrorMessage>}
         </Wrapper>
     )}
     <CookiesConsent/>
