@@ -11,7 +11,7 @@ const About: React.FC = () => {
             <ContentWrapper>
                 <Article>
                     <Title>What Is Socnet?</Title>
-                    <Content>It is a fullstack social media app built for study purpose. Allows to create account, add posts, interact with other users by commenting their activity.
+                    <Content>It is a fullstack social media app built for study purpose. It allows to create account, add posts, interact with other users by commenting or liking their activity.
                         <br/>
                         <br/>
                     In the future I would like to add some new features, for example live chat and stuff like that.
@@ -22,7 +22,7 @@ const About: React.FC = () => {
                     <Content>As I said in the first article, this is a Fullstack App - let me start with frontend.
                         <br/>
                         <br/>
-                        For this project chose Javascript framework - React (CRA) combined with Typescript, styled components and some third party solutions for animations etc.
+                        For this project I chose Javascript framework - React (CRA) combined with Typescript, styled components and some third party solutions for animations etc.
                         <br/>
                         <br/>
                         On the backend I used NodeJS with Express framework. For storing data - MongoDB, NoSQL database.

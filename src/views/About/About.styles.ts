@@ -42,6 +42,7 @@ export const Article = styled.article`
 `;
 
 export const Title = styled.h2`
+    margin-bottom: 15px;
     font-size: 28px;
     font-weight: 300;
     text-align: center;
