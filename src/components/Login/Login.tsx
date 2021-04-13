@@ -104,11 +104,11 @@ const Login: React.FC = () => {
             const responseData = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/user/profilePictures`);
             setAvailableImages(responseData.data.images);
         } catch (err) {
-            console.log(err.response.data.message);
+            console.log(err);
         }
     };
     reqData();
-  }, []);
+  }, [currentMode]);
 
   const handleLoginFormSubmit = async (
     event: React.FormEvent<HTMLFormElement>
