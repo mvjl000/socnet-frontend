@@ -4,47 +4,31 @@ import axios from 'axios';
 import Post from 'components/Post/Post';
 import Loader from 'shared/components/Loader';
 import AuthContext from 'shared/context/auth-context';
-import { PostType } from 'types/posts-types';
+import { PostsContext } from 'shared/context/postsProvider';
 import { Wrapper, CommentsWrapper, Comment, AddComment, AuthorInfo, ProfilePicture, CommentAuthor, CommentDate } from './CommentPage.styles';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 interface ParamsProps {
-    postId: string;
+  postId: string;
 };
 
 interface PostCommentsType {
-    _id: string;
-    commentAuthorId: string;
-    commentAuthorName: string;
-    commentAuthorImage: string;
-    content: string;
-    commentDate: string;
+  _id: string;
+  commentAuthorId: string;
+  commentAuthorName: string;
+  commentAuthorImage: string;
+  content: string;
+  commentDate: string;
 }
 
 const CommentPage: React.FC = () => {
-    const [postData, setPostData] = useState<PostType>();
-    const [postComments, setPostComments] = useState<PostCommentsType[]>([]);
-    const [newCommentValue, setNewCommentValue] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
-    const { postId } = useParams<ParamsProps>();
-    const auth = useContext(AuthContext);
-
-    useEffect(() => {
-    const reqData = async () => {
-      try {
-        setIsLoading(true);
-        const response = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/posts/post/${postId}`
-        )
-        setIsLoading(false);
-        setPostData(response.data.post);
-      } catch (err) {
-        console.log(err.response.data.message);
-      }
-    };
-    reqData();
-  }, [postId]);
+  const [postComments, setPostComments] = useState<PostCommentsType[]>([]);
+  const [newCommentValue, setNewCommentValue] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const { postId } = useParams<ParamsProps>();
+  const { posts } = useContext(PostsContext);
+  const auth = useContext(AuthContext);
 
   useEffect(() => {
     const reqData = async () => {
@@ -101,24 +85,27 @@ const CommentPage: React.FC = () => {
     }
   };
 
-  const isPostLikedByLoggedUser = postData && postData.likedBy.find(userId => userId === auth.userData![0]);
-
     return (
         <Wrapper>
-            {!isLoading && postData && <Post title={postData.title}
-                content={postData.content}
-                creator={postData.creatorName}
-                creatorImage={postData.creatorImage}
+            {posts.map(post => {
+              if (post._id !== postId) return null;
+              const isPostLikedByLoggedUser = post.likedBy.find(userId => userId === auth.userData![0]);
+              return (
+                <Post title={post.title}
+                content={post.content}
+                creator={post.creatorName}
+                creatorImage={post.creatorImage}
                 isCreatorShown={true}
-                postId={postData._id}
-                creationDate={postData.creationDate}
-                creatorId={postData.creatorId}
-                edited={postData.edited}
-                likesCount={postData.likesCount}
+                postId={post._id}
+                creationDate={post.creationDate}
+                creatorId={post.creatorId}
+                edited={post.edited}
+                likesCount={post.likesCount}
                 isPostLikedByUser={!!isPostLikedByLoggedUser}
-                commentsCount={postData?.commentsCount}
+                commentsCount={post?.commentsCount}
                 />
-            }
+              )
+            })}
             <CommentsWrapper commentsExist={postComments.length > 0}>
                 {!isLoading && postComments.map((comment, i) => (
                     <Comment key={comment._id} isLastComment={i === postComments.length - 1}>
