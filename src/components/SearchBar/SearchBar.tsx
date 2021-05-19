@@ -87,7 +87,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ closeDropDown }) => {
               return (
                 <ListItem
                   key={username}
-                  to={`/search-result/${username}`}
+                  to={`/search-results/${barValue}`}
                   onClick={handleUserClick}
                   isLastItem={true}
                 >
@@ -99,7 +99,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ closeDropDown }) => {
             return (
               <ListItem
                 key={username}
-                to={`/profile/${username}`}
+                to={`/search-results/${username}`}
                 onClick={handleUserClick}
               >
                 {username}

@@ -16,6 +16,7 @@ import AddPost from 'views/AddPost/AddPost';
 import CommentPage from 'views/CommentPage/CommentPage';
 import AdminPage from 'views/AdminPage/AdminPage';
 import About from 'views/About/About';
+import SearchResultsPage from './SearchResults/SearchResultsPage';
 import { Wrapper } from './Root.styles';
 import { useAuth } from 'hooks/useAuth';
 import { useScreenInfo } from 'hooks/useScreenInfo';
@@ -28,25 +29,26 @@ const Root: React.FC = () => {
   if (token) {
     routes = (
       <Switch>
-        <Route path='/' component={Main} exact />
-        <Route path='/new-post' component={AddPost} />
-        <Route path='/post/:postId' component={CommentPage} />
-        <Route path='/profile/:uname' component={Profile} />
-        <Route path='/about' component={About}/>
+        <Route path="/" component={Main} exact />
+        <Route path="/new-post" component={AddPost} />
+        <Route path="/post/:postId" component={CommentPage} />
+        <Route path="/profile/:uname" component={Profile} />
+        <Route path="/search-results/:uname" component={SearchResultsPage} />
+        <Route path="/about" component={About} />
         {userData![0] === process.env.REACT_APP_ADMIN_ID ? (
           <ReportsProvider>
-            <Route path='/admin' component={AdminPage}/>
+            <Route path="/admin" component={AdminPage} />
           </ReportsProvider>
-         ) : null}
-        <Redirect to='/' />
+        ) : null}
+        <Redirect to="/" />
       </Switch>
     );
   } else {
     routes = (
       <Switch>
-        <Route path='/' component={Login} exact />
-        <Route path='/about' component={About}/>
-        <Redirect to='/' />
+        <Route path="/" component={Login} exact />
+        <Route path="/about" component={About} />
+        <Redirect to="/" />
       </Switch>
     );
   }
