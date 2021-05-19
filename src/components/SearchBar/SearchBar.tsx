@@ -82,15 +82,30 @@ const SearchBar: React.FC<SearchBarProps> = ({ closeDropDown }) => {
       </form>
       {searchResults.length > 0 && isSearchBarFocused && (
         <ResultsContainer isListActive={searchResults.length > 0}>
-          {searchResults.map((username) => (
-            <ListItem
-              to={`/profile/${username}`}
-              onClick={handleUserClick}
-              key={username}
-            >
-              {username}
-            </ListItem>
-          ))}
+          {searchResults.map((username, i) => {
+            if (i === 8) {
+              return (
+                <ListItem
+                  key={username}
+                  to={`/search-result/${username}`}
+                  onClick={handleUserClick}
+                  isLastItem={true}
+                >
+                  See more results
+                </ListItem>
+              );
+            }
+            if (i > 7) return null;
+            return (
+              <ListItem
+                key={username}
+                to={`/profile/${username}`}
+                onClick={handleUserClick}
+              >
+                {username}
+              </ListItem>
+            );
+          })}
         </ResultsContainer>
       )}
     </Wrapper>
