@@ -19,55 +19,47 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import PostOptionsList from './PostOptionsList/PostOptionsList';
 import AuthContext from 'shared/context/auth-context';
 import { PostsContext } from 'shared/context/postsProvider';
-
-interface PostProps {
-  title: string;
-  content: string;
-  creator: string;
-  creatorId: string;
-  creatorImage: string;
-  isCreatorShown: boolean;
-  postId: string;
-  creationDate: string;
-  edited: boolean;
-  likesCount: number;
-  isPostLikedByUser: boolean;
-  commentsCount: number;
-}
+import { PostProps } from 'types/posts-types';
 
 const Post: React.FC<PostProps> = ({
-  title,
-  content,
-  creator,
-  creatorId,
-  creatorImage,
+  post: {
+    title,
+    content,
+    creatorName,
+    creatorId,
+    creatorImage,
+    _id,
+    creationDate,
+    edited,
+    likesCount,
+    commentsCount,
+  },
   isCreatorShown,
-  postId,
-  creationDate,
-  edited,
-  likesCount,
   isPostLikedByUser,
-  commentsCount
 }) => {
   const [areOptionsVisible, setAreOptionsVisible] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [contentData, setContentData] = useState<string>(content);
   const auth = useContext(AuthContext);
-  const { handleDeletePostFromContext, handleEditPostFromContext, handleLikeActionContext } = useContext(PostsContext);
+  const {
+    handleDeletePostFromContext,
+    handleEditPostFromContext,
+    handleLikeActionContext,
+  } = useContext(PostsContext);
   const { pathname } = useLocation();
-  const history = useHistory();  
+  const history = useHistory();
 
   const handleDeletePost = async () => {
     try {
       await axios.delete(
-        `${process.env.REACT_APP_BACKEND_URL}/posts/deletePost/${postId}`,
+        `${process.env.REACT_APP_BACKEND_URL}/posts/deletePost/${_id}`,
         {
           headers: {
             Authorization: `Bearer ${auth.token}`,
           },
         }
       );
-      handleDeletePostFromContext(postId);
+      handleDeletePostFromContext(_id);
       if (pathname.split('/')[1] === 'post') {
         history.push('/');
       }
@@ -88,14 +80,20 @@ const Post: React.FC<PostProps> = ({
 
   const closeOptions = useCallback(() => setAreOptionsVisible(false), []);
 
-  const handleContentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => setContentData(event.target.value);
+  const handleContentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) =>
+    setContentData(event.target.value);
 
   const handleEditPost = async () => {
-    const responseData = await axios.patch(`${process.env.REACT_APP_BACKEND_URL}/posts/editPost/${postId}`, { content: contentData }, { 
-      headers: {
-        Authorization: `Bearer ${auth.token}`,
-      }, });
-    handleEditPostFromContext(postId, responseData.data.content)
+    const responseData = await axios.patch(
+      `${process.env.REACT_APP_BACKEND_URL}/posts/editPost/${_id}`,
+      { content: contentData },
+      {
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+        },
+      }
+    );
+    handleEditPostFromContext(_id, responseData.data.content);
     setIsEditMode(false);
   };
 
@@ -103,22 +101,32 @@ const Post: React.FC<PostProps> = ({
     if (!isPostLikedByUser) {
       // LIKE
       try {
-        await axios.post(`${process.env.REACT_APP_BACKEND_URL}/posts/likeAction`, { actionType: "LIKE", postId }, { 
-        headers: {
-          Authorization: `Bearer ${auth.token}`,
-        }, });
-        handleLikeActionContext(postId, auth.userData![0], "LIKE");
+        await axios.post(
+          `${process.env.REACT_APP_BACKEND_URL}/posts/likeAction`,
+          { actionType: 'LIKE', _id },
+          {
+            headers: {
+              Authorization: `Bearer ${auth.token}`,
+            },
+          }
+        );
+        handleLikeActionContext(_id, auth.userData![0], 'LIKE');
       } catch (err) {
         console.log(err.response.data.message);
       }
     } else {
       // DISLIKE
       try {
-        await axios.post(`${process.env.REACT_APP_BACKEND_URL}/posts/likeAction`, { actionType: "DISLIKE", postId }, { 
-        headers: {
-          Authorization: `Bearer ${auth.token}`,
-        }, });
-        handleLikeActionContext(postId, auth.userData![0], "DISLIKE");
+        await axios.post(
+          `${process.env.REACT_APP_BACKEND_URL}/posts/likeAction`,
+          { actionType: 'DISLIKE', _id },
+          {
+            headers: {
+              Authorization: `Bearer ${auth.token}`,
+            },
+          }
+        );
+        handleLikeActionContext(_id, auth.userData![0], 'DISLIKE');
       } catch (err) {
         console.log(err.response.data.message);
       }
@@ -132,36 +140,57 @@ const Post: React.FC<PostProps> = ({
           handleDeletePost={handleDeletePost}
           openEditMode={openEditMode}
           closeOptions={closeOptions}
-          postId={postId}
+          postId={_id}
           postCreatorId={creatorId}
         />
       )}
       <PostOptions onClick={() => setAreOptionsVisible(!areOptionsVisible)}>
         <MoreVertIcon />
       </PostOptions>
-      <ProfilePhoto src={`${process.env.REACT_APP_ASSETS_URL}/${creatorImage}`} />
+      <ProfilePhoto
+        src={`${process.env.REACT_APP_ASSETS_URL}/${creatorImage}`}
+      />
       <Title>
         <h2>
-          {isCreatorShown && <Link to={`/profile/${creator}`}><span>{creator}</span></Link>} {title}
+          {isCreatorShown && (
+            <Link to={`/profile/${creatorName}`}>
+              <span>{creatorName}</span>
+            </Link>
+          )}{' '}
+          {title}
         </h2>
       </Title>
-      {isEditMode ? <EditField value={contentData} onChange={handleContentChange} /> : <PostContent>{content}</PostContent>}
+      {isEditMode ? (
+        <EditField value={contentData} onChange={handleContentChange} />
+      ) : (
+        <PostContent>{content}</PostContent>
+      )}
       <ReactionsContainer>
         {edited && <EditedInfo>-Post edited-</EditedInfo>}
         <PostDate>{creationDate}</PostDate>
         {isEditMode ? (
-        <>
-          <EditPostButton cancelVariant onClick={closeEditMode}>Cancel</EditPostButton>
-          <EditPostButton onClick={handleEditPost}>Confirm</EditPostButton>
-        </> ) : (
-        <>
-          {pathname.split('/')[1] !== 'admin' && (
-            <>
-              <LikeIcon isPostLikedByUser={isPostLikedByUser} onClick={handleLikeAction} />{likesCount}
-            </>
-          )}
-          <Link to={`/post/${postId}`}><CommentIcon /></Link>{commentsCount}
-        </>
+          <>
+            <EditPostButton cancelVariant onClick={closeEditMode}>
+              Cancel
+            </EditPostButton>
+            <EditPostButton onClick={handleEditPost}>Confirm</EditPostButton>
+          </>
+        ) : (
+          <>
+            {pathname.split('/')[1] !== 'admin' && (
+              <>
+                <LikeIcon
+                  isPostLikedByUser={isPostLikedByUser}
+                  onClick={handleLikeAction}
+                />
+                {likesCount}
+              </>
+            )}
+            <Link to={`/post/${_id}`}>
+              <CommentIcon />
+            </Link>
+            {commentsCount}
+          </>
         )}
       </ReactionsContainer>
     </Wrapper>

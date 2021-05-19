@@ -11,3 +11,9 @@ export interface PostType {
   likedBy: string[];
   commentsCount: number;
 }
+
+export interface PostProps {
+  post: PostType;
+  isCreatorShown: boolean;
+  isPostLikedByUser: boolean;
+}

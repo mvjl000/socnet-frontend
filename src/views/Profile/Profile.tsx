@@ -13,10 +13,13 @@ import {
   AllPostsWrapper,
   EditWrapper,
   SettingsIconContainer,
-  FetchErrorInfo
+  FetchErrorInfo,
 } from './Profile.styles';
-import { EditButton, EditPostButton } from 'shared/components/EditButton.styles';
-import { ErrorMessage } from 'shared/components/reusable.styles'
+import {
+  EditButton,
+  EditPostButton,
+} from 'shared/components/EditButton.styles';
+import { ErrorMessage } from 'shared/components/reusable.styles';
 import SettingsModal from 'components/SettingsModal/SettingsModal';
 import Post from 'components/Post/Post';
 import Loader from 'shared/components/Loader';
@@ -24,8 +27,8 @@ import { AddPostButton } from 'shared/components/AddPostButton';
 import SettingsIcon from '@material-ui/icons/Settings';
 
 interface ParamsTypes {
-  uname: string
-};
+  uname: string;
+}
 
 const Profile: React.FC = () => {
   const [isEditMode, setIsEditMode] = useState(false);
@@ -41,7 +44,7 @@ const Profile: React.FC = () => {
 
   const { uname } = useParams<ParamsTypes>();
 
-  const isMyProfile = uname === auth.userData![1];    
+  const isMyProfile = uname === auth.userData![1];
 
   useEffect(() => {
     setFetchError('');
@@ -121,7 +124,9 @@ const Profile: React.FC = () => {
 
   const handleDeletePosts = async () => {
     await axios.delete(
-      `${process.env.REACT_APP_BACKEND_URL}/user/deletePosts/${auth.userData![0]}`,
+      `${process.env.REACT_APP_BACKEND_URL}/user/deletePosts/${
+        auth.userData![0]
+      }`,
       {
         headers: {
           Authorization: `Bearer ${auth.token}`,
@@ -132,96 +137,104 @@ const Profile: React.FC = () => {
 
   return (
     <>
-    {!fetchError ? (
-      <>
-      <Wrapper>
-        <ProfileInfo>
-      <ProfilePicture>
-      <img src={`${process.env.REACT_APP_ASSETS_URL}/${userImage}`} alt="Profile"/>
-      </ProfilePicture>
-      <Heading>
-        <span>{uname}</span>
-      </Heading>
-        <DescriptionWrapper isEditButtonVisible={isMyProfile}>
-          <h2>{isEditMode && 'edit '}description</h2>
-          {isEditMode ? (
-            <>
-              <textarea
-                value={userDescription}
-                onChange={handleDescChange}
-              ></textarea>
-              <EditWrapper>
-                <EditPostButton cancelVariant onClick={() => setIsEditMode(false)}>Cancel</EditPostButton>
-                <EditPostButton onClick={handleDescEdit}>Confirm</EditPostButton>
-              </EditWrapper>
-            </>
-          ) : (
-            <>
-              <p>{userDescription}</p>
-              {isMyProfile && <EditButton onClick={() => setIsEditMode(true)}>
-                Edit
-              </EditButton>}
-            </>
-          )}
-          {reqError && <ErrorMessage>{reqError}</ErrorMessage>}
-        </DescriptionWrapper>
-        {isMyProfile && <Link to='/new-post'>
-          <AddPostButton>Add New Post</AddPostButton>
-        </Link>}
-        {isMyProfile && isDesktopMode && (
-          <SettingsIconContainer>
-            <SettingsIcon onClick={() => setIsSettingsOpen(true)} />
-          </SettingsIconContainer>
-        )}
-        </ProfileInfo>
-        <AllPostsWrapper isDesktopMode={isDesktopMode}>
-          <h1>{uname}'s Posts</h1>
-          {posts.length > 0 ?
-            posts.map((post, i) => {
-              const isPostLikedByLoggedUser = post.likedBy.find(userId => userId === auth.userData![0]);
+      {!fetchError ? (
+        <>
+          <Wrapper>
+            <ProfileInfo>
+              <ProfilePicture>
+                <img
+                  src={`${process.env.REACT_APP_ASSETS_URL}/${userImage}`}
+                  alt="Profile"
+                />
+              </ProfilePicture>
+              <Heading>
+                <span>{uname}</span>
+              </Heading>
+              <DescriptionWrapper isEditButtonVisible={isMyProfile}>
+                <h2>{isEditMode && 'edit '}description</h2>
+                {isEditMode ? (
+                  <>
+                    <textarea
+                      value={userDescription}
+                      onChange={handleDescChange}
+                    ></textarea>
+                    <EditWrapper>
+                      <EditPostButton
+                        cancelVariant
+                        onClick={() => setIsEditMode(false)}
+                      >
+                        Cancel
+                      </EditPostButton>
+                      <EditPostButton onClick={handleDescEdit}>
+                        Confirm
+                      </EditPostButton>
+                    </EditWrapper>
+                  </>
+                ) : (
+                  <>
+                    <p>{userDescription}</p>
+                    {isMyProfile && (
+                      <EditButton onClick={() => setIsEditMode(true)}>
+                        Edit
+                      </EditButton>
+                    )}
+                  </>
+                )}
+                {reqError && <ErrorMessage>{reqError}</ErrorMessage>}
+              </DescriptionWrapper>
+              {isMyProfile && (
+                <Link to="/new-post">
+                  <AddPostButton>Add New Post</AddPostButton>
+                </Link>
+              )}
+              {isMyProfile && isDesktopMode && (
+                <SettingsIconContainer>
+                  <SettingsIcon onClick={() => setIsSettingsOpen(true)} />
+                </SettingsIconContainer>
+              )}
+            </ProfileInfo>
+            <AllPostsWrapper isDesktopMode={isDesktopMode}>
+              <h1>{uname}'s Posts</h1>
+              {posts.length > 0 ? (
+                posts.map((post, i) => {
+                  const isPostLikedByLoggedUser = post.likedBy.find(
+                    (userId) => userId === auth.userData![0]
+                  );
 
-              return <Post
-                key={i}
-                title={post.title}
-                content={post.content}
-                creator={post.creatorName}
-                creatorImage={post.creatorImage}
-                isCreatorShown={false}
-                postId={post._id}
-                creationDate={post.creationDate}
-                creatorId={post.creatorId}
-                edited={post.edited}
-                likesCount={post.likesCount}
-                isPostLikedByUser={!!isPostLikedByLoggedUser}
-                commentsCount={post.commentsCount}
+                  return (
+                    <Post
+                      key={i}
+                      post={post}
+                      isCreatorShown={false}
+                      isPostLikedByUser={!!isPostLikedByLoggedUser}
+                    />
+                  );
+                })
+              ) : (
+                <Heading as="h2">This user hasn't got any post yet</Heading>
+              )}
+              {isMyProfile && !isDesktopMode && (
+                <SettingsIconContainer>
+                  <SettingsIcon onClick={() => setIsSettingsOpen(true)} />
+                </SettingsIconContainer>
+              )}
+            </AllPostsWrapper>
+            {isSettingsOpen && (
+              <SettingsModal
+                closeModal={setIsSettingsOpen}
+                deleteUser={handleDeleteUser}
+                deletePosts={handleDeletePosts}
               />
-            }) : <Heading as='h2'>This user hasn't got any post yet</Heading>}
-            {isMyProfile && !isDesktopMode && (
-          <SettingsIconContainer>
-            <SettingsIcon onClick={() => setIsSettingsOpen(true)} />
-          </SettingsIconContainer>
-        )}
-        </AllPostsWrapper>
-        {isSettingsOpen && (
-          <SettingsModal
-            closeModal={setIsSettingsOpen}
-            deleteUser={handleDeleteUser}
-            deletePosts={handleDeletePosts}
-          />
-        )}
-        {isLoading && <Loader/>}
-      </Wrapper>
-      </>
-    ) : (
-      <FetchErrorInfo>
-        <h1>
-          404
-        </h1>
-        <h2>
-          {fetchError}
-        </h2>
-      </FetchErrorInfo>
-    )}
+            )}
+            {isLoading && <Loader />}
+          </Wrapper>
+        </>
+      ) : (
+        <FetchErrorInfo>
+          <h1>404</h1>
+          <h2>{fetchError}</h2>
+        </FetchErrorInfo>
+      )}
     </>
   );
 };

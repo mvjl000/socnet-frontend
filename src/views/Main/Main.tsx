@@ -26,29 +26,24 @@ const Main: React.FC = () => {
 
   return (
     <>
-      <AboutButton/>
+      <AboutButton />
       <Heading>See what's going on - all posts section</Heading>
       <Wrapper>
         {posts &&
           posts.map((post, i) => {
-            const isPostLikedByLoggedUser = post.likedBy.find(userId => userId === auth.userData![0]);
-            return <Post
-              key={i}
-              title={post.title}
-              content={post.content}
-              creator={post.creatorName}
-              creatorImage={post.creatorImage}
-              isCreatorShown={true}
-              postId={post._id}
-              creationDate={post.creationDate}
-              creatorId={post.creatorId}
-              edited={post.edited}
-              likesCount={post.likesCount}
-              isPostLikedByUser={!!isPostLikedByLoggedUser}
-              commentsCount={post.commentsCount}
-            />
+            const isPostLikedByLoggedUser = post.likedBy.find(
+              (userId) => userId === auth.userData![0]
+            );
+            return (
+              <Post
+                key={i}
+                post={post}
+                isCreatorShown={true}
+                isPostLikedByUser={!!isPostLikedByLoggedUser}
+              />
+            );
           })}
-          {isLoading && <Loader/>}
+        {isLoading && <Loader />}
       </Wrapper>
     </>
   );
