@@ -3,7 +3,6 @@ import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from 'store/reducers/rootReducer';
 import { PostsStateTypes } from 'store/reducers/postsReducer';
-import { PostsContext } from 'shared/context/postsProvider';
 import AuthContext from 'shared/context/auth-context';
 import Post from 'components/Post/Post';
 import Loader from 'shared/components/Loader';
@@ -12,12 +11,11 @@ import { Wrapper, Heading } from './Main.styles';
 import { setFetchedPosts } from 'store/actions';
 
 const Main: React.FC = () => {
-  const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(false);
-  // const { posts, setFetchedPosts } = useContext(PostsContext);
   const posts = useSelector<RootState, PostsStateTypes['posts']>(
     (state) => state.posts.posts
   );
+  const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
   const auth = useContext(AuthContext);
 
   useEffect(() => {
