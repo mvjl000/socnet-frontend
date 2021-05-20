@@ -15,6 +15,11 @@ export const GlobalStyle = createGlobalStyle`
     a, button, label, textarea {
         font-family: 'Poppins', sans-serif;
     }
+    
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
 
     input:focus,
     select:focus,
