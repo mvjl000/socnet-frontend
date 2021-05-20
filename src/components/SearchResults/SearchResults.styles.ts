@@ -1,10 +1,9 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  margin: 25px 0;
+  margin: 25px auto;
   padding: 0 30px;
-  width: 80%;
-  max-width: 500px;
+  width: 300px;
   height: 80px;
   display: flex;
   align-items: center;
@@ -12,11 +11,19 @@ export const Wrapper = styled.div`
   border: 1px solid #aaa;
   border-radius: 10px;
   cursor: pointer;
-  div {
-    margin-right: 20px;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: #444;
+  transition: 0.2s;
+  &:hover {
+    box-shadow: 0 0 19px -6px #aaa;
   }
+
+  p {
+    font-size: 18px;
+  }
+`;
+
+export const ProfilePhoto = styled.img`
+  margin-right: 30px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
 `;

@@ -1,13 +1,23 @@
 import React from 'react';
-import { Wrapper } from './SearchResults.styles';
+import { Link } from 'react-router-dom';
+import { Wrapper, ProfilePhoto } from './SearchResults.styles';
+import { SearchResultsUser } from 'types/user-types';
 
-function SearchUserPreview() {
-  return (
-    <Wrapper>
-      <div />
-      <p>Example User</p>
-    </Wrapper>
-  );
+interface SearchUserPreviewProps {
+  user: SearchResultsUser;
 }
+
+const SearchUserPreview: React.FC<SearchUserPreviewProps> = ({ user }) => {
+  return (
+    <Link to={`/profile/${user.username}`}>
+      <Wrapper>
+        <ProfilePhoto
+          src={`${process.env.REACT_APP_ASSETS_URL}/${user.userImage}`}
+        />
+        <p>{user.username}</p>
+      </Wrapper>
+    </Link>
+  );
+};
 
 export default SearchUserPreview;
