@@ -16,6 +16,11 @@ export default function todoReducer(state = initialState, action: Action) {
         ...state,
         posts: action.payload.posts,
       };
+    case 'ADD_POST':
+      return {
+        ...state,
+        posts: [...state.posts, action.payload.post],
+      };
     default:
       return state;
   }

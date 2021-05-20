@@ -28,7 +28,7 @@ const Main: React.FC = () => {
       dispatch(setFetchedPosts(response.data.posts));
     };
     reqData();
-  }, [setFetchedPosts]);
+  }, [dispatch]);
 
   return (
     <>
@@ -42,7 +42,7 @@ const Main: React.FC = () => {
             );
             return (
               <Post
-                key={i}
+                key={post._id}
                 post={post}
                 isCreatorShown={true}
                 isPostLikedByUser={!!isPostLikedByLoggedUser}
