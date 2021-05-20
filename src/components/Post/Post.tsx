@@ -1,6 +1,8 @@
 import React, { useCallback, useContext, useState } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { deletePost } from 'store/actions';
 import {
   Title,
   Wrapper,
@@ -41,6 +43,7 @@ const Post: React.FC<PostProps> = ({
   const [isEditMode, setIsEditMode] = useState(false);
   const [contentData, setContentData] = useState<string>(content);
   const auth = useContext(AuthContext);
+  const dispatch = useDispatch();
   const {
     handleDeletePostFromContext,
     handleEditPostFromContext,
@@ -59,7 +62,7 @@ const Post: React.FC<PostProps> = ({
           },
         }
       );
-      handleDeletePostFromContext(_id);
+      dispatch(deletePost(_id));
       if (pathname.split('/')[1] === 'post') {
         history.push('/');
       }

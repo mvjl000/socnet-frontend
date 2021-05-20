@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addPost } from 'store/actions';
 import {
   Wrapper,
@@ -12,7 +12,6 @@ import { AddPostButton } from 'shared/components/AddPostButton';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import AuthContext from 'shared/context/auth-context';
-import { PostsContext } from 'shared/context/postsProvider';
 
 interface NewPost {
   title: string;
@@ -29,7 +28,6 @@ const AddPost: React.FC = () => {
     useState<NewPost>(initialNewPostObj);
   const [reqError, setReqError] = useState('');
   const auth = useContext(AuthContext);
-  const { handleAddPost } = useContext(PostsContext);
   const dispatch = useDispatch();
   const history = useHistory();
 
