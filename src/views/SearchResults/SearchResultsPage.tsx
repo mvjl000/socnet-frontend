@@ -32,9 +32,11 @@ const SearchResultsPage: React.FC = () => {
 
   return (
     <Wrapper>
-      {searchResults.map((user) => (
-        <SearchUserPreview user={user} />
-      ))}
+      {searchResults.length > 0 ? (
+        searchResults.map((user) => <SearchUserPreview user={user} />)
+      ) : (
+        <h1>No user found :(</h1>
+      )}
     </Wrapper>
   );
 };
