@@ -2,7 +2,7 @@ import React, { useCallback, useContext, useState } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { deletePost } from 'store/actions';
+import { deletePost, editPost } from 'store/actions';
 import {
   Title,
   Wrapper,
@@ -96,7 +96,7 @@ const Post: React.FC<PostProps> = ({
         },
       }
     );
-    handleEditPostFromContext(_id, responseData.data.content);
+    dispatch(editPost(_id, responseData.data.content));
     setIsEditMode(false);
   };
 
