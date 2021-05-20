@@ -99,7 +99,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ closeDropDown }) => {
             return (
               <ListItem
                 key={username}
-                to={`/search-results/${username}`}
+                to={`/profile/${username}`}
                 onClick={handleUserClick}
               >
                 {username}
