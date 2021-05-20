@@ -2,7 +2,7 @@ import React, { useCallback, useContext, useState } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { deletePost, editPost } from 'store/actions';
+import { deletePost, editPost, likePost } from 'store/actions';
 import {
   Title,
   Wrapper,
@@ -106,14 +106,14 @@ const Post: React.FC<PostProps> = ({
       try {
         await axios.post(
           `${process.env.REACT_APP_BACKEND_URL}/posts/likeAction`,
-          { actionType: 'LIKE', _id },
+          { actionType: 'LIKE', postId: _id },
           {
             headers: {
               Authorization: `Bearer ${auth.token}`,
             },
           }
         );
-        handleLikeActionContext(_id, auth.userData![0], 'LIKE');
+        dispatch(likePost(_id, auth.userData![0], 'LIKE'));
       } catch (err) {
         console.log(err.response.data.message);
       }
@@ -122,14 +122,14 @@ const Post: React.FC<PostProps> = ({
       try {
         await axios.post(
           `${process.env.REACT_APP_BACKEND_URL}/posts/likeAction`,
-          { actionType: 'DISLIKE', _id },
+          { actionType: 'DISLIKE', postId: _id },
           {
             headers: {
               Authorization: `Bearer ${auth.token}`,
             },
           }
         );
-        handleLikeActionContext(_id, auth.userData![0], 'DISLIKE');
+        dispatch(likePost(_id, auth.userData![0], 'DISLIKE'));
       } catch (err) {
         console.log(err.response.data.message);
       }
