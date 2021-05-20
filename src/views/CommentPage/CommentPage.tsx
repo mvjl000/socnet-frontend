@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import Post from 'components/Post/Post';
 import Loader from 'shared/components/Loader';
@@ -123,12 +123,14 @@ const CommentPage: React.FC = () => {
               key={comment._id}
               isLastComment={i === postComments.length - 1}
             >
-              <AuthorInfo>
-                <ProfilePicture
-                  src={`${process.env.REACT_APP_ASSETS_URL}/${comment.commentAuthorImage}`}
-                />
-                <CommentAuthor>{comment.commentAuthorName}</CommentAuthor>
-              </AuthorInfo>
+              <Link to={`/profile/${comment.commentAuthorName}`}>
+                <AuthorInfo>
+                  <ProfilePicture
+                    src={`${process.env.REACT_APP_ASSETS_URL}/${comment.commentAuthorImage}`}
+                  />
+                  <CommentAuthor>{comment.commentAuthorName}</CommentAuthor>
+                </AuthorInfo>
+              </Link>
               <p>{comment.content}</p>
               <CommentDate>{comment.commentDate}</CommentDate>
               {comment.commentAuthorId === auth.userData![0] && (
