@@ -29,6 +29,21 @@ export default function todoReducer(state = initialState, action: Action) {
         ...state,
         posts: newPosts,
       };
+    case 'EDIT_POST':
+      const editedPosts = state.posts.map((post) => {
+        if (post._id === action.payload.postId) {
+          return {
+            ...post,
+            content: action.payload.content,
+            edited: true,
+          };
+        }
+        return post;
+      });
+      return {
+        ...state,
+        posts: editedPosts,
+      };
     default:
       return state;
   }
