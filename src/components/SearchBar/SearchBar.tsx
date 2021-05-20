@@ -84,7 +84,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ closeDropDown }) => {
       {searchResults.length > 0 && isSearchBarFocused && (
         <ResultsContainer isListActive={searchResults.length > 0}>
           {searchResults.map(({ username }, i) => {
-            if (i === 8) {
+            if (i === 7) {
               return (
                 <ListItem
                   key={username}
@@ -96,7 +96,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ closeDropDown }) => {
                 </ListItem>
               );
             }
-            if (i > 7) return null;
+            if (i > 6) return null;
             return (
               <ListItem
                 key={username}
