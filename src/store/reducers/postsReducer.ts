@@ -44,6 +44,42 @@ export default function todoReducer(state = initialState, action: Action) {
         ...state,
         posts: editedPosts,
       };
+    case 'LIKE_POST': {
+      if (action.payload.actionType === 'LIKE') {
+        const newPosts = state.posts.map((post) => {
+          if (post._id === action.payload.postId) {
+            return {
+              ...post,
+              likesCount: post.likesCount + 1,
+              likedBy: [...post.likedBy, action.payload.userId],
+            };
+          }
+          return post;
+        });
+        return {
+          ...state,
+          posts: newPosts,
+        };
+      } else {
+        const newPosts = state.posts.map((post) => {
+          const newLikeUsersList = post.likedBy.filter(
+            (uid) => uid !== action.payload.userId
+          );
+          if (post._id === action.payload.postId) {
+            return {
+              ...post,
+              likesCount: post.likesCount - 1,
+              likedBy: [...newLikeUsersList],
+            };
+          }
+          return post;
+        });
+        return {
+          ...state,
+          posts: newPosts,
+        };
+      }
+    }
     default:
       return state;
   }
