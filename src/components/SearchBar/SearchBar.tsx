@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { Input, ResultsContainer, Wrapper, ListItem } from './SearchBar.styles';
+import { SearchResultsUser } from 'types/user-types';
 
 interface SearchBarProps {
   closeDropDown?: () => void;
@@ -9,7 +10,7 @@ interface SearchBarProps {
 
 const SearchBar: React.FC<SearchBarProps> = ({ closeDropDown }) => {
   const [barValue, setBarValue] = useState('');
-  const [searchResults, setSearchResults] = useState<string[]>([]);
+  const [searchResults, setSearchResults] = useState<SearchResultsUser[]>([]);
   const [isSearchBarFocused, setIsSearchBarFocused] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -42,7 +43,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ closeDropDown }) => {
 
   const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    history.push(`/profile/${barValue}`);
+    history.push(`/search-results/${barValue}`);
     setBarValue('');
     if (closeDropDown) {
       closeDropDown();
@@ -82,7 +83,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ closeDropDown }) => {
       </form>
       {searchResults.length > 0 && isSearchBarFocused && (
         <ResultsContainer isListActive={searchResults.length > 0}>
-          {searchResults.map((username, i) => {
+          {searchResults.map(({ username }, i) => {
             if (i === 8) {
               return (
                 <ListItem
