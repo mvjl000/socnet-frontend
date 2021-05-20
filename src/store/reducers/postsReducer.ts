@@ -21,6 +21,14 @@ export default function todoReducer(state = initialState, action: Action) {
         ...state,
         posts: [...state.posts, action.payload.post],
       };
+    case 'DELETE_POST':
+      const newPosts = state.posts.filter(
+        (post) => post._id !== action.payload.postId
+      );
+      return {
+        ...state,
+        posts: newPosts,
+      };
     default:
       return state;
   }
