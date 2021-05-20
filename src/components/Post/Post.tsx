@@ -20,7 +20,6 @@ import {
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import PostOptionsList from './PostOptionsList/PostOptionsList';
 import AuthContext from 'shared/context/auth-context';
-import { PostsContext } from 'shared/context/postsProvider';
 import { PostProps } from 'types/posts-types';
 
 const Post: React.FC<PostProps> = ({
@@ -44,11 +43,6 @@ const Post: React.FC<PostProps> = ({
   const [contentData, setContentData] = useState<string>(content);
   const auth = useContext(AuthContext);
   const dispatch = useDispatch();
-  const {
-    handleDeletePostFromContext,
-    handleEditPostFromContext,
-    handleLikeActionContext,
-  } = useContext(PostsContext);
   const { pathname } = useLocation();
   const history = useHistory();
 
