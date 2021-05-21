@@ -67,7 +67,7 @@ const CommentPage: React.FC = () => {
     return () => {
       dispatch(clearPost());
     };
-  }, [postId]);
+  }, [postId, dispatch]);
 
   useEffect(() => {
     const reqData = async () => {
