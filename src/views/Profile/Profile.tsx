@@ -1,9 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from 'store/reducers/rootReducer';
+import { PostsStateTypes } from 'store/reducers/postsReducer';
+import { setFetchedPosts } from 'store/actions/postsActions';
 import { useScreenInfo } from 'hooks/useScreenInfo';
 import AuthContext from 'shared/context/auth-context';
-import { PostsContext } from 'shared/context/postsProvider';
 import {
   Wrapper,
   ProfileInfo,
@@ -31,6 +34,9 @@ interface ParamsTypes {
 }
 
 const Profile: React.FC = () => {
+  const posts = useSelector<RootState, PostsStateTypes['posts']>(
+    (state) => state.posts.posts
+  );
   const [isEditMode, setIsEditMode] = useState(false);
   const [userDescription, setUserDescripion] = useState('');
   const [userImage, setUserImage] = useState('');
@@ -39,8 +45,8 @@ const Profile: React.FC = () => {
   const [reqError, setReqError] = useState('');
   const [fetchError, setFetchError] = useState('');
   const auth = useContext(AuthContext);
-  const { posts, setFetchedPosts } = useContext(PostsContext);
   const { isDesktopMode } = useScreenInfo();
+  const dispatch = useDispatch();
 
   const { uname } = useParams<ParamsTypes>();
 
@@ -72,7 +78,7 @@ const Profile: React.FC = () => {
           `${process.env.REACT_APP_BACKEND_URL}/posts/getUserPosts/${uname}`
         );
         setIsLoading(false);
-        setFetchedPosts(response.data.posts);
+        dispatch(setFetchedPosts(response.data.posts));
       } catch (error) {
         setFetchError(`No user found for provided name - ${uname}`);
       }
