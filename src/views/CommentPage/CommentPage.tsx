@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'store/reducers/rootReducer';
 import { CommentsStateTypes } from 'store/reducers/commentsReducer';
-import { setFetchedPost } from 'store/actions/commentsActions';
+import { setFetchedPost, clearPost } from 'store/actions/commentsActions';
 import Post from 'components/Post/Post';
 import Loader from 'shared/components/Loader';
 import AuthContext from 'shared/context/auth-context';
@@ -61,6 +61,10 @@ const CommentPage: React.FC = () => {
       }
     };
     reqData();
+
+    return () => {
+      dispatch(clearPost());
+    };
   }, [postId]);
 
   useEffect(() => {

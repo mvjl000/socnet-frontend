@@ -16,6 +16,11 @@ export default function commentsReducer(state = initialState, action: Action) {
         ...state,
         post: action.payload.post,
       };
+    case 'CLEAR_POST':
+      return {
+        ...state,
+        post: null,
+      };
     default:
       return state;
   }
