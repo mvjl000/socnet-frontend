@@ -16,6 +16,11 @@ export default function todoReducer(state = initialState, action: Action) {
         ...state,
         posts: action.payload.posts,
       };
+    case 'CLEAR_POSTS':
+      return {
+        ...state,
+        posts: [],
+      };
     case 'ADD_POST':
       return {
         ...state,
@@ -79,6 +84,15 @@ export default function todoReducer(state = initialState, action: Action) {
           posts: newPosts,
         };
       }
+    }
+    case 'DELETE_USER_POSTS': {
+      const newPosts = state.posts.filter(
+        (post) => post.creatorId !== action.payload.userId
+      );
+      return {
+        ...state,
+        posts: [...newPosts],
+      };
     }
     default:
       return state;
