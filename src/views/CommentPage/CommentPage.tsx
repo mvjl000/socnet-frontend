@@ -1,6 +1,10 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from 'store/reducers/rootReducer';
+import { CommentsStateTypes } from 'store/reducers/commentsReducer';
+import { setFetchedPost } from 'store/actions/commentsActions';
 import Post from 'components/Post/Post';
 import Loader from 'shared/components/Loader';
 import AuthContext from 'shared/context/auth-context';
@@ -32,12 +36,32 @@ interface PostCommentsType {
 }
 
 const CommentPage: React.FC = () => {
+  const post = useSelector<RootState, CommentsStateTypes['post']>(
+    (state) => state.comments.post
+  );
   const [postComments, setPostComments] = useState<PostCommentsType[]>([]);
   const [newCommentValue, setNewCommentValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { postId } = useParams<ParamsProps>();
   const { posts, handleCommentAction } = useContext(PostsContext);
   const auth = useContext(AuthContext);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const reqData = async () => {
+      try {
+        setIsLoading(true);
+        const response = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/posts/post/${postId}`
+        );
+        setIsLoading(false);
+        dispatch(setFetchedPost(response.data.post));
+      } catch (err) {
+        console.log(err.response.data.message);
+      }
+    };
+    reqData();
+  }, [postId]);
 
   useEffect(() => {
     const reqData = async () => {
@@ -103,19 +127,15 @@ const CommentPage: React.FC = () => {
 
   return (
     <Wrapper>
-      {posts.map((post) => {
-        if (post._id !== postId) return null;
-        const isPostLikedByLoggedUser = post.likedBy.find(
-          (userId) => userId === auth.userData![0]
-        );
-        return (
-          <Post
-            post={post}
-            isCreatorShown={true}
-            isPostLikedByUser={!!isPostLikedByLoggedUser}
-          />
-        );
-      })}
+      {!isLoading && post && (
+        <Post
+          post={post}
+          isCreatorShown={true}
+          isPostLikedByUser={
+            !!post.likedBy.find((userId) => userId === auth.userData![0])
+          }
+        />
+      )}
       <CommentsWrapper commentsExist={postComments.length > 0}>
         {!isLoading &&
           postComments.map((comment, i) => (

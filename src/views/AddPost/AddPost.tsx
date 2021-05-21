@@ -65,7 +65,6 @@ const AddPost: React.FC = () => {
             },
           }
         );
-        console.log(responseData.data.post);
 
         const {
           title,
