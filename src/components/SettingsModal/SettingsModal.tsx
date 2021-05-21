@@ -1,5 +1,7 @@
 import React, { useContext, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { motion } from 'framer-motion';
+import { deleteUserPosts, clearPosts } from 'store/actions/postsActions';
 import AuthContext from 'shared/context/auth-context';
 import { PostsContext } from 'shared/context/postsProvider';
 import {
@@ -21,34 +23,40 @@ interface SettingsModalProps {
   closeModal: (close: boolean) => void;
   deleteUser: () => void;
   deletePosts: () => void;
-};
+}
 
 type ConfirmStateProps = {
-  isOpen: boolean,
-  actionType: string
-}
+  isOpen: boolean;
+  actionType: string;
+};
 
 const SettingsModal: React.FC<SettingsModalProps> = ({
   closeModal,
   deleteUser,
-  deletePosts
+  deletePosts,
 }) => {
-  const [isConfirmOpen, setIsConfirmOpen] = useState<ConfirmStateProps>({ isOpen: false, actionType: ''});
+  const [isConfirmOpen, setIsConfirmOpen] = useState<ConfirmStateProps>({
+    isOpen: false,
+    actionType: '',
+  });
+  const dispatch = useDispatch();
 
   const auth = useContext(AuthContext);
   const { handleDeleteUserPosts } = useContext(PostsContext);
 
-  const handleConfirmOpen = (action: string) => setIsConfirmOpen({isOpen: true, actionType: action});
+  const handleConfirmOpen = (action: string) =>
+    setIsConfirmOpen({ isOpen: true, actionType: action });
 
   const handleDeleteAction = () => {
     if (isConfirmOpen.actionType === 'DELETE_ACCOUNT') {
       deleteUser();
     } else if (isConfirmOpen.actionType === 'DELETE_POSTS') {
       deletePosts();
-      handleDeleteUserPosts(auth.userData![0]);
-      setIsConfirmOpen({ isOpen: false, actionType: '' });
+      dispatch(deleteUserPosts(auth.userData![0]));
+      dispatch(clearPosts());
+      closeModal(false);
     }
-  }
+  };
 
   return (
     <Wrapper
@@ -87,7 +95,11 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
               This operation is irreversible! Do you want to proceed?
             </SubHeading>
             <ButtonsContainer>
-              <ConfirmButton onClick={() => setIsConfirmOpen({ isOpen: false, actionType: '' })}>
+              <ConfirmButton
+                onClick={() =>
+                  setIsConfirmOpen({ isOpen: false, actionType: '' })
+                }
+              >
                 Cancel
               </ConfirmButton>
               <ConfirmButton onClick={handleDeleteAction} deleteVersion={true}>
