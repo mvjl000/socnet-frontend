@@ -4,7 +4,11 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'store/reducers/rootReducer';
 import { CommentsStateTypes } from 'store/reducers/commentsReducer';
-import { setFetchedPost, clearPost } from 'store/actions/commentsActions';
+import {
+  setFetchedPost,
+  clearPost,
+  commentPost,
+} from 'store/actions/commentsActions';
 import Post from 'components/Post/Post';
 import Loader from 'shared/components/Loader';
 import AuthContext from 'shared/context/auth-context';
@@ -103,7 +107,7 @@ const CommentPage: React.FC = () => {
       );
       setNewCommentValue('');
       setPostComments([...postComments, data.comment]);
-      handleCommentAction(postId, 'COMMENT');
+      dispatch(commentPost(postId, 'ADD_COMMENT'));
     } catch (err) {
       console.log(err.response.data.message);
     }
@@ -123,7 +127,7 @@ const CommentPage: React.FC = () => {
         (comment) => comment._id !== commentId
       );
       setPostComments(newComments);
-      handleCommentAction(postId, 'DELETE_COMMENT');
+      dispatch(commentPost(postId, 'DELETE_COMMENT'));
     } catch (err) {
       console.log(err);
     }
