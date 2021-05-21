@@ -21,6 +21,30 @@ export default function commentsReducer(state = initialState, action: Action) {
         ...state,
         post: null,
       };
+    case 'LIKE_POST':
+      if (!state.post) return state;
+      if (action.payload.actionType === 'LIKE') {
+        return {
+          ...state,
+          post: {
+            ...state.post,
+            likesCount: state.post.likesCount + 1,
+            likedBy: [...state.post.likedBy, action.payload.userId],
+          },
+        };
+      } else {
+        const newLikeUsersList = state.post.likedBy.filter(
+          (uid) => uid !== action.payload.userId
+        );
+        return {
+          ...state,
+          post: {
+            ...state.post,
+            likesCount: state.post.likesCount + 1,
+            likedBy: [...newLikeUsersList],
+          },
+        };
+      }
     default:
       return state;
   }
