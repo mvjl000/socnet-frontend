@@ -10,6 +10,10 @@ export type Action =
         userId: string;
         actionType: 'LIKE' | 'DISLIKE';
       };
+    }
+  | {
+      type: 'COMMENT_POST';
+      payload: { postId: string; actionType: 'ADD_COMMENT' | 'DELETE_COMMENT' };
     };
 
 export const setFetchedPost = (post: PostType): Action => ({
@@ -28,4 +32,12 @@ export const likePost = (
 ): Action => ({
   type: 'LIKE_POST',
   payload: { postId, userId, actionType },
+});
+
+export const commentPost = (
+  postId: string,
+  actionType: 'ADD_COMMENT' | 'DELETE_COMMENT'
+): Action => ({
+  type: 'COMMENT_POST',
+  payload: { postId, actionType },
 });
