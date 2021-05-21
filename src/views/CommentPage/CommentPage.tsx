@@ -12,7 +12,6 @@ import {
 import Post from 'components/Post/Post';
 import Loader from 'shared/components/Loader';
 import AuthContext from 'shared/context/auth-context';
-import { PostsContext } from 'shared/context/postsProvider';
 import {
   Wrapper,
   CommentsWrapper,
@@ -47,7 +46,6 @@ const CommentPage: React.FC = () => {
   const [newCommentValue, setNewCommentValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { postId } = useParams<ParamsProps>();
-  const { posts, handleCommentAction } = useContext(PostsContext);
   const auth = useContext(AuthContext);
   const dispatch = useDispatch();
 
