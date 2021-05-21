@@ -45,6 +45,25 @@ export default function commentsReducer(state = initialState, action: Action) {
           },
         };
       }
+    case 'COMMENT_POST':
+      if (!state.post) return state;
+      if (action.payload.actionType === 'ADD_COMMENT') {
+        return {
+          ...state,
+          post: {
+            ...state.post,
+            commentsCount: state.post.commentsCount + 1,
+          },
+        };
+      } else {
+        return {
+          ...state,
+          post: {
+            ...state.post,
+            commentsCount: state.post.commentsCount - 1,
+          },
+        };
+      }
     default:
       return state;
   }
