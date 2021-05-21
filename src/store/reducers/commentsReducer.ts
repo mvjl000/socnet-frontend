@@ -40,7 +40,7 @@ export default function commentsReducer(state = initialState, action: Action) {
           ...state,
           post: {
             ...state.post,
-            likesCount: state.post.likesCount + 1,
+            likesCount: state.post.likesCount - 1,
             likedBy: [...newLikeUsersList],
           },
         };

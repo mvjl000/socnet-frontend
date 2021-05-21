@@ -3,6 +3,7 @@ import { Link, useHistory, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { deletePost, editPost, likePost } from 'store/actions/postsActions';
+import { likePost as likeCommentPagePost } from 'store/actions/commentsActions';
 import {
   Title,
   Wrapper,
@@ -107,7 +108,11 @@ const Post: React.FC<PostProps> = ({
             },
           }
         );
-        dispatch(likePost(_id, auth.userData![0], 'LIKE'));
+        if (pathname.split('/')[1] === 'post') {
+          dispatch(likeCommentPagePost(_id, auth.userData![0], 'LIKE'));
+        } else {
+          dispatch(likePost(_id, auth.userData![0], 'LIKE'));
+        }
       } catch (err) {
         console.log(err.response.data.message);
       }
@@ -123,7 +128,11 @@ const Post: React.FC<PostProps> = ({
             },
           }
         );
-        dispatch(likePost(_id, auth.userData![0], 'DISLIKE'));
+        if (pathname.split('/')[1] === 'post') {
+          dispatch(likeCommentPagePost(_id, auth.userData![0], 'DISLIKE'));
+        } else {
+          dispatch(likePost(_id, auth.userData![0], 'DISLIKE'));
+        }
       } catch (err) {
         console.log(err.response.data.message);
       }
