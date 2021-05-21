@@ -84,7 +84,7 @@ const Profile: React.FC = () => {
       }
     };
     reqData();
-  }, [auth.userData, setFetchedPosts, uname]);
+  }, [auth.userData, setFetchedPosts, uname, dispatch]);
 
   const handleDescChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setUserDescripion(event.target.value);
