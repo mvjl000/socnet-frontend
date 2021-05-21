@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { useDispatch } from 'react-redux';
-import { addPost } from 'store/actions';
+import { addPost } from 'store/actions/postsActions';
 import {
   Wrapper,
   Heading,

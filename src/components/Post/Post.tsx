@@ -2,7 +2,7 @@ import React, { useCallback, useContext, useState } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { deletePost, editPost, likePost } from 'store/actions';
+import { deletePost, editPost, likePost } from 'store/actions/postsActions';
 import {
   Title,
   Wrapper,

@@ -8,7 +8,7 @@ import Post from 'components/Post/Post';
 import Loader from 'shared/components/Loader';
 import AboutButton from 'shared/components/AboutButton';
 import { Wrapper, Heading } from './Main.styles';
-import { setFetchedPosts } from 'store/actions';
+import { setFetchedPosts } from 'store/actions/postsActions';
 
 const Main: React.FC = () => {
   const posts = useSelector<RootState, PostsStateTypes['posts']>(
