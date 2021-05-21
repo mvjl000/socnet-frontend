@@ -4,7 +4,7 @@ export type Action =
   | { type: 'SET_POST'; payload: { post: PostType } }
   | { type: 'ADD_POST'; payload: { post: PostType } };
 
-export const setFetchedPosts = (post: PostType): Action => ({
+export const setFetchedPost = (post: PostType): Action => ({
   type: 'SET_POST',
   payload: { post },
 });

@@ -2,14 +2,14 @@ import { Action } from '../actions/commentsActions';
 import { PostType } from 'types/posts-types';
 
 export interface CommentsStateTypes {
-  post: PostType[];
+  post: PostType | null;
 }
 
 const initialState: CommentsStateTypes = {
-  post: [],
+  post: null,
 };
 
-export default function todoReducer(state = initialState, action: Action) {
+export default function commentsReducer(state = initialState, action: Action) {
   switch (action.type) {
     case 'SET_POST':
       return {
