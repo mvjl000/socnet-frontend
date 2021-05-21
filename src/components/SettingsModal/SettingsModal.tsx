@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 import { motion } from 'framer-motion';
 import { deleteUserPosts, clearPosts } from 'store/actions/postsActions';
 import AuthContext from 'shared/context/auth-context';
-import { PostsContext } from 'shared/context/postsProvider';
 import {
   Wrapper,
   Content,
@@ -42,7 +41,6 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
   const dispatch = useDispatch();
 
   const auth = useContext(AuthContext);
-  const { handleDeleteUserPosts } = useContext(PostsContext);
 
   const handleConfirmOpen = (action: string) =>
     setIsConfirmOpen({ isOpen: true, actionType: action });

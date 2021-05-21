@@ -6,7 +6,6 @@ import {
 } from 'react-router-dom';
 import { GlobalStyle } from 'assets/styles/globalStyles';
 import AuthContext from 'shared/context/auth-context';
-import PostsProvider from 'shared/context/postsProvider';
 import ReportsProvider from 'shared/context/reportsProvider';
 import Header from 'components/Nav/Nav';
 import Login from 'components/Login/Login';
@@ -65,12 +64,10 @@ const Root: React.FC = () => {
     >
       <Router>
         <GlobalStyle />
-        <PostsProvider>
-          <Wrapper>
-            <Header isNavExpanded={isNavExpanded} />
-            {routes}
-          </Wrapper>
-        </PostsProvider>
+        <Wrapper>
+          <Header isNavExpanded={isNavExpanded} />
+          {routes}
+        </Wrapper>
       </Router>
     </AuthContext.Provider>
   );
