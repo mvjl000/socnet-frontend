@@ -2,6 +2,7 @@ import { PostType } from 'types/posts-types';
 
 export type Action =
   | { type: 'SET_FETCHED_POSTS'; payload: { posts: PostType[] } }
+  | { type: 'CLEAR_POSTS' }
   | { type: 'ADD_POST'; payload: { post: PostType } }
   | { type: 'DELETE_POST'; payload: { postId: string } }
   | { type: 'EDIT_POST'; payload: { postId: string; content: string } }
@@ -12,11 +13,16 @@ export type Action =
         userId: string;
         actionType: 'LIKE' | 'DISLIKE';
       };
-    };
+    }
+  | { type: 'DELETE_USER_POSTS'; payload: { userId: string } };
 
 export const setFetchedPosts = (posts: PostType[]): Action => ({
   type: 'SET_FETCHED_POSTS',
   payload: { posts },
+});
+
+export const clearPosts = (): Action => ({
+  type: 'CLEAR_POSTS',
 });
 
 export const addPost = (post: PostType): Action => ({
@@ -41,4 +47,9 @@ export const likePost = (
 ): Action => ({
   type: 'LIKE_POST',
   payload: { postId, userId, actionType },
+});
+
+export const deleteUserPosts = (userId: string): Action => ({
+  type: 'DELETE_USER_POSTS',
+  payload: { userId },
 });
