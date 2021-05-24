@@ -123,6 +123,7 @@ const AddPost: React.FC = () => {
             name="description"
             value={newPostContent.description}
             onChange={handleInputChange}
+            data-testid="new-post-textarea"
           ></textarea>
         </TextAreaContainer>
         {reqError && <ErrorMessage>{reqError}</ErrorMessage>}
