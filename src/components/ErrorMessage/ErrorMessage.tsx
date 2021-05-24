@@ -1,6 +1,6 @@
 import { Wrapper } from './ErrorMessage.styles';
 
-interface ErrorMessageProps {
+export interface ErrorMessageProps {
   message: string;
 }
 
