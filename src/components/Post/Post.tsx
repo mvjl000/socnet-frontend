@@ -20,7 +20,7 @@ import {
 } from './Post.styles';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import PostOptionsList from './PostOptionsList/PostOptionsList';
-import AuthContext from 'shared/context/auth-context';
+import AuthContext from 'context/auth-context';
 import { PostProps } from 'types/posts-types';
 
 const Post: React.FC<PostProps> = ({

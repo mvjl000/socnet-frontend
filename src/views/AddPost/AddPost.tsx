@@ -11,7 +11,7 @@ import { ErrorMessage } from 'shared/components/reusable.styles';
 import { AddPostButton } from 'shared/components/AddPostButton';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-import AuthContext from 'shared/context/auth-context';
+import AuthContext from 'context/auth-context';
 
 interface NewPost {
   title: string;
@@ -24,8 +24,9 @@ const initialNewPostObj: NewPost = {
 };
 
 const AddPost: React.FC = () => {
-  const [newPostContent, setNewPostContent] =
-    useState<NewPost>(initialNewPostObj);
+  const [newPostContent, setNewPostContent] = useState<NewPost>(
+    initialNewPostObj
+  );
   const [reqError, setReqError] = useState('');
   const auth = useContext(AuthContext);
   const dispatch = useDispatch();

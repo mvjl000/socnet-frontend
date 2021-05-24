@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from 'store/reducers/rootReducer';
 import { PostsStateTypes } from 'store/reducers/postsReducer';
-import AuthContext from 'shared/context/auth-context';
+import AuthContext from 'context/auth-context';
 import Post from 'components/Post/Post';
 import Loader from 'shared/components/Loader';
 import AboutButton from 'shared/components/AboutButton';

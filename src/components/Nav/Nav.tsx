@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useToggleSearchBar } from 'hooks/useToggleSearchBar';
-import AuthContext from 'shared/context/auth-context';
+import AuthContext from 'context/auth-context';
 import Logo from 'assets/images/socnet-logo.png';
 import {
   Navigation,
@@ -43,15 +43,18 @@ const Header: React.FC<NavProps> = ({ isNavExpanded }) => {
             />
           </DropDownMenu>
         )}
-        <Link to='/'>
-          <img src={Logo} alt='logo' />
+        <Link to="/">
+          <img src={Logo} alt="logo" />
         </Link>
         {auth.isLoggedIn && (
           <>
-          {isSearchBarVisible && <SearchBar/>}
-          <DesktopNavLinksContainer>
-            <NavLinks handleLogout={handleLogout} username={auth.userData![1]} />
-          </DesktopNavLinksContainer>
+            {isSearchBarVisible && <SearchBar />}
+            <DesktopNavLinksContainer>
+              <NavLinks
+                handleLogout={handleLogout}
+                username={auth.userData![1]}
+              />
+            </DesktopNavLinksContainer>
           </>
         )}
       </Navigation>

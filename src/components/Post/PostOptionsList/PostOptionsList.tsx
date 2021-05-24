@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { Wrapper, ListItem } from './PostOptionsList.styles';
-import AuthContext from 'shared/context/auth-context';
-import { ReportsContext } from 'shared/context/reportsProvider';
+import AuthContext from 'context/auth-context';
+import { ReportsContext } from 'context/reportsProvider';
 
 interface PostOptionsListProps {
   handleDeletePost: () => void;
@@ -23,13 +23,19 @@ const PostOptionsList: React.FC<PostOptionsListProps> = ({
   const auth = useContext(AuthContext);
   const { handleDeleteReport } = useContext(ReportsContext);
   const { pathname } = useLocation();
-  
+
   const handleReportPost = async () => {
     try {
       closeOptions();
-      await axios.post(`${process.env.REACT_APP_BACKEND_URL}/posts/post/report`, { postId }, { headers: {
-          Authorization: `Bearer ${auth.token}`,
-        }})
+      await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/posts/post/report`,
+        { postId },
+        {
+          headers: {
+            Authorization: `Bearer ${auth.token}`,
+          },
+        }
+      );
     } catch (err) {
       console.log(err);
     }
@@ -38,9 +44,15 @@ const PostOptionsList: React.FC<PostOptionsListProps> = ({
   const handleDiscardReport = async () => {
     try {
       closeOptions();
-      await axios.post(`${process.env.REACT_APP_BACKEND_URL}/posts/post/report`, { postId, discardReport: true }, { headers: {
-          Authorization: `Bearer ${auth.token}`,
-        }})
+      await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/posts/post/report`,
+        { postId, discardReport: true },
+        {
+          headers: {
+            Authorization: `Bearer ${auth.token}`,
+          },
+        }
+      );
       handleDeleteReport(postId);
     } catch (err) {
       console.log(err);
@@ -50,34 +62,40 @@ const PostOptionsList: React.FC<PostOptionsListProps> = ({
   const deleteAsAdmin = (postId: string) => {
     handleDeletePost();
     handleDeleteReport(postId);
-  }
+  };
 
   let properOptions;
   if (pathname.split('/')[1] === 'admin') {
     properOptions = (
       <>
-        <ListItem onClick={handleDiscardReport} colorVariant='1'>
+        <ListItem onClick={handleDiscardReport} colorVariant="1">
           Discard Report
         </ListItem>
-        <ListItem onClick={() => deleteAsAdmin(postId)} colorVariant='3'>
+        <ListItem onClick={() => deleteAsAdmin(postId)} colorVariant="3">
           Delete
         </ListItem>
       </>
-    )      
+    );
   } else {
     properOptions = (
       <>
-        {auth.userData![0] !== postCreatorId && <ListItem onClick={handleReportPost} colorVariant='1'>Report</ListItem>}
-        {auth.userData![0] === postCreatorId && (
-        <>
-          <ListItem onClick={openEditMode} colorVariant='2'>Edit</ListItem>
-          <ListItem onClick={handleDeletePost} colorVariant='3'>
-            Delete
+        {auth.userData![0] !== postCreatorId && (
+          <ListItem onClick={handleReportPost} colorVariant="1">
+            Report
           </ListItem>
-        </>
-      )}
+        )}
+        {auth.userData![0] === postCreatorId && (
+          <>
+            <ListItem onClick={openEditMode} colorVariant="2">
+              Edit
+            </ListItem>
+            <ListItem onClick={handleDeletePost} colorVariant="3">
+              Delete
+            </ListItem>
+          </>
+        )}
       </>
-    )
+    );
   }
 
   return (

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { loginTypes } from 'shared/context/auth-context';
+import { loginTypes } from 'context/auth-context';
 
 let logoutTimer: NodeJS.Timeout;
 

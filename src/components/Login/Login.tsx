@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useReducer, useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-import AuthContext from 'shared/context/auth-context';
+import AuthContext from 'context/auth-context';
 import Loader from 'shared/components/Loader';
 import CookiesConsent from './CookiesConsent/CookiesConsent';
 import AboutButton from 'shared/components/AboutButton';
@@ -13,7 +13,9 @@ import {
   Wrapper,
   ErrorMessage,
   ToggleVisibilityButton,
-  PhotosWrapper, ProfilePhotoContainer, ProfilePhoto
+  PhotosWrapper,
+  ProfilePhotoContainer,
+  ProfilePhoto,
 } from './Login.styles';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
@@ -25,7 +27,7 @@ const initialState: LoginState = {
   currentMode: 'LOGIN',
   isLoading: false,
   error: '',
-  profilePicture: ''
+  profilePicture: '',
 };
 
 const loginReducer: LoginReducer = (state, action) => {
@@ -64,8 +66,8 @@ const loginReducer: LoginReducer = (state, action) => {
     case 'selectImage':
       return {
         ...state,
-        profilePicture: action.payload
-      }
+        profilePicture: action.payload,
+      };
     case 'clearState':
       return initialState;
     default:
@@ -94,18 +96,19 @@ const Login: React.FC = () => {
     currentMode,
     isLoading,
     error,
-    profilePicture
+    profilePicture,
   } = state;
-
 
   useEffect(() => {
     const reqData = async () => {
-        try {
-            const responseData = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/user/profilePictures`);
-            setAvailableImages(responseData.data.images);
-        } catch (err) {
-            console.log(err);
-        }
+      try {
+        const responseData = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/user/profilePictures`
+        );
+        setAvailableImages(responseData.data.images);
+      } catch (err) {
+        console.log(err);
+      }
     };
     reqData();
   }, [currentMode]);
@@ -148,7 +151,7 @@ const Login: React.FC = () => {
       password.length >= 5 &&
       password === repeatPassword
     ) {
-      dispatch({ type: 'switchMode', payload: 'PICK_IMAGE'});
+      dispatch({ type: 'switchMode', payload: 'PICK_IMAGE' });
     } else if (currentMode === 'PICK_IMAGE' && profilePicture.length > 0) {
       dispatch({ type: 'proceed' });
       try {
@@ -156,7 +159,7 @@ const Login: React.FC = () => {
           username,
           password,
           repeatPassword,
-          image: profilePicture
+          image: profilePicture,
         });
         dispatch({ type: 'success' });
         dispatch({ type: 'clearState' });
@@ -194,96 +197,110 @@ const Login: React.FC = () => {
   const handleToggleConfirmPasswordVisibility = () =>
     setIsConfirmPasswordVisible(!isConfirmPasswordVisible);
 
-  const handleImageClick = (image: string) => dispatch({ type: 'selectImage', payload: image})
+  const handleImageClick = (image: string) =>
+    dispatch({ type: 'selectImage', payload: image });
 
   useEffect(() => {
     if (currentMode === 'LOGIN' || currentMode === 'FILL') {
-    setIsLoginOrFill(true);
-  } else {
-    setIsLoginOrFill(false);
-  }
+      setIsLoginOrFill(true);
+    } else {
+      setIsLoginOrFill(false);
+    }
   }, [currentMode]);
 
   const closeConsent = () => setIsConsentOpen(false);
 
   return (
     <>
-    <AboutButton/>
-    {isLoginOrFill ? (
-      <Wrapper onSubmit={handleLoginFormSubmit}>
-      <Header>{currentMode === 'LOGIN' ? 'Log in' : 'Create account'}</Header>
-      <label htmlFor=''>
-        Username
-        <Input
-          type='text'
-          name='username'
-          value={username}
-          onChange={handleInputChange}
-        />
-      </label>
-      <label htmlFor=''>
-        Password
-        <Input
-          type={isPasswordVisible ? 'text' : 'password'}
-          name='password'
-          value={password}
-          onChange={handleInputChange}
-        />
-        <ToggleVisibilityButton
-          type='button'
-          onClick={handleTogglePasswordVisibility}
-        >
-          {isPasswordVisible ? <VisibilityOffIcon /> : <VisibilityIcon />}
-        </ToggleVisibilityButton>
-      </label>
-      {currentMode === 'FILL' && (
-        <label htmlFor=''>
-          Confirm password
-          <Input
-            type={isConfirmPasswordVisible ? 'text' : 'password'}
-            name='repeatPassword'
-            value={repeatPassword}
-            onChange={handleInputChange}
-            expand={true}
-          />
-          <ToggleVisibilityButton
-            type='button'
-            onClick={handleToggleConfirmPasswordVisibility}
-          >
-            {isConfirmPasswordVisible ? (
-              <VisibilityOffIcon />
-            ) : (
-              <VisibilityIcon />
-            )}
-          </ToggleVisibilityButton>
-        </label>
-      )}
-      <Button type='submit'>{currentMode === 'LOGIN' ? 'Sign in' : 'Next step'}</Button>
-      <CreateAccountButton type='button' onClick={handleToggleMode}>
-        {currentMode === 'LOGIN' ? 'Create account' : 'Switch to login'}
-      </CreateAccountButton>
-      {error && <ErrorMessage>{error}</ErrorMessage>}
-      {isLoading && <Loader />}
-    </Wrapper>
-    ) : (
-      <Wrapper onSubmit={handleLoginFormSubmit}>
-            <Header>Pick profile picture</Header>
-            <PhotosWrapper>
-                {availableImages.length > 0 && availableImages.map(image => {
-                    let isImageActive = image === profilePicture;
-                    return (<ProfilePhotoContainer key={image} onClick={() => handleImageClick(image)} isActive={isImageActive}>
-                        <ProfilePhoto src={`${process.env.REACT_APP_ASSETS_URL}/${image}`}/>
-                    </ProfilePhotoContainer>)
-              })}
-            </PhotosWrapper>
-            <Button>Sign up</Button>
-            <CreateAccountButton type='button' onClick={handleToggleMode}>
-        {currentMode === 'LOGIN' ? 'Create account' : 'Switch to login'}
-      </CreateAccountButton>
-            {error && <ErrorMessage>{error}</ErrorMessage>}
+      <AboutButton />
+      {isLoginOrFill ? (
+        <Wrapper onSubmit={handleLoginFormSubmit}>
+          <Header>
+            {currentMode === 'LOGIN' ? 'Log in' : 'Create account'}
+          </Header>
+          <label htmlFor="">
+            Username
+            <Input
+              type="text"
+              name="username"
+              value={username}
+              onChange={handleInputChange}
+            />
+          </label>
+          <label htmlFor="">
+            Password
+            <Input
+              type={isPasswordVisible ? 'text' : 'password'}
+              name="password"
+              value={password}
+              onChange={handleInputChange}
+            />
+            <ToggleVisibilityButton
+              type="button"
+              onClick={handleTogglePasswordVisibility}
+            >
+              {isPasswordVisible ? <VisibilityOffIcon /> : <VisibilityIcon />}
+            </ToggleVisibilityButton>
+          </label>
+          {currentMode === 'FILL' && (
+            <label htmlFor="">
+              Confirm password
+              <Input
+                type={isConfirmPasswordVisible ? 'text' : 'password'}
+                name="repeatPassword"
+                value={repeatPassword}
+                onChange={handleInputChange}
+                expand={true}
+              />
+              <ToggleVisibilityButton
+                type="button"
+                onClick={handleToggleConfirmPasswordVisibility}
+              >
+                {isConfirmPasswordVisible ? (
+                  <VisibilityOffIcon />
+                ) : (
+                  <VisibilityIcon />
+                )}
+              </ToggleVisibilityButton>
+            </label>
+          )}
+          <Button type="submit">
+            {currentMode === 'LOGIN' ? 'Sign in' : 'Next step'}
+          </Button>
+          <CreateAccountButton type="button" onClick={handleToggleMode}>
+            {currentMode === 'LOGIN' ? 'Create account' : 'Switch to login'}
+          </CreateAccountButton>
+          {error && <ErrorMessage>{error}</ErrorMessage>}
+          {isLoading && <Loader />}
         </Wrapper>
-    )}
-    {isConsentOpen && <CookiesConsent handleCloseConsent={closeConsent}/>}
+      ) : (
+        <Wrapper onSubmit={handleLoginFormSubmit}>
+          <Header>Pick profile picture</Header>
+          <PhotosWrapper>
+            {availableImages.length > 0 &&
+              availableImages.map((image) => {
+                let isImageActive = image === profilePicture;
+                return (
+                  <ProfilePhotoContainer
+                    key={image}
+                    onClick={() => handleImageClick(image)}
+                    isActive={isImageActive}
+                  >
+                    <ProfilePhoto
+                      src={`${process.env.REACT_APP_ASSETS_URL}/${image}`}
+                    />
+                  </ProfilePhotoContainer>
+                );
+              })}
+          </PhotosWrapper>
+          <Button>Sign up</Button>
+          <CreateAccountButton type="button" onClick={handleToggleMode}>
+            {currentMode === 'LOGIN' ? 'Create account' : 'Switch to login'}
+          </CreateAccountButton>
+          {error && <ErrorMessage>{error}</ErrorMessage>}
+        </Wrapper>
+      )}
+      {isConsentOpen && <CookiesConsent handleCloseConsent={closeConsent} />}
     </>
   );
 };

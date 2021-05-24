@@ -6,7 +6,7 @@ import { RootState } from 'store/reducers/rootReducer';
 import { PostsStateTypes } from 'store/reducers/postsReducer';
 import { setFetchedPosts } from 'store/actions/postsActions';
 import { useScreenInfo } from 'hooks/useScreenInfo';
-import AuthContext from 'shared/context/auth-context';
+import AuthContext from 'context/auth-context';
 import {
   Wrapper,
   ProfileInfo,

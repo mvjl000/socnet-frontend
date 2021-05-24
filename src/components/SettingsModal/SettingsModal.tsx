@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { motion } from 'framer-motion';
 import { deleteUserPosts, clearPosts } from 'store/actions/postsActions';
-import AuthContext from 'shared/context/auth-context';
+import AuthContext from 'context/auth-context';
 import {
   Wrapper,
   Content,

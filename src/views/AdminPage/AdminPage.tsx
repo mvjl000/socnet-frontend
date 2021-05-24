@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import AuthContext from 'shared/context/auth-context';
-import { ReportsContext } from 'shared/context/reportsProvider';
+import AuthContext from 'context/auth-context';
+import { ReportsContext } from 'context/reportsProvider';
 import { Wrapper, PostsWrapper, Heading, Subheading } from './AdminPage.styles';
 import Loader from 'shared/components/Loader';
 import Post from 'components/Post/Post';

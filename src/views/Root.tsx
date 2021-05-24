@@ -5,8 +5,8 @@ import {
   Redirect,
 } from 'react-router-dom';
 import { GlobalStyle } from 'assets/styles/globalStyles';
-import AuthContext from 'shared/context/auth-context';
-import ReportsProvider from 'shared/context/reportsProvider';
+import AuthContext from 'context/auth-context';
+import ReportsProvider from 'context/reportsProvider';
 import Header from 'components/Nav/Nav';
 import Login from 'components/Login/Login';
 import Main from 'views/Main/Main';

@@ -11,7 +11,7 @@ import {
 } from 'store/actions/commentsActions';
 import Post from 'components/Post/Post';
 import Loader from 'shared/components/Loader';
-import AuthContext from 'shared/context/auth-context';
+import AuthContext from 'context/auth-context';
 import {
   Wrapper,
   CommentsWrapper,
