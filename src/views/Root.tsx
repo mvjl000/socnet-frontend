@@ -19,10 +19,13 @@ import SearchResultsPage from './SearchResults/SearchResultsPage';
 import { Wrapper } from './Root.styles';
 import { useAuth } from 'hooks/useAuth';
 import { useScreenInfo } from 'hooks/useScreenInfo';
+import { useError } from 'hooks/useError';
+import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 
 const Root: React.FC = () => {
   const { token, loginUser, logoutUser, userData } = useAuth();
   const { isNavExpanded } = useScreenInfo();
+  const { errorMessage } = useError();
 
   let routes;
   if (token) {
@@ -64,6 +67,7 @@ const Root: React.FC = () => {
     >
       <Router>
         <GlobalStyle />
+        {errorMessage && <ErrorMessage message={errorMessage} />}
         <Wrapper>
           <Header isNavExpanded={isNavExpanded} />
           {routes}
