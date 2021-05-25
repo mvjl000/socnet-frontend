@@ -10,20 +10,24 @@ import AboutButton from 'shared/components/AboutButton';
 import { Wrapper, Heading } from './Main.styles';
 import { setFetchedPosts } from 'store/actions/postsActions';
 
-const Main: React.FC = () => {
+interface MainPageProps {
+  testsUrl?: string;
+}
+
+const Main: React.FC<MainPageProps> = ({ testsUrl }) => {
   const posts = useSelector<RootState, PostsStateTypes['posts']>(
     (state) => state.posts.posts
   );
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
   const auth = useContext(AuthContext);
+  const APIUrl =
+    testsUrl || `${process.env.REACT_APP_BACKEND_URL}/posts/getAllPosts`;
 
   useEffect(() => {
     const reqData = async () => {
       setIsLoading(true);
-      const response = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/posts/getAllPosts`
-      );
+      const response = await axios.get(APIUrl);
       setIsLoading(false);
       dispatch(setFetchedPosts(response.data.posts));
     };
