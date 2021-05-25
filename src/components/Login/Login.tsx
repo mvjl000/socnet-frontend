@@ -19,6 +19,7 @@ import {
 } from './Login.styles';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import { useError } from 'hooks/useError';
 
 const initialState: LoginState = {
   username: '',
@@ -88,6 +89,7 @@ const Login: React.FC = () => {
   const [isConsentOpen, setIsConsentOpen] = useState(true);
   const auth = useContext(AuthContext);
   const history = useHistory();
+  const { dispatchError } = useError();
 
   const {
     username,
@@ -138,11 +140,10 @@ const Login: React.FC = () => {
           responseData.data.token
         );
       } catch (error) {
+        dispatchError(error.response.data.message);
         dispatch({
           type: 'reject',
-          payload: error.response
-            ? error.response.data.message
-            : 'Unexpted error occured.',
+          payload: '',
         });
       }
     } else if (
@@ -166,11 +167,10 @@ const Login: React.FC = () => {
         dispatch({ type: 'switchMode', payload: 'LOGIN' });
         history.push('/');
       } catch (error) {
+        dispatchError(error.response.data.message);
         dispatch({
           type: 'reject',
-          payload: error.response
-            ? error.response.data.message
-            : 'Unexpted error occured.',
+          payload: '',
         });
       }
     }
