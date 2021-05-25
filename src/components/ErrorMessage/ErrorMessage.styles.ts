@@ -22,7 +22,7 @@ export const Wrapper = styled.div`
   position: fixed;
   left: 50%;
   transform: translateX(-50%);
-  top: 7%;
+  top: 13%;
   background-color: #fff;
   padding: 25px 25px 15px;
   color: #ff8383;
