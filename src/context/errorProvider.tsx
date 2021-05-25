@@ -24,4 +24,4 @@ const ErrorProvider: React.FC = ({ children }) => {
   );
 };
 
-export default ErrorContext;
+export default ErrorProvider;
