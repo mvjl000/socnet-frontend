@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import { useError } from 'hooks/useError';
 import { Input, ResultsContainer, Wrapper, ListItem } from './SearchBar.styles';
 import { SearchResultsUser } from 'types/user-types';
 
@@ -13,7 +14,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ closeDropDown }) => {
   const [searchResults, setSearchResults] = useState<SearchResultsUser[]>([]);
   const [isSearchBarFocused, setIsSearchBarFocused] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
-
+  const { dispatchError } = useError();
   const history = useHistory();
 
   useEffect(() => {
@@ -27,8 +28,8 @@ const SearchBar: React.FC<SearchBarProps> = ({ closeDropDown }) => {
             }
           );
           setSearchResults(responseData.data.users);
-        } catch (err) {
-          console.log(err.response.data.message);
+        } catch (error) {
+          dispatchError(error.response.data.message);
         }
       };
       reqData();

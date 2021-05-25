@@ -2,6 +2,7 @@ import React, { useEffect, useContext, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
+import { useError } from 'hooks/useError';
 import { RootState } from 'store/reducers/rootReducer';
 import { CommentsStateTypes } from 'store/reducers/commentsReducer';
 import {
@@ -48,6 +49,7 @@ const CommentPage: React.FC = () => {
   const { postId } = useParams<ParamsProps>();
   const auth = useContext(AuthContext);
   const dispatch = useDispatch();
+  const { dispatchError } = useError();
 
   useEffect(() => {
     const reqData = async () => {
@@ -58,8 +60,8 @@ const CommentPage: React.FC = () => {
         );
         setIsLoading(false);
         dispatch(setFetchedPost(response.data.post));
-      } catch (err) {
-        console.log(err.response.data.message);
+      } catch (error) {
+        dispatchError(error.response.data.message);
       }
     };
     reqData();
@@ -78,8 +80,8 @@ const CommentPage: React.FC = () => {
         );
         setIsLoading(false);
         setPostComments(response.data.comments);
-      } catch (err) {
-        console.log(err.response.data.message);
+      } catch (error) {
+        dispatchError(error.response.data.message);
       }
     };
     reqData();
@@ -106,8 +108,8 @@ const CommentPage: React.FC = () => {
       setNewCommentValue('');
       setPostComments([...postComments, data.comment]);
       dispatch(commentPost(postId, 'ADD_COMMENT'));
-    } catch (err) {
-      console.log(err.response.data.message);
+    } catch (error) {
+      dispatchError(error.response.data.message);
     }
   };
 
@@ -126,8 +128,8 @@ const CommentPage: React.FC = () => {
       );
       setPostComments(newComments);
       dispatch(commentPost(postId, 'DELETE_COMMENT'));
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      dispatchError(error.response.data.message);
     }
   };
 

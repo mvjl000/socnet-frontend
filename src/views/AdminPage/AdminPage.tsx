@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
+import { useError } from 'hooks/useError';
 import AuthContext from 'context/auth-context';
 import { ReportsContext } from 'context/reportsProvider';
 import { Wrapper, PostsWrapper, Heading, Subheading } from './AdminPage.styles';
@@ -10,6 +11,7 @@ const AdminPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const auth = useContext(AuthContext);
   const { posts, setFetchedPosts } = useContext(ReportsContext);
+  const { dispatchError } = useError();
 
   useEffect(() => {
     const reqData = async () => {
@@ -25,8 +27,8 @@ const AdminPage: React.FC = () => {
         );
         setIsLoading(false);
         setFetchedPosts(data.posts);
-      } catch (err) {
-        console.log(err);
+      } catch (error) {
+        dispatchError(error.response.data.message);
       }
     };
     reqData();

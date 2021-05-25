@@ -7,6 +7,9 @@ import {
 import { GlobalStyle } from 'assets/styles/globalStyles';
 import AuthContext from 'context/auth-context';
 import ReportsProvider from 'context/reportsProvider';
+import { useAuth } from 'hooks/useAuth';
+import { useScreenInfo } from 'hooks/useScreenInfo';
+import { useError } from 'hooks/useError';
 import Header from 'components/Nav/Nav';
 import Login from 'components/Login/Login';
 import Main from 'views/Main/Main';
@@ -17,9 +20,6 @@ import AdminPage from 'views/AdminPage/AdminPage';
 import About from 'views/About/About';
 import SearchResultsPage from './SearchResults/SearchResultsPage';
 import { Wrapper } from './Root.styles';
-import { useAuth } from 'hooks/useAuth';
-import { useScreenInfo } from 'hooks/useScreenInfo';
-import { useError } from 'hooks/useError';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 
 const Root: React.FC = () => {

@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useReducer, useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import AuthContext from 'context/auth-context';
+import { useError } from 'hooks/useError';
 import Loader from 'shared/components/Loader';
 import CookiesConsent from './CookiesConsent/CookiesConsent';
 import AboutButton from 'shared/components/AboutButton';
@@ -19,7 +20,6 @@ import {
 } from './Login.styles';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
-import { useError } from 'hooks/useError';
 
 const initialState: LoginState = {
   username: '',
@@ -108,8 +108,8 @@ const Login: React.FC = () => {
           `${process.env.REACT_APP_BACKEND_URL}/user/profilePictures`
         );
         setAvailableImages(responseData.data.images);
-      } catch (err) {
-        console.log(err);
+      } catch (error) {
+        dispatchError(error.response.data.message);
       }
     };
     reqData();

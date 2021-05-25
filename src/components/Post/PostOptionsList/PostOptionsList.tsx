@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
-import { Wrapper, ListItem } from './PostOptionsList.styles';
-import AuthContext from 'context/auth-context';
 import { ReportsContext } from 'context/reportsProvider';
+import AuthContext from 'context/auth-context';
+import { useError } from 'hooks/useError';
+import { Wrapper, ListItem } from './PostOptionsList.styles';
 
 interface PostOptionsListProps {
   handleDeletePost: () => void;
@@ -23,6 +24,7 @@ const PostOptionsList: React.FC<PostOptionsListProps> = ({
   const auth = useContext(AuthContext);
   const { handleDeleteReport } = useContext(ReportsContext);
   const { pathname } = useLocation();
+  const { dispatchError } = useError();
 
   const handleReportPost = async () => {
     try {
@@ -36,8 +38,8 @@ const PostOptionsList: React.FC<PostOptionsListProps> = ({
           },
         }
       );
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      dispatchError(error.response.data.message);
     }
   };
 
@@ -54,8 +56,8 @@ const PostOptionsList: React.FC<PostOptionsListProps> = ({
         }
       );
       handleDeleteReport(postId);
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      dispatchError(error.response.data.message);
     }
   };
 

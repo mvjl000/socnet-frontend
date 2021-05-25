@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { useError } from 'hooks/useError';
 import SearchUserPreview from 'components/SearchResults/SearchUserPreview';
 import { Wrapper } from './SearchResultsPage.styles';
 import { SearchResultsUser } from 'types/user-types';
@@ -12,6 +13,7 @@ interface ParamsProps {
 const SearchResultsPage: React.FC = () => {
   const [searchResults, setSearchResults] = useState<SearchResultsUser[]>([]);
   const { uname } = useParams<ParamsProps>();
+  const { dispatchError } = useError();
 
   useEffect(() => {
     const reqData = async () => {
@@ -23,8 +25,8 @@ const SearchResultsPage: React.FC = () => {
           }
         );
         setSearchResults(responseData.data.users);
-      } catch (err) {
-        console.log(err.response.data.message);
+      } catch (error) {
+        dispatchError(error.response.data.message);
       }
     };
     reqData();

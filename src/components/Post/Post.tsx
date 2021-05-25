@@ -2,6 +2,7 @@ import React, { useCallback, useContext, useState } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
+import { useError } from 'hooks/useError';
 import { deletePost, editPost, likePost } from 'store/actions/postsActions';
 import { likePost as likeCommentPagePost } from 'store/actions/commentsActions';
 import {
@@ -46,6 +47,7 @@ const Post: React.FC<PostProps> = ({
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const history = useHistory();
+  const { dispatchError } = useError();
 
   const handleDeletePost = async () => {
     try {
@@ -62,7 +64,7 @@ const Post: React.FC<PostProps> = ({
         history.push('/');
       }
     } catch (error) {
-      console.log(error);
+      dispatchError(error.response.data.message);
     }
   };
 
@@ -113,8 +115,8 @@ const Post: React.FC<PostProps> = ({
         } else {
           dispatch(likePost(_id, auth.userData![0], 'LIKE'));
         }
-      } catch (err) {
-        console.log(err.response.data.message);
+      } catch (error) {
+        dispatchError(error.response.data.message);
       }
     } else {
       // DISLIKE
@@ -133,8 +135,8 @@ const Post: React.FC<PostProps> = ({
         } else {
           dispatch(likePost(_id, auth.userData![0], 'DISLIKE'));
         }
-      } catch (err) {
-        console.log(err.response.data.message);
+      } catch (error) {
+        dispatchError(error.response.data.message);
       }
     }
   };
