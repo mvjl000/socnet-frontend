@@ -11,7 +11,7 @@ const shrinkAnimation = keyframes`
 
 const slideAnimation = keyframes`
     from {
-        transform: translateX(-50%) translateY(500%);
+        transform: translateX(-50%) translateY(-500%);
     }
     to {
         transform: translateX(-50%) translateX(0);
@@ -19,10 +19,10 @@ const slideAnimation = keyframes`
 `;
 
 export const Wrapper = styled.div`
-  position: absolute;
+  position: fixed;
   left: 50%;
   transform: translateX(-50%);
-  bottom: 10%;
+  top: 7%;
   background-color: #fff;
   padding: 25px 25px 15px;
   color: #ff8383;

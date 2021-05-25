@@ -1,3 +1,4 @@
+import { createPortal } from 'react-dom';
 import { Wrapper } from './ErrorMessage.styles';
 
 export interface ErrorMessageProps {
@@ -7,11 +8,12 @@ export interface ErrorMessageProps {
 const ErrorMessage: React.FC<ErrorMessageProps> = ({
   message = 'Something went wrong, please try again later.',
 }) => {
-  return (
+  return createPortal(
     <Wrapper>
       <h1>Oops!</h1>
       <p>{message}</p>
-    </Wrapper>
+    </Wrapper>,
+    document.getElementById('error-container')!
   );
 };
 
