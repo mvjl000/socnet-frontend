@@ -1,0 +1,43 @@
+import { PostType } from 'types/posts-types';
+
+export const posts: PostType[] = [
+  {
+    _id: '1A',
+    title: 'Hello everyone',
+    content: 'Content of first post',
+    creatorName: 'Mios',
+    creatorId: '1Z',
+    creatorImage: 'stonks.jpg',
+    creationDate: '2021-05-25 | 23:14',
+    edited: false,
+    likesCount: 0,
+    likedBy: [],
+    commentsCount: 0,
+  },
+  {
+    _id: '2A',
+    title: 'Good evening',
+    content: 'Second post MSW',
+    creatorName: 'tester_',
+    creatorId: '2Z',
+    creatorImage: 'elon-musk.jpg',
+    creationDate: '2021-05-25 | 23:16',
+    edited: false,
+    likesCount: 0,
+    likedBy: [],
+    commentsCount: 0,
+  },
+  {
+    _id: '3A',
+    title: 'Sleepy',
+    content: 'Its pretty late',
+    creatorName: 'Mios',
+    creatorId: '1Z',
+    creatorImage: 'stonks.jpg',
+    creationDate: '2021-05-25 | 23:17',
+    edited: false,
+    likesCount: 0,
+    likedBy: [],
+    commentsCount: 0,
+  },
+];
